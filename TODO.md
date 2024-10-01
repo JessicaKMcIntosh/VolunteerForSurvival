@@ -16,6 +16,12 @@
 
 * (Game Play) Implement the notebook.
 
+* (Building) Add building a Release ZIP file.
+
+* (Game Play) Make the use verb work on doors. USE CROWBAR TO OPEN DOOR
+
+* (Game Play) Add a note about feeling the tape player in your pocket to the initial description of the first room.
+
 ## Completed
 
 * (Testing) Lamp Library
