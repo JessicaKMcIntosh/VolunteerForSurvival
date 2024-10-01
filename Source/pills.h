@@ -44,7 +44,10 @@ Constant PILLS_CRITICAL 5;
 Class Pills_Class
   with
     name 'pills' 'pill' 'bottle',
-    description "Bottle of Pills.",
+    description
+     "Bottle of Agalsirodine pills.^
+      Warning, not for human consumption.^
+      Will cause memory loss, hallucinations and brain damage.",
     number PILLS_DEFAULT_COUNT,
     time_left PILLS_DURATION,
     invent [;
@@ -76,6 +79,7 @@ Class Pills_Class
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
+! Pring the number of pills in the bottle.
 [Pills_Print_Number bottle;
   if (bottle.number == 0) {
     print "Empty";
@@ -102,7 +106,11 @@ Class Pills_Class
   ! Take a pill.
   noun.number--;
   print "You take a pill. You have ";
-  Pills_Print_Number(noun);
+  if (noun.number == 0) {
+    print "no more pills";
+  } else {
+    Pills_Print_Number(noun);
+  }
   print " left.^";
   noun.time_left = noun.time_left + PILLS_DURATION;
 ];
