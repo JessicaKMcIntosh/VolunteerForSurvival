@@ -21,7 +21,12 @@ SET INTEGOUT=integ_results.txt
 
 REM Check for a command line argument.
 REM If none just run the build.
-IF -%1-==-- GOTO RunBuild
+IF -%1-==-- (
+    ECHO No option provided, defaulting to 'build'.
+    ECHO See '%0 help' for more information.
+    ECHO.
+    GOTO RunBuild
+)
 
 REM Figure out what we were given on the command line.
 :ProcessArgs
@@ -89,7 +94,7 @@ REM Run the integration tests.
     ECHO.>> %INTEGOUT%
 
     REM Loop over the tests and run each one.
-    FOR %%I IN (Tests/*.rec) DO CALL :runintegtest %%~nI
+    FOR %%I IN (Tests/*.rec) DO CALL :RunIntegTest %%~nI
 
     REM Check if there were errors.
     ECHO.
@@ -102,7 +107,7 @@ REM Run the integration tests.
     EXIT /b
 
 REM Run an integration test.
-:runintegtest
+:RunIntegTest
     SET TEST_FILE=%1
     CALL :WriteStringNoEOL "%INTEGOUT%" "Running Integ Test: %TEST_FILE%..."
     SET /A TESTCOUNT = %TESTCOUNT% + 1
