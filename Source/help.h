@@ -24,7 +24,7 @@ Message "Loading the Help library.";
 ! Constants
 ! ------------------------------------------------------------------------------
 
-! GEneral help text.
+! General help text.
 Constant Help_Text_General
  "This is a text adventure game along the lines of Adventure and Zork.^
   To interact with the game use one command per line.^
@@ -38,7 +38,7 @@ Constant Help_Text_Words
  "These are the words used in this game:^
   EAT EXAMINE OPEN LOOK PLAY TAKE USE^";
 
-! Help test for specific words.
+! Help text for specific words.
 Constant Help_Text_Word_Close "CLOSE a container.";
 Constant Help_Text_Word_Eat "Use 'EAT PILL' to consume a pill from the bottle.^";
 Constant Help_Text_Word_Examine "Give detailed information on any object or direction.^";
@@ -54,8 +54,6 @@ Constant Help_Text_Word_Take
   TAKE ALL takes all available objects on ground or from open containers.^";
 Constant Help_Text_Word_Use "USE attempts to do the right thing for an item. Try it.^";
 
-! Constant Help_Text_ "";
-
 ! ------------------------------------------------------------------------------
 ! Globals
 ! ------------------------------------------------------------------------------
@@ -67,7 +65,8 @@ Global Help_Topic_Word = nothing;
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
-! Set the global Help_Topic to the word.
+! Set the global Help_Topic_Word to the word.
+! This is an ugly hack, but it works.
 [HelpTopic word;
   word = NextWord();
   Help_Topic_word = word;

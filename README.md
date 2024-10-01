@@ -38,14 +38,11 @@ VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Source Files
 
-* [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) -
-  The Inform game file. This is the main source file for the VTS game.
-* [test_vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/test_vts.inf) -
-  The Inform game file for the unit tests.
-* [Source/infunit_ext.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/infunit_ext.h) -
-  Extensions to the testing routines from `Extensions/infunit.h`. These extensions to make testing easier.
-* [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) -
-  Implementation of the pills the player takes.
+* [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.
+* [test_vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/test_vts.inf) - The Inform game file for the unit tests.
+* [Source/infunit_ext.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/infunit_ext.h) - Extensions to the testing routines from `Extensions/infunit.h`. These extensions to make testing easier.
+* [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
+* [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
 * [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
@@ -68,6 +65,10 @@ VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/)
 
 * Documentation at [The Interactive Fiction Archive](https://www.ifarchive.org/).\
   <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/manuals/>
+
+  * The DM4 is also available from the archive.\
+  * HTML - <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/designers_manual_4.zip>
+  * PDF - <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/designers_manual_4.pdf>
 
   * In addition to the DM4 I also recommend Roger Firth's Inform 6 Frequently Asked Questions document.\
   <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/inform_faq.pdf>

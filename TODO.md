@@ -19,7 +19,7 @@
 
 * (Building) Build using Docker for a more consistent build environment.
 
-* (Game pPay) Implement help specific to rooms and objects. This will require a new property.
+* (Game Play) Implement help specific to rooms and objects. This will require a new property.
 
 * (Game Play) Would a hints system be useful?
 
