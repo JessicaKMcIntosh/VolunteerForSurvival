@@ -29,7 +29,8 @@ Include "istring";
 Include "infunit";
 Include "infunit_ext";
 
-Include "testtape.h";
+Include "testpills";
+Include "testtape";
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -68,6 +69,20 @@ Object Fake_Object "Fake Object"
   CaptureStop();
 ];
 
+! Prepare objects for each test.
+[PrepareObjects
+  temp_object;
+  player = Fake_Player;
+  action = nothing;
+  noun = nothing;
+
+  ! Remove everything from the player object.
+  while(child(player)) {
+    temp_object = child(player);
+    remove(temp_object);
+  }
+];
+
 ! ------------------------------------------------------------------------------
 ! Run Tests
 ! ------------------------------------------------------------------------------
@@ -80,12 +95,15 @@ Object Fake_Object "Fake Object"
 [Main;
   print "Running tests for VTS.^";
 
-  ! Prepare test objects.
-  player = Fake_Player;
+  ! Run the Pills tests.
+  PrepareObjects();
+  TestPillRun();
+  new_line;
 
   ! Run the Tape tests.
+  PrepareObjects();
   TestTapeRun();
   new_line;
 
-  report();
+  reportCustom();
 ];

@@ -28,7 +28,7 @@ Constant Tape_MSG_Eject_Tape "Removed cassette tape first from tape player.";
 Constant Tape_MSG_Empty "The Tape Player is empty.";
 Constant Tape_MSG_Inventory_Empty "a Tape Player";
 Constant Tape_MSG_Inventory_Tape "a Tape Player containing the cassette tape first";
-Constant Tape_MSG_Play_Wrong "Can not play 'Fake Object'. It is not a cassette tape.";
+Constant Tape_MSG_Play_Wrong "Can not play 'Not a Tape'. It is not a cassette tape.";
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -48,6 +48,10 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   with
     name 'cassette' 'tape',
     description "A cassette tape containing NO message."
+;
+
+! An object that is not a tape.
+Object Tape_Not_Tape "Not a Tape"
 ;
 
 ! ------------------------------------------------------------------------------
@@ -78,7 +82,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
     assertOfClass(
       Tape_Player,
       Tape_Player_Class,
-      "Tape player created with the tape player class."
+      "Tape player not created with the tape player class."
     );
 
   print "Success...^^";
@@ -94,7 +98,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
     assertOfClass(
       Tape_1,
       Tape_Cassette_Class,
-      "Cassette tape created with the tape cassette class."
+      "Cassette tape not created with the tape cassette class."
     );
 
   print "Success...^^";
@@ -185,7 +189,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   );
 
   ! Play an object that is not a cassette tape.
-  noun = Fake_Object;
+  noun = Tape_Not_Tape;
   WriteString(CheckString, Tape_MSG_Play_Wrong);
   CaptureOutput(PlaySub);
 
@@ -226,7 +230,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
 
   assertTrue(
     (Tape_1 in player),
-    "Cassette should be mvoed to player inventory when playing a different tape."
+    "Cassette should be moved to player inventory when playing a different tape."
   );
 
   assertTrue(
