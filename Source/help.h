@@ -36,13 +36,14 @@ Constant Help_Text_Notword "That is not a valid word in this game.^";
 Constant Help_Text_Unknown "Help is not available on this topic.^";
 Constant Help_Text_Words
  "These are the words used in this game:^
-  EAT EXAMINE OPEN LOOK PLAY TAKE USE^";
+  EAT EXAMINE INVENTORY OPEN LOOK PLAY TAKE USE^";
 
 ! Help text for specific words.
 Constant Help_Text_Word_Close "CLOSE a container.";
 Constant Help_Text_Word_Eat "Use 'EAT PILL' to consume a pill from the bottle.^";
 Constant Help_Text_Word_Examine "Give detailed information on any object or direction.^";
-Constant Help_Text_Word_Open "OPEN a container to interact with the contents.";
+Constant Help_Text_Word_Inventory "INVENTORY shows what the player is currently carrying.^";
+Constant Help_Text_Word_Open "OPEN a container to interact with the contents.^";
 Constant Help_Text_Word_Look
  "LOOK will give information on the current room.^
   You can also LOOK AT and object or LOOK IN a container.^";
@@ -96,6 +97,7 @@ Global Help_Topic_Word = nothing;
         'close':    print (string) Help_Text_Word_Close;
         'eat':      print (string) Help_Text_Word_Eat;
         'examine':  print (string) Help_Text_Word_Examine;
+        'inventory':print (string) Help_Text_Word_Inventory;
         'look':     print (string) Help_Text_Word_Look;
         'open':     print (string) Help_Text_Word_Open;
         'play':     print (string) Help_Text_Word_Play;
