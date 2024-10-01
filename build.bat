@@ -85,7 +85,7 @@ REM Run the tests.
     CALL :runbuildtest
     ECHO.
     ECHO Running %APPNAME% Unit tests...
-    ECHO. | %INTERPRETER% -p -Z 2 test_vts.z5
+    ECHO. | %INTERPRETER% -h 100 -p -Z 2 test_vts.z5
     ECHO.
     EXIT /b
 
