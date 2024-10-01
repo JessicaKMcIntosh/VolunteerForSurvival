@@ -81,7 +81,7 @@ Class Pills_Class
 #Ifdef DEBUG;
       print "^pill time left ", self.time_left, " turns.^";;
 #Endif;
-      if (self.time_left == 0) {
+      if (self.time_left <= 0) {
         deadflag = 1;
        "You stumble as your vision blurrs.^
         Pain consumes your mind as reality grows numb.^

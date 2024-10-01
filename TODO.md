@@ -2,10 +2,6 @@
 
 ## In Progress
 
-* (Testing) Pill Library
-  * [ ] Test the Daemon. Verify it decrements time_left and kills the player.
-  * [X] Test eating a pill from a bottle that is full, empty, only has one pill. 2024-09-27
-
 ## Pending
 
 * (Testing) Lamp Library
@@ -28,3 +24,7 @@
 * (Game Play) Implement the notebook.
 
 ## Completed
+
+* (Testing) Pill Library
+  * [X] Test the Daemon. Verify it decrements time_left and kills the player. 2024-09-29
+  * [X] Test eating a pill from a bottle that is full, empty, only has one pill. 2024-09-27

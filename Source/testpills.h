@@ -21,6 +21,13 @@ Include "pills";
 ! ------------------------------------------------------------------------------
 
 ! Messages for testing.
+Constant Pills_MSG_Daemon_Critical "^You feel terrible.";
+Constant Pills_MSG_Daemon_Dead
+ "You stumble as your vision blurrs.^
+  Pain consumes your mind as reality grows numb.^
+  Laughing echos in your head as you fall to the ground.";
+Constant Pills_MSG_Daemon_Extra "^You feel great!";
+Constant Pills_MSG_Daemon_Warning "^You do not feel so well.";
 Constant Pills_MSG_Eat_Empty "The pill bottle is empty.";
 Constant Pills_MSG_Eat_Full "You take a pill. You have 24 pills left.";
 Constant Pills_MSG_Eat_One "You take a pill. You have no more pills left.";
@@ -47,8 +54,9 @@ Pills_Class Pill_Bottle "pill bottle"
   ! Run the tests.
   print "Testing the Pills library.^^";
   StartTest(_TestPill_PillsCreated);
-  StartTest(_TestPill_PrintNumber);
+  StartTest(_TestPill_Daemon);
   StartTest(_TestPill_EatPill);
+  StartTest(_TestPill_PrintNumber);
 ];
 
 ! Test Routines.
@@ -64,6 +72,62 @@ Pills_Class Pill_Bottle "pill bottle"
     Pill_Bottle,
     Pills_Class,
     "Pill bottle not created with the pills class."
+  );
+
+  print "Success...^^";
+];
+
+[_TestPill_Daemon;
+  print "Verify the pills daemon works corectly.^";
+
+  ! Message for extra time.
+  Pill_Bottle.time_left = (PILLS_DURATION * 2);
+  WriteString(CheckString, Pills_MSG_Daemon_Extra);
+  CaptureOutput(_TestPill_HelperDaemon);
+
+  assertStrCmp(
+    CheckString,
+    PrintedString,
+    "Output message for extra time is incorrect."
+  );
+
+  ! Carning for not enough time..
+  Pill_Bottle.time_left = PILLS_WARNING;
+  WriteString(CheckString, Pills_MSG_Daemon_Warning);
+  CaptureOutput(_TestPill_HelperDaemon);
+
+  assertStrCmp(
+    CheckString,
+    PrintedString,
+    "Output message for time warning is incorrect."
+  );
+
+  ! Critical for almost out of time.
+  Pill_Bottle.time_left = PILLS_CRITICAL;
+  WriteString(CheckString, Pills_MSG_Daemon_Critical);
+  CaptureOutput(_TestPill_HelperDaemon);
+
+  assertStrCmp(
+    CheckString,
+    PrintedString,
+    "Output message for extra time is incorrect."
+  );
+
+  ! Dead from running out of time.
+  Pill_Bottle.time_left = 1;
+  WriteString(CheckString, Pills_MSG_Daemon_Dead);
+  CaptureOutput(_TestPill_HelperDaemon);
+
+  assertStrCmp(
+    CheckString,
+    PrintedString,
+    "Output message for dying is incorrect."
+  );
+
+  assertEquals(
+    1,
+    deadflag,
+    "Deadflag should be set when the player dies."
   );
 
   print "Success...^^";
@@ -197,10 +261,14 @@ Pills_Class Pill_Bottle "pill bottle"
 
 ! Test Helpers.
 
-[_TestPill_HelperPrintNumber;
-  Pills_Print_Number(Pill_Bottle);
+[_TestPill_HelperDaemon;
+  Pill_Bottle.daemon();
 ];
 
 [_TestPill_HelperEatPill;
   Pill_Bottle.before();
+];
+
+[_TestPill_HelperPrintNumber;
+  Pills_Print_Number(Pill_Bottle);
 ];
