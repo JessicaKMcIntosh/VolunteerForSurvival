@@ -117,7 +117,7 @@ Constant ISTRING_LIBRARY 21;
 Default RIGHT 0;
 Default LEFT  1;
 Default CENTERED 2;
-Constant MAX_STR_LEN 102;        ! Maximum size of a literal string.  Adjust
+Constant MAX_STR_LEN 200;        ! Maximum size of a literal string.  Adjust
                                  ! As needed.  This is very large, and allows
                                  ! for a 100 character literal string
                                  ! This is also the maximum width of a justify
