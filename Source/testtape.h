@@ -63,6 +63,7 @@ Object Tape_Not_Tape "Not a Tape"
   move Tape_Player to player;
 
   ! Run the tests.
+  print "Testing the Tape library.^^";
   StartTest(_TestTape_PlayerCreated);
   StartTest(_TestTape_CassetteCreated);
   StartTest(_TestTape_CassetteEject);

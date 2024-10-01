@@ -50,6 +50,7 @@ Object Pills_Food "Food"
   move Pill_Bottle to player;
 
   ! Run the tests.
+  print "Testing the Pills library.^^";
   StartTest(_TestPill_PillsCreated);
   StartTest(_TestPill_PrintNumber);
   StartTest(_TestPill_EatPill);

@@ -93,17 +93,15 @@ Object Fake_Object "Fake Object"
 
 ! Main function for running the tests.
 [Main;
-  print "Running tests for VTS.^";
+  print "Running tests for VTS.^^";
 
   ! Run the Pills tests.
   PrepareObjects();
   TestPillRun();
-  new_line;
 
   ! Run the Tape tests.
   PrepareObjects();
   TestTapeRun();
-  new_line;
 
   reportCustom();
 ];
