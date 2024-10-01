@@ -4,8 +4,7 @@
 ! Created by Jessica McIntosh
 ! JessicaKMcIntosh AT gmail DOT com
 !
-! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
-! International License. See the file LICENSE for details.
+! Modified from the original 'infunit.h' file in the Extensions folder.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
