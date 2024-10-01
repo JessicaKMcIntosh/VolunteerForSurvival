@@ -36,7 +36,25 @@ The inspiration for VTS came from a video about PSX/PS1 era horror games.\
 
 VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/) on Windows.
 
-## Development Resources
+### Source Files
+
+* [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) -
+  The Inform game file. This is the main source file for the VTS game.
+* [test_vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/test_vts.inf) -
+  The Inform game file for the unit tests.
+* [Source/infunit_ext.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/infunit_ext.h) -
+  Extensions to the testing routines from `Extensions/infunit.h`. These extensions to make testing easier.
+* [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) -
+  Implementation of the pills the player takes.
+* [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
+* [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
+* [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
+* [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
+* [Extensions/betatest.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/betatest.h) - Adds commands for best testing to record the output of the game with comments.
+* [Extensions/infunit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/infunit.h) - The unit test library.
+* [Extensions/istring.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/istring.h) - A strings library used for checking the printed output in unit tests.
+
+### Development Resources
 
 * VS Code Extension 'Inform 6' for syntax highlighting.\
   <https://marketplace.visualstudio.com/items?itemName=natrium729.inform-6>
