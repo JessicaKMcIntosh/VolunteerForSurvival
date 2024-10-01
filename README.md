@@ -2,6 +2,10 @@
 
 It’s been five years since the aliens invaded earth. We got an early warning of their approach so we were prepared. Shelters were built to house people during the conflict. Unfortunately, due to hubris, the world governments expected to defeat the aliens quickly. As a result the shelters were only intended to last for a decade. Thanks to overcrowding, the supplies have nearly run out. For the past year volunteers have been sent out to collect supplies. You are only the latest.
 
+VTS is a survival horror text adventure game. You are tasked with finding supplies to keep the shelter going.
+
+Can you survive the alien wasteland and make it back to the shelter?
+
 ## Playing Volunteer For Survival
 
 Playing VTS Online:
@@ -22,6 +26,43 @@ Playing VTS on Windows:
   <https://www.inform-fiction.org/zmachine/windows.html>
 * Frotz is a very good interpreter.\
   <https://ifarchive.org/if-archive/infocom/interpreters/frotz/WindowsFrotzInstaller.exe>
+
+## Development
+
+VTS is written in the Inform 6 language created by Graham Nelson.
+
+The inspiration for VTS came from a video about PSX/PS1 era horror games.\
+<https://youtu.be/z4vtcXVPhbQ?si=ldy6Ie5yHbjiqfTm>
+
+VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/) on Windows.
+
+## Development Resources
+
+* VS Code Extension 'Inform 6' for syntax highlighting.\
+  <https://marketplace.visualstudio.com/items?itemName=natrium729.inform-6>
+
+* The home of Inform 6.\
+  <https://inform-fiction.org/>
+
+* The Inform Designer's Manual, Fourth Edition, web version\
+  The guide to using the Inform 6 language. Often referred to as the 'DM4'.\
+  <https://inform-fiction.org/manual/html/contents.html>
+
+* Documentation at [The Interactive Fiction Archive](https://www.ifarchive.org/).\
+  <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/manuals/>
+
+  * In addition to the DM4 I also recommend Roger Firth's Inform 6 Frequently Asked Questions document.\
+  <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/inform_faq.pdf>
+
+  * I also recommend the quick reference cards. These are extremely useful and well designed.\
+  <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/inform_quick_ref.pdf>\
+  <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/inform_lib_quick_ref.pdf>
+
+* Contributed Inform 6 code to extend your game. The files in the directory 'Extensions' came from here.\
+  <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/library/contributions/>
+
+* Example games. These are great for understanding how Inform 6 works.\
+  <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/examples/>
 
 ## Compiling Volunteer For Survival
 
@@ -70,9 +111,9 @@ Using the included build shell or batch files:
 
 Using the 'Inform 6' extension:
 
-* Install the Extension 'Inform 6' for syntax highlighting.
+* Install the Extension 'Inform 6' for syntax highlighting.\
   <https://marketplace.visualstudio.com/items?itemName=natrium729.inform-6>
-* Optionally install the Extension 'IF Player' to play the game in VS code.
+* Optionally install the Extension 'IF Player' to play the game in VS code.\
   <https://marketplace.visualstudio.com/items?itemName=natrium729.if-player>
 * Follow the steps for 'Compiling under Windows' to download the compiler and Library.
 * If you are on Linux/Unix update the file `.vscode/settings.json` and remove `.exe` from the setting `inform6.inform6Path`.
