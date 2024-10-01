@@ -22,6 +22,8 @@
 
 * (Game Play) Add a note about feeling the tape player in your pocket to the initial description of the first room.
 
+* (Documentation) Fill in documentation for the new unit testing library.
+
 ## Completed
 
 * (Testing) Lamp Library

@@ -53,10 +53,10 @@ Pills_Class Pill_Bottle "pill bottle"
 
   ! Run the tests.
   print "Testing the Pills library.^^";
-  StartTest(_TestPill_PillsCreated);
-  StartTest(_TestPill_Daemon);
-  StartTest(_TestPill_EatPill);
-  StartTest(_TestPill_PrintNumber);
+  Unit_RunTest(_TestPill_PillsCreated);
+  Unit_RunTest(_TestPill_Daemon);
+  Unit_RunTest(_TestPill_EatPill);
+  Unit_RunTest(_TestPill_PrintNumber);
 ];
 
 ! Test Routines.
@@ -64,11 +64,11 @@ Pills_Class Pill_Bottle "pill bottle"
 [ _TestPill_PillsCreated;
   print "Verify the pill bottle was created successfully.^";
 
-  assertNotNothing(
+  Unit_AssertNotNothing(
     Pill_Bottle,
     "The pill bottle was not created.");
 
-  assertOfClass(
+  Unit_AssertOfClass(
     Pill_Bottle,
     Pills_Class,
     "Pill bottle not created with the pills class."
@@ -82,49 +82,37 @@ Pills_Class Pill_Bottle "pill bottle"
 
   ! Message for extra time.
   Pill_Bottle.time_left = (PILLS_DURATION * 2);
-  WriteString(CheckString, Pills_MSG_Daemon_Extra);
-  CaptureOutput(_TestPill_HelperDaemon);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperDaemon,
+    Pills_MSG_Daemon_Extra,
     "Output message for extra time is incorrect."
   );
 
-  ! Carning for not enough time..
+  ! Warning for not enough time..
   Pill_Bottle.time_left = PILLS_WARNING;
-  WriteString(CheckString, Pills_MSG_Daemon_Warning);
-  CaptureOutput(_TestPill_HelperDaemon);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperDaemon,
+    Pills_MSG_Daemon_Warning,
     "Output message for time warning is incorrect."
   );
 
   ! Critical for almost out of time.
   Pill_Bottle.time_left = PILLS_CRITICAL;
-  WriteString(CheckString, Pills_MSG_Daemon_Critical);
-  CaptureOutput(_TestPill_HelperDaemon);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperDaemon,
+    Pills_MSG_Daemon_Critical,
     "Output message for extra time is incorrect."
   );
 
   ! Dead from running out of time.
   Pill_Bottle.time_left = 1;
-  WriteString(CheckString, Pills_MSG_Daemon_Dead);
-  CaptureOutput(_TestPill_HelperDaemon);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperDaemon,
+    Pills_MSG_Daemon_Dead,
     "Output message for dying is incorrect."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     1,
     deadflag,
     "Deadflag should be set when the player dies."
@@ -141,22 +129,19 @@ Pills_Class Pill_Bottle "pill bottle"
   action = ##Eat;
   Pill_Bottle.number = PILLS_DEFAULT_COUNT;
   Pill_Bottle.time_left = 0;
-  WriteString(CheckString, Pills_MSG_Eat_Full);
-  CaptureOutput(_TestPill_HelperEatPill);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperEatPill,
+    Pills_MSG_Eat_Full,
     "Output message eating a pill is incorrect."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     (PILLS_DEFAULT_COUNT - 1),
     Pill_Bottle.number,
     "Pills should decrement after one is eaten."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     PILLS_DURATION,
     Pill_Bottle.time_left,
     "Pills should increment the amount of time left."
@@ -167,22 +152,19 @@ Pills_Class Pill_Bottle "pill bottle"
   action = ##Eat;
   Pill_Bottle.number = 1;
   Pill_Bottle.time_left = 0;
-  WriteString(CheckString, Pills_MSG_Eat_One);
-  CaptureOutput(_TestPill_HelperEatPill);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperEatPill,
+    Pills_MSG_Eat_One,
     "Output message eating a pill is incorrect, one pill."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     0,
     Pill_Bottle.number,
     "Pills should decrement after one is eaten, one pill."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     PILLS_DURATION,
     Pill_Bottle.time_left,
     "Pills should increment the amount of time left, one pill."
@@ -193,22 +175,19 @@ Pills_Class Pill_Bottle "pill bottle"
   action = ##Eat;
   Pill_Bottle.number = 0;
   Pill_Bottle.time_left = 0;
-  WriteString(CheckString, Pills_MSG_Eat_Empty);
-  CaptureOutput(_TestPill_HelperEatPill);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperEatPill,
+    Pills_MSG_Eat_Empty,
     "Output message eating a pill is incorrect."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     0,
     Pill_Bottle.number,
     "Pills should change after eating from an empty bottle."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     0,
     Pill_Bottle.time_left,
     "Time left should not change after eating from an empty bottle."
@@ -225,34 +204,25 @@ Pills_Class Pill_Bottle "pill bottle"
 
   ! The numer of pills in an empty bottle.
   Pill_Bottle.number = 0;
-  WriteString(CheckString, Pills_MSG_Number_Empty);
-  CaptureOutput(_TestPill_HelperPrintNumber);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperPrintNumber,
+    Pills_MSG_Number_Empty,
     "Output message from empty pill bottle is incorrect."
   );
 
   ! The numer of pills in a bottle with one pill.
   Pill_Bottle.number = 1;
-  WriteString(CheckString, Pills_MSG_Number_One);
-  CaptureOutput(_TestPill_HelperPrintNumber);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperPrintNumber,
+    Pills_MSG_Number_One,
     "Output message from empty pill bottle is incorrect."
   );
 
   ! The numer of pills in a bottle with the default number of pills.
   Pill_Bottle.number = PILLS_DEFAULT_COUNT;
-  WriteString(CheckString, Pills_MSG_Number_More);
-  CaptureOutput(_TestPill_HelperPrintNumber);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestPill_HelperPrintNumber,
+    Pills_MSG_Number_More,
     "Output message from empty pill bottle is incorrect."
   );
 

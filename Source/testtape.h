@@ -69,11 +69,11 @@ Object Tape_Not_Tape "Not a Tape"
 
   ! Run the tests.
   print "Testing the Tape library.^^";
-  StartTest(_TestTape_PlayerCreated);
-  StartTest(_TestTape_CassetteCreated);
-  StartTest(_TestTape_CassetteEject);
-  StartTest(_TestTape_CassetteInventory);
-  StartTest(_TestTape_CassettePlayed);
+  Unit_RunTest(_TestTape_PlayerCreated);
+  Unit_RunTest(_TestTape_CassetteCreated);
+  Unit_RunTest(_TestTape_CassetteEject);
+  Unit_RunTest(_TestTape_CassetteInventory);
+  Unit_RunTest(_TestTape_CassettePlayed);
 ];
 
 ! Test Routines.
@@ -81,11 +81,11 @@ Object Tape_Not_Tape "Not a Tape"
 [ _TestTape_PlayerCreated;
   print "Verify the tape player was created successfully.^";
 
-  assertNotNothing(
+  Unit_AssertNotNothing(
     Tape_Player,
     "The tape player was not created.");
 
-    assertOfClass(
+    Unit_AssertOfClass(
       Tape_Player,
       Tape_Player_Class,
       "Tape player not created with the tape player class."
@@ -97,11 +97,11 @@ Object Tape_Not_Tape "Not a Tape"
 [ _TestTape_CassetteCreated;
   print "Verify the tape cassette was created successfully.^";
 
-  assertNotNothing(
+  Unit_AssertNotNothing(
     Tape_1,
     "The cassette tape was not created.");
 
-    assertOfClass(
+    Unit_AssertOfClass(
       Tape_1,
       Tape_Cassette_Class,
       "Cassette tape not created with the tape cassette class."
@@ -114,46 +114,37 @@ Object Tape_Not_Tape "Not a Tape"
   print "Verify ejecting a cassette tape works.^";
 
   ! Eject an empty tape player.
-  WriteString(CheckString, Tape_MSG_Eject_Empty);
-  CaptureOutput(EjectSub);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    EjectSub,
+    Tape_MSG_Eject_Empty,
     "Output message from ejecting an empty tape player is incorrect."
   );
 
   ! Eject a tape from the tape player.
   move Tape_1 to Tape_Player;
-  WriteString(CheckString, Tape_MSG_Eject_Tape);
-  CaptureOutput(EjectSub);
-
-  assertTrue(
-    (Tape_1 in player),
-    "Cassette tape should be in the player inventory after being ejected."
+  Unit_AssertCapture(
+    EjectSub,
+    Tape_MSG_Eject_Tape,
+    "Output message from ejecting a tape from the tape player is incorrect."
   );
 
-  assertStrCmp(
-    CheckString,
-    PrintedString,
-    "Output message from ejecting a tape from the tape player is incorrect."
+  Unit_AssertTrue(
+    (Tape_1 in player),
+    "Cassette tape should be in the player inventory after being ejected."
   );
 
   ! Empty the tape player.
   move Tape_1 to Tape_Player;
   action = ##Empty;
-  WriteString(CheckString, Tape_MSG_Eject_Tape);
-  CaptureOutput(_TestTape_HelperPlayerBefore);
-
-  assertTrue(
-    (Tape_1 in player),
-    "Cassette tape should be in the player inventory after being emptied."
+  Unit_AssertCapture(
+    _TestTape_HelperPlayerBefore,
+    Tape_MSG_Eject_Tape,
+    "Output message from emptying the tape player is incorrect."
   );
 
-  assertStrCmp(
-    CheckString,
-    PrintedString,
-    "Output message from emptying the tape player is incorrect."
+  Unit_AssertTrue(
+    (Tape_1 in player),
+    "Cassette tape should be in the player inventory after being emptied."
   );
 
   print "Success...^^";
@@ -163,26 +154,20 @@ Object Tape_Not_Tape "Not a Tape"
   print "Verify tape player inventory works.^";
 
   ! Inventory of an empty tape player.
-  WriteString(CheckString, Tape_MSG_Inventory_Empty);
-  CaptureOutput(_TestTape_HelperPlayerInvent);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestTape_HelperPlayerInvent,
+    Tape_MSG_Inventory_Empty,
     "Output message from inventory of empty tape player is incorrect."
   );
 
   ! Inventory of a tape player containing a cassette tape.
   move Tape_1 to Tape_Player;
-  WriteString(CheckString, Tape_MSG_Inventory_Tape);
-  CaptureOutput(_TestTape_HelperPlayerInvent);
-  move Tape_1 to player;
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestTape_HelperPlayerInvent,
+    Tape_MSG_Inventory_Tape,
     "Output message from inventory of tape player is incorrect."
   );
+  move Tape_1 to player;
 
   print "Success...^^";
 ];
@@ -191,77 +176,65 @@ Object Tape_Not_Tape "Not a Tape"
   print "Verify playing a tape works.^";
 
   ! Play with the tape player empty.
-  WriteString(CheckString, Tape_MSG_Empty);
-  CaptureOutput(PlaySub);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    PlaySub,
+    Tape_MSG_Empty,
     "Output message from playing no tape is incorrect."
   );
 
   ! Play an object that is not a cassette tape.
   noun = Tape_Not_Tape;
-  WriteString(CheckString, Tape_MSG_Play_Wrong);
-  CaptureOutput(PlaySub);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    PlaySub,
+    Tape_MSG_Play_Wrong,
     "Output message from playing not a tape is incorrect."
   );
 
-  assertTrue(
+  Unit_AssertTrue(
     (Tape_1 hasnt general),
     "Cassette tape should not have 'general' before being played."
   );
 
   ! Play the first tape.
-  WriteString(CheckString, Tape_MSG_Contents_1);
   noun = Tape_1;
-  CaptureOutput(PlaySub);
+  Unit_AssertCapture(
+    PlaySub,
+    Tape_MSG_Contents_1,
+    "Output message from playing the first tape is incorrect."
+  );
 
-  assertTrue(
+  Unit_AssertTrue(
     (Tape_1 has general),
     "Cassette tape should have 'general' after being played."
   );
 
-  assertTrue(
+  Unit_AssertTrue(
     (Tape_1 in Tape_Player),
     "Cassette tape should be in the tape player after being played."
   );
 
-  assertStrCmp(
-    CheckString,
-    PrintedString,
-    "Output message from playing the first tape is incorrect."
+  ! Play the other tape.
+  noun = Tape_2;
+  Unit_AssertCapture(
+    PlaySub,
+    Tape_MSG_Contents_2,
+    "Output message from playing the other tape is incorrect."
   );
 
-  ! Play the other tape.
-  WriteString(CheckString, Tape_MSG_Contents_2);
-  noun = Tape_2;
-  CaptureOutput(PlaySub);
-
-  assertTrue(
+  Unit_AssertTrue(
     (Tape_1 in player),
     "Cassette should be moved to player inventory when playing a different tape."
   );
 
-  assertStrCmp(
-    CheckString,
-    PrintedString,
-    "Output message from playing the other tape is incorrect."
-  );
-
-  assertTrue(
+  Unit_AssertTrue(
     (Tape_2 has moved),
     "Cassette should be scored after being played."
   );
 
-  assertEquals(
+  Unit_AssertEquals(
     4,
     score,
-    "Scour should increment for a scored cassette."
+    "Score should increment for a scored cassette."
   );
 
   ! Put the tape back in the player inventory.

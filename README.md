@@ -49,16 +49,15 @@ The following deviations are made:
 
 * [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.
 * [test_vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/test_vts.inf) - The Inform game file for the unit tests.
-* [Source/infunit_ext.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/infunit_ext.h) - Extensions to the testing routines from `Extensions/infunit.h`. These extensions to make testing easier.
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
 * [Source/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testlamp.h) - Unit tests for the lamp library.
 * [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
+* [Source/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzunitzy.h) - A unit testing library.
 * [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
 * [Extensions/betatest.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/betatest.h) - Adds commands for best testing to record the output of the game with comments.
-* [Extensions/infunit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/infunit.h) - The unit test library.
 * [Extensions/istring.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/istring.h) - A strings library used for checking the printed output in unit tests.
 
 ### Development Resources

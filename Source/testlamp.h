@@ -44,8 +44,8 @@ Lamp_Class Lamp "Lamp"
 
   ! Run the tests.
   print "Testing the Lamp library.^^";
-  StartTest(_TestLamp_LampCreated);
-  StartTest(_TestLamp_LampSwitch);
+  Unit_RunTest(_TestLamp_LampCreated);
+  Unit_RunTest(_TestLamp_LampSwitch);
 ];
 
 ! Test Routines.
@@ -53,11 +53,11 @@ Lamp_Class Lamp "Lamp"
 [ _TestLamp_LampCreated;
   print "Verify the lamp was created successfully.^";
 
-  assertNotNothing(
+  Unit_AssertNotNothing(
     Lamp,
     "The lamp was not created.");
 
-  assertOfClass(
+  Unit_AssertOfClass(
     Lamp,
     Lamp_Class,
     "Lamp not created with the lamp class."
@@ -69,7 +69,7 @@ Lamp_Class Lamp "Lamp"
 [ _TestLamp_LampSwitch;
   print "Verify the lamp can be switched successfully.^";
 
-  AssertTrue(
+  Unit_AssertTrue(
     (Lamp hasnt light),
     "The Lamp should not have light before being switched on.^"
   );
@@ -77,75 +77,57 @@ Lamp_Class Lamp "Lamp"
   ! Switch the lamp on.
   noun = Lamp;
   action = ##SwitchOn;
-  WriteString(CheckString, Lamp_MSG_Switch_On);
-  CaptureOutput(_TestLamp_HelperBefore);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperBefore,
+    Lamp_MSG_Switch_On,
     "Output message for switching lamp on is incorrect."
   );
 
-  AssertTrue(
+  Unit_AssertTrue(
     (Lamp has light),
     "The Lamp should have light after being switched on.^"
   );
 
   ! Check the description while switched on.
-  WriteString(CheckString, Lamp_MSG_Description_On);
-  CaptureOutput(_TestLamp_HelperDescribe);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperDescribe,
+    Lamp_MSG_Description_On,
     "Output message for lamp that is on is incorrect."
   );
 
   ! Switch the lamp off.
   noun = Lamp;
   action = ##SwitchOff;
-  WriteString(CheckString, Lamp_MSG_Switch_Off);
-  CaptureOutput(_TestLamp_HelperBefore);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperBefore,
+    Lamp_MSG_Switch_Off,
     "Output message for switching lamp off is incorrect."
   );
 
-  AssertTrue(
+  Unit_AssertTrue(
     (Lamp hasnt light),
     "The Lamp should not have light after being switched off.^"
   );
 
   ! Check the description while switched off.
-  WriteString(CheckString, Lamp_MSG_Description_Off);
-  CaptureOutput(_TestLamp_HelperDescribe);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperDescribe,
+    Lamp_MSG_Description_Off,
     "Output message for lamp that is off is incorrect."
   );
 
   ! The Turn action should toggle the state of the lamp.
   noun = Lamp;
   action = ##Turn;
-  WriteString(CheckString, Lamp_MSG_Switch_On);
-  CaptureOutput(_TestLamp_HelperBefore);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperBefore,
+    Lamp_MSG_Switch_On,
     "Output message for turning lamp on is incorrect."
   );
 
-  WriteString(CheckString, Lamp_MSG_Switch_Off);
-  CaptureOutput(_TestLamp_HelperBefore);
-
-  assertStrCmp(
-    CheckString,
-    PrintedString,
+  Unit_AssertCapture(
+    _TestLamp_HelperBefore,
+    Lamp_MSG_Switch_Off,
     "Output message for turning lamp off is incorrect."
   );
 
