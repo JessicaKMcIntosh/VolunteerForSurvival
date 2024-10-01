@@ -23,4 +23,8 @@
 
 * (Game Play) Would a hints system be useful?
 
+* (Game Play) Implement the radio.
+
+* (Game Play) Implement the notebook.
+
 ## Completed
