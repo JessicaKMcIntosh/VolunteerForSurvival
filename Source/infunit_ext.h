@@ -20,6 +20,21 @@ Message "Adding Inform Unit Test library extensions.";
 ! ------------------------------------------------------------------------------
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! At the end of the Main, you should call this routine.
+! Modified to print the report without asking for a key press.
+[ reportCustom;
+
+    print
+     "*************************************^
+      * infUnit test results:^
+      *    number of tests run: ",infunit__testCount,"^
+      *    number of successful tests: ",(infunit__testCount - infunit__errorCount),"^
+      *    number of errors: ",infunit__errorCount,"^
+      *************************************^";
+    "";
+];
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Asserts that the first parameter is of the second parameter class.
 [ assertOfClass
     first second optErrorText   ! parameters
