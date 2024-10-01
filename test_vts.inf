@@ -1,0 +1,91 @@
+! ------------------------------------------------------------------------------
+! Tests - Tests for the VTS game code.
+!
+! Created by Jessica McIntosh
+! JessicaKMcIntosh AT gmail DOT com
+!
+! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+! International License. See the file LICENSE for details.
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Meta Data
+! ------------------------------------------------------------------------------
+
+Release 0;
+
+! Replace the Main routine from the standard library.
+Replace Main;
+
+! ------------------------------------------------------------------------------
+! Libraries
+! ------------------------------------------------------------------------------
+
+Include "Parser";
+Include "VerbLib";
+Include "Grammar";
+
+Include "istring";
+Include "infunit";
+Include "infunit_ext";
+
+Include "testtape.h";
+
+! ------------------------------------------------------------------------------
+! Test Objects
+! ------------------------------------------------------------------------------
+
+! For checking messages. See Extensions/istring.h for more information.
+Array PrintedString->MAX_STR_LEN;
+Array CheckString->MAX_STR_LEN;
+
+! Fake player.
+Object Fake_Player "Fake Player"
+;
+
+! Fake object.
+Object Fake_Object "Fake Object"
+;
+
+! ------------------------------------------------------------------------------
+! Test Code
+! ------------------------------------------------------------------------------
+
+! Start capturing output to the array PrintedString.
+[CaptureStart;
+  @output_stream 3 PrintedString;
+];
+
+! Stop capturing output.
+[CaptureStop;
+  @output_stream -3;
+];
+
+! Run a routine and capture the output to the array PrintedString.
+[CaptureOutput capture_routine;
+  CaptureStart();
+  capture_routine();
+  CaptureStop();
+];
+
+! ------------------------------------------------------------------------------
+! Run Tests
+! ------------------------------------------------------------------------------
+
+! Make the standard library happy.
+[Initialise;
+];
+
+! Main function for running the tests.
+[Main;
+  print "Running tests for VTS.^";
+
+  ! Prepare test objects.
+  player = Fake_Player;
+
+  ! Run the Tape tests.
+  TestTapeRun();
+  new_line;
+
+  report();
+];

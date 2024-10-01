@@ -1,0 +1,16 @@
+{
+    // https://stackoverflow.com/questions/29973619/how-to-make-vs-code-treat-a-file-extensions-as-a-certain-language
+    "files.associations": {
+        "*.h": "inform6",
+    },
+    "cSpell.ignoreWords": [
+        "Frotz"
+    ],
+    "inform6.inform6Path": "${workspaceFolder}/inform6/inform6.exe",
+    "inform6.compilerCommands": [
+        "+inform6",
+        "++Extensions",
+        "++Source"
+    ],
+    "inform6.openStoryAfterCompilation": "vscode"
+}

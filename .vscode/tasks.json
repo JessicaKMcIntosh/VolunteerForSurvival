@@ -1,0 +1,102 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    { // Build the VTS game using the build scripts.
+      "label": "Build VTS Game",
+      "type": "shell",
+      "command": "/bin/sh build.sh",
+      "windows": {
+        "command": "build.bat",
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "focus": true
+      },
+      // Taken from the Inform 6 VSCode Extension.
+      // https://gitlab.com/Natrium729/vscode-inform6/-/blob/master/package.json
+      "problemMatcher": {
+        "owner": "inform6",
+        "fileLocation": [
+            "autoDetect",
+            "${workspaceFolder}"
+        ],
+        "pattern": {
+            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "file": 1,
+            "line": 2,
+            "severity": 3,
+            "message": 4
+        }
+      }
+    },
+
+    { // Build the VTS game using the build scripts with debug enabled.
+      "label": "Build VTS Game DEBUG",
+      "type": "shell",
+      "command": "/bin/sh build.sh debug",
+      "windows": {
+        "command": "build.bat debug",
+      },
+      "group": {
+        "kind": "build",
+      },
+      "presentation": {
+        "focus": true
+      },
+      // Taken from the Inform 6 VSCode Extension.
+      // https://gitlab.com/Natrium729/vscode-inform6/-/blob/master/package.json
+      "problemMatcher": {
+        "owner": "inform6",
+        "fileLocation": [
+            "autoDetect",
+            "${workspaceFolder}"
+        ],
+        "pattern": {
+            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "file": 1,
+            "line": 2,
+            "severity": 3,
+            "message": 4
+        }
+      }
+    },
+
+    { // Run the VTS tests using the build scripts.
+      "label": "Run VTS Tests",
+      "type": "shell",
+      "command": "/bin/sh build.sh test",
+      "windows": {
+        "command": "build.bat test",
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "focus": true
+      },
+      // Taken from the Inform 6 VSCode Extension.
+      // https://gitlab.com/Natrium729/vscode-inform6/-/blob/master/package.json
+      "problemMatcher": {
+        "owner": "inform6",
+        "fileLocation": [
+            "autoDetect",
+            "${workspaceFolder}"
+        ],
+        "pattern": {
+            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "file": 1,
+            "line": 2,
+            "severity": 3,
+            "message": 4
+        }
+      }
+    },
+
+  ]
+}

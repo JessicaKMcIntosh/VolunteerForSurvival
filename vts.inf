@@ -1,0 +1,267 @@
+! ------------------------------------------------------------------------------
+! Volunteer For Survival - A survival horror text adventure game.
+!
+! Created by Jessica McIntosh
+! JessicaKMcIntosh AT gmail DOT com
+!
+! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+! International License. See the file LICENSE for details.
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Meta Data
+! ------------------------------------------------------------------------------
+
+Release 0;
+Serial "230914";
+
+! ------------------------------------------------------------------------------
+! Constants
+! ------------------------------------------------------------------------------
+
+Constant Story "Volunteer For Survival";
+Constant Headline
+ "^Volunteer For Survival - A survival horror text adventure game.^
+  By Jessica McIntosh^
+  JessicaKMcIntosh AT gmail DOT com^^";
+Constant OBJECT_SCORE 1;
+Constant MAX_SCORE = 3;
+
+! ------------------------------------------------------------------------------
+! Libraries
+! ------------------------------------------------------------------------------
+
+! Standard libraries and extensions.
+Include "Parser";
+Include "betatest";
+Include "VerbLib";
+Include "Grammar";
+
+! Game specific libraries.
+Include "Pills";
+Include "Tape";
+Include "XYZZY";
+
+! ------------------------------------------------------------------------------
+! Attributes
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Globals
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Properties
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Classes
+! ------------------------------------------------------------------------------
+
+! Just a basic room.
+Class Room_Class
+  has light
+;
+
+! A dark room.
+Class Dark_Room_Class
+;
+
+! Object the player can posess.
+Class Item_Class
+;
+
+! Scenery.
+Class Scenery_Class
+  has static
+;
+
+! A door.
+Class Door_Class
+  has static door openable
+;
+
+! ------------------------------------------------------------------------------
+! The world
+! ------------------------------------------------------------------------------
+
+! Starting Area
+Room_Class Start_Room "Empty Alley Dead End"
+  with
+    description
+       "You are laying in a small empty alley.^
+        To the east is a large metal door leading back to the shelter.^
+        Next to the door, built into the wall, is a drop box.^
+        To the north is more of the empty alley.",
+    e_to Start_Metal_Door,
+    n_to Start_Alley,
+    in_to Start_Metal_Door
+;
+
+Door_Class -> Start_Metal_Door "Metal Door"
+  with
+    name 'large' 'meta' 'door',
+    description "A large metal door leading to the shelter entrance.",
+    when_closed "The large metal door is closed and locked tight.",
+    door_to Shelter_Entrance,
+    door_dir e_to,
+    describe [; rtrue; ],
+    before [;
+      Open:
+      if (self has locked) "^The large metal door is locked with a keypad.";
+      rtrue;
+    ],
+  has locked
+;
+
+Scenery_Class -> Start_Drop_Box "Drop Box"
+  with name 'drop' 'box',
+    description "A drop box used to exchange items with the Shelter.",
+    describe [; rtrue; ],
+  has container openable
+;
+
+
+! Lantern to see the way.
+Item_Class -> -> Camping_Lantern "camping lantern"
+  with
+    name 'camping' 'lantern' 'lamp' 'light',
+    description "A fancy futuristic camping lantern.",
+    describe [;
+      print "^You see a ", (name) self, " here.";
+      if (self has light) " (providing light)";
+    ],
+    before [;
+      SwitchOn:
+        if (self has light) {
+          "The ", (name) self," is already switched on.";
+        } else{
+          give self light;
+          give self on;
+          "The ", (name) self," is now on.";
+        }
+      SwitchOff:
+        if (self hasnt light) {
+          "The ", (name) self," is already switched off.";
+        } else{
+          give self ~light;
+          give self ~on;
+          "The ", (name) self," is now off.";
+        }
+      Turn:
+        if (self has light) {
+          <<SwitchOff Camping_Lantern>>;
+        } else {
+          <<SwitchOn Camping_Lantern>>;
+        }
+    ],
+  has switchable scored
+;
+
+Item_Class -> -> Crowbar "crowbar"
+  with
+    description "An odly familiar orange crowbar."
+;
+
+Dark_Room_Class Shelter_Entrance "Entrance to the government shelter."
+;
+
+Room_Class Start_Alley "Empty Alley"
+  with
+    description
+     "An empty alley.^
+      To the north is an intersection.^
+      To the south is a dead end.",
+    s_to Start_Room
+;
+
+Tape_Cassette_Class -> Tape_1 "tape #1"
+  with
+    name 'cassette' 'tape' '#1' 'tape_1' 'tape_#1',
+    description "A microcassette tape containing a message from another volunteer.",
+    inside_description "Send help. There are aliens out here who can read.... <STATIC>",
+  has scored
+;
+
+! ------------------------------------------------------------------------------
+! Items - Items that don't have any particular home.
+! ------------------------------------------------------------------------------
+
+! Tape player and tapes.
+Tape_Player_Class Tape_Player "tape player"
+  with
+    description
+     "An old microcassette tape player.^
+      To play a tape use the command: PLAY TAPE NAME",
+;
+
+Tape_Cassette_Class -> Tape_0 "tape #0"
+  with
+    name 'cassette' 'tape' '#0' 'tape_0' 'tape_#0',
+    description "A microcassette tape containing a message from yourself.",
+    inside_description
+     "Hey there, uh, well, me. They tell me I will not remember anything once I take^
+      this drug. So I need to tell you, or, myself, what we are supposed to be doing.^
+      The drug is going to make me forget everything. I'll just do the short^
+      version. A bad thing happened. We are living in shelters. The, things, out^
+      there are psychic or something. I don't really understand this stuff, I'm just^
+      a janitor. Unfortunately we need food and tech to survive. So us volunteers are^
+      sent out into the world to collect what we need. Basically anything useful,^
+      check the list in your notebook. They gave me what few supplies they can spare,^
+      which frankly isn't much. Just a backpack, some food, a strange radio and a^
+      fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,^
+      one last thing, they said if I do a good job I'll get my own room, all to^
+      myself. Bye.",
+    after [;
+      Play:
+        if (self hasnt moved) {
+          give self moved;
+          score = score + OBJECT_SCORE;
+          things_score = things_score + OBJECT_SCORE;
+        }
+    ],
+  has scored
+;
+
+Pills_Class Pill_Bottle "pill bottle"
+;
+
+! ------------------------------------------------------------------------------
+! Initialize the game
+! ------------------------------------------------------------------------------
+
+[ Initialise;
+  location = Start_Room;
+
+  ! Give the player the microcassette player.
+  move Tape_Player to player;
+
+  ! Give the player the bottle of pills ten start the Daemon.
+  move Pill_Bottle to player;
+  StartDaemon(Pill_Bottle);
+
+  print
+   "This game is still in Beta and will have bugs.^
+    A Beta test utility is present in this game.^
+    Enter 'beta test on' to enable the utility.^
+    This will turn on the game script.^
+    Comments can be entered starting with '!'.^
+    Email the script so we can investigate any issues.^
+  ";
+];
+
+! ------------------------------------------------------------------------------
+! Subroutines
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! Grammar
+! ------------------------------------------------------------------------------
+
+! General Use verb.
+Verb 'use'
+  * switchable -> Turn;
+
+! Turn the lantern on and off.
+Extend only 'light' first * switchable -> SwitchOn;
+Verb 'extinguish' * switchable -> SwitchOff;
