@@ -2,6 +2,7 @@
     // https://stackoverflow.com/questions/29973619/how-to-make-vs-code-treat-a-file-extensions-as-a-certain-language
     "files.associations": {
         "*.h": "inform6",
+        "LICENSE": "text" // Stop the markdown plugin from complaining.
     },
     "cSpell.ignoreWords": [
         "Frotz"
@@ -12,5 +13,21 @@
         "++Extensions",
         "++Source"
     ],
-    "inform6.openStoryAfterCompilation": "vscode"
+    "inform6.openStoryAfterCompilation": "vscode",
+    "cSpell.words": [
+        "Albrecht",
+        "betatest",
+        "Betatesting",
+        "infunit",
+        "istring",
+        "Marnie",
+        "Merical",
+        "microcassette",
+        "Raszewski",
+        "testpills",
+        "testtape",
+        "xyzzy",
+        "Zork",
+        "zorkh"
+    ]
 }
