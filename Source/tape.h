@@ -115,7 +115,7 @@ Class Tape_Player_Class
           "Removed ", (name) tape, " from ",
           (string) TAPE_PLAYER_NAME, ".";
         }
-      SwitchOn:
+      SwitchOn, Turn:
         give self ~on;
         PlayTapeSub();
         rtrue;
@@ -163,6 +163,7 @@ Class Tape_Cassette_Class
       "The ", (name) Tape_Player, " is empty.";
     } else {
       tape = child(Tape_Player);
+      action = ##Play;
       if (tape provides before) tape.before();
       if (tape provides inside_description) {
         tape.inside_description();
