@@ -9,8 +9,6 @@
   * [ ] Turn on and off with the verbs Switch, Turn, light, and extinguish.
   * [ ] Description properly shows when it is providing light.
 
-* (Testing) Run scripts and compare the output. See the DOS command FC.
-
 * (Building) Add all the build commands to the shell script.
 
 * (Building) Build using Docker for a more consistent build environment.
@@ -24,6 +22,8 @@
 * (Game Play) Implement the notebook.
 
 ## Completed
+
+* (Testing) Run scripts and compare the output. See the DOS command FC. 2024-09-29
 
 * (Testing) Pill Library
   * [X] Test the Daemon. Verify it decrements time_left and kills the player. 2024-09-29
