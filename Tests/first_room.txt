@@ -1,0 +1,51 @@
+   Empty Alley Dead End                           Score: 0     Moves: 0
+  This game is still in Beta and will have bugs.
+  Email JessicaKMcIntosh AT gmail DOT com to report issues.
+  Type HELP for in game help.
+
+  Volunteer For Survival
+  A survival horror text adventure game.
+  By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
+
+  Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
+
+  Empty Alley Dead End
+  You are laying in a small empty alley.
+  To the east is a large metal door leading back to the shelter.
+  Next to the door, built into the wall, is a drop box.
+  To the north is more of the empty alley.
+
+> >   Empty Alley Dead End                           Score: 0     Moves: 1
+.
+  Empty Alley Dead End
+  You are laying in a small empty alley.
+  To the east is a large metal door leading back to the shelter.
+  Next to the door, built into the wall, is a drop box.
+  To the north is more of the empty alley.
+
+> >   Empty Alley Dead End                           Score: 0     Moves: 2
+.
+  You open the Drop Box, revealing a camping lantern, a crowbar, an old radio
+  and a small notebook.
+
+> >   Empty Alley Dead End                           Score: 4     Moves: 3
+.
+  camping lantern: Taken.
+  crowbar: Taken.
+  old radio: Taken.
+  small notebook: Taken.
+
+  [The score has just gone up by four points.]
+
+> >   Empty Alley Dead End                           Score: 4     Moves: 4
+.
+  You're carrying:
+    a small notebook
+    an old radio
+    a crowbar
+    a camping lantern
+    a pill bottle (25 pills)
+    a tape player containing the tape #0
+
+> >
+EOT

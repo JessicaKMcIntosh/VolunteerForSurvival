@@ -67,11 +67,11 @@
     },
 
     { // Run the VTS tests using the build scripts.
-      "label": "Run VTS Tests",
+      "label": "Run VTS Unit Tests",
       "type": "shell",
-      "command": "/bin/sh build.sh test",
+      "command": "/bin/sh build.sh unit",
       "windows": {
-        "command": "build.bat test",
+        "command": "build.bat unit",
       },
       "group": {
         "kind": "test",
