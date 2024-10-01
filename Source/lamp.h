@@ -54,9 +54,9 @@ Class Lamp_Class
         }
       Turn:
         if (self has light) {
-          <<SwitchOff Camping_Lantern>>;
+          <<SwitchOff self>>;
         } else {
-          <<SwitchOn Camping_Lantern>>;
+          <<SwitchOn self>>;
         }
     ],
   has switchable scored

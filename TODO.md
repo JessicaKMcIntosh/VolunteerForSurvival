@@ -4,11 +4,6 @@
 
 ## Pending
 
-* (Testing) Lamp Library
-  * [ ] Object created successfully.
-  * [ ] Turn on and off with the verbs Switch, Turn, light, and extinguish.
-  * [ ] Description properly shows when it is providing light.
-
 * (Building) Add all the build commands to the shell script.
 
 * (Building) Build using Docker for a more consistent build environment.
@@ -22,6 +17,11 @@
 * (Game Play) Implement the notebook.
 
 ## Completed
+
+* (Testing) Lamp Library
+  * [X] Object created successfully. 2024-09-29
+  * [X] Turn on and off with the verbs Switch, Turn. 2024-09-29
+  * [X] Description properly shows when it is providing light. 2024-09-29
 
 * (Testing) Run scripts and compare the output. See the DOS command FC. 2024-09-29
 
