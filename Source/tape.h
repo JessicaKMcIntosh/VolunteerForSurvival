@@ -100,21 +100,25 @@ Class Tape_Player_Class
     ],
     before [
       tape;
-      ! Make sure there is only ever one tape in the tape player.
+      ! Handle putting a tape in the player.
       Receive:
         if (children(self) ~= 0) {
           move child(self) to player;
+          print "(first ejecting ", (name) noun, ")^";
         }
         move noun to self;
+        print "You put ", (name) noun, " into the ",
+        (string) TAPE_PLAYER_NAME, ".^";
         rtrue;
       ! Handle removing a tape from the tape player.
       Empty, Remove:
         if (children(self) ~= 0) {
           tape = child(self);
           move tape to player;
-          "Removed ", (name) tape, " from ",
+          "Removed ", (name) tape, " from the ",
           (string) TAPE_PLAYER_NAME, ".";
         }
+      ! When turned or switched on play the tape.
       SwitchOn, Turn:
         give self ~on;
         PlayTapeSub();
@@ -149,6 +153,8 @@ Class Tape_Cassette_Class
       move child(Tape_Player) to player;
     }
     ! Move the noun into the tape player.
+    print "(first putting ", (name) noun, " into the ",
+    (string) TAPE_PLAYER_NAME, ")^";
     move noun to Tape_Player;
   }
   PlayTapeSub();
@@ -183,7 +189,7 @@ tape;
   if (children(Tape_Player) ~= 0) {
     tape = child(Tape_Player);
     print
-      "Removed ", (name) tape, " from ",
+      "Removed ", (name) tape, " from the ",
       (string) TAPE_PLAYER_NAME, ".^";
     move tape to player;
   } else {
