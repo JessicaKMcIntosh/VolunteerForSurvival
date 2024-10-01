@@ -196,14 +196,6 @@ Tape_Cassette_Class -> Tape_0 "tape #0"
       fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,^
       one last thing, they said if I do a good job I'll get my own room, all to^
       myself. Bye.",
-    after [;
-      Play:
-        if (self hasnt moved) {
-          give self moved;
-          score = score + OBJECT_SCORE;
-          things_score = things_score + OBJECT_SCORE;
-        }
-    ],
   has scored
 ;
 

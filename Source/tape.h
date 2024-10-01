@@ -162,7 +162,9 @@ Class Tape_Cassette_Class
 
 ! Play tape in the tape player.
 ! Called to display the cassette tapes message.
-! Will also execute before and after actions on the tape played.
+! Gives the tape general after it is played.
+! Will execute before and after actions on the tape played.
+! If the tape is scored but not moved then score the tape.
 [PlayTapeSub
   tape;
     if (children(Tape_Player) == 0) {
@@ -178,6 +180,11 @@ Class Tape_Cassette_Class
       }
       if (tape hasnt general) give tape general;
       if (tape provides after) tape.after();
+      if (tape has scored && tape hasnt moved) {
+        give tape moved;
+        score = score + OBJECT_SCORE;
+        things_score = things_score + OBJECT_SCORE;
+      }
     }
 ];
 

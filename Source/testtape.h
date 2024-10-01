@@ -51,7 +51,8 @@ Tape_Cassette_Class Tape_1 "cassette tape first"
 Tape_Cassette_Class Tape_2 "cassette tape other"
   with
     name 'cassette' 'tape',
-    description "A cassette tape containing NO message."
+    description "A cassette tape containing NO message.",
+  has scored
 ;
 
 ! An object that is not a tape.
@@ -250,6 +251,17 @@ Object Tape_Not_Tape "Not a Tape"
     CheckString,
     PrintedString,
     "Output message from playing the other tape is incorrect."
+  );
+
+  assertTrue(
+    (Tape_2 has moved),
+    "Cassette should be scored after being played."
+  );
+
+  assertEquals(
+    4,
+    score,
+    "Scour should increment for a scored cassette."
   );
 
   ! Put the tape back in the player inventory.
