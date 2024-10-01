@@ -53,6 +53,7 @@ The following deviations are made:
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
+* [Source/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testlamp.h) - Unit tests for the lamp library.
 * [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
 * [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
