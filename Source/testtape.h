@@ -21,10 +21,14 @@ Include "tape";
 ! ------------------------------------------------------------------------------
 
 ! Messages for testing.
-Constant Tape_MSG_Contents_1 "This is the contents of the cassette tape first.";
-Constant Tape_MSG_Contents_2 "A cassette tape containing NO message.";
+Constant Tape_MSG_Contents_1
+ "(first putting cassette tape first into the tape player)^
+  This is the contents of the cassette tape first.";
+Constant Tape_MSG_Contents_2
+ "(first putting cassette tape other into the tape player)^
+  A cassette tape containing NO message.";
 Constant Tape_MSG_Eject_Empty "There is no cassette tape in the Tape Player.";
-Constant Tape_MSG_Eject_Tape "Removed cassette tape first from tape player.";
+Constant Tape_MSG_Eject_Tape "Removed cassette tape first from the tape player.";
 Constant Tape_MSG_Empty "The Tape Player is empty.";
 Constant Tape_MSG_Inventory_Empty "a Tape Player";
 Constant Tape_MSG_Inventory_Tape "a Tape Player containing the cassette tape first";
@@ -41,7 +45,7 @@ Tape_Cassette_Class Tape_1 "cassette tape first"
   with
     name 'cassette' 'tape',
     description "A cassette tape containing a message.",
-    inside_description Tape_MSG_Contents_1
+    inside_description "This is the contents of the cassette tape first."
 ;
 
 Tape_Cassette_Class Tape_2 "cassette tape other"
@@ -112,8 +116,9 @@ Object Tape_Not_Tape "Not a Tape"
   WriteString(CheckString, Tape_MSG_Eject_Empty);
   CaptureOutput(EjectSub);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from ejecting an empty tape player is incorrect."
   );
 
@@ -127,8 +132,9 @@ Object Tape_Not_Tape "Not a Tape"
     "Cassette tape should be in the player inventory after being ejected."
   );
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from ejecting a tape from the tape player is incorrect."
   );
 
@@ -143,8 +149,9 @@ Object Tape_Not_Tape "Not a Tape"
     "Cassette tape should be in the player inventory after being emptied."
   );
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from emptying the tape player is incorrect."
   );
 
@@ -158,8 +165,9 @@ Object Tape_Not_Tape "Not a Tape"
   WriteString(CheckString, Tape_MSG_Inventory_Empty);
   CaptureOutput(_TestTape_HelperPlayerInvent);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from inventory of empty tape player is incorrect."
   );
 
@@ -169,8 +177,9 @@ Object Tape_Not_Tape "Not a Tape"
   CaptureOutput(_TestTape_HelperPlayerInvent);
   move Tape_1 to player;
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from inventory of tape player is incorrect."
   );
 
@@ -184,8 +193,9 @@ Object Tape_Not_Tape "Not a Tape"
   WriteString(CheckString, Tape_MSG_Empty);
   CaptureOutput(PlaySub);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from playing no tape is incorrect."
   );
 
@@ -194,8 +204,9 @@ Object Tape_Not_Tape "Not a Tape"
   WriteString(CheckString, Tape_MSG_Play_Wrong);
   CaptureOutput(PlaySub);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from playing not a tape is incorrect."
   );
 
@@ -219,8 +230,9 @@ Object Tape_Not_Tape "Not a Tape"
     "Cassette tape should be in the tape player after being played."
   );
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from playing the first tape is incorrect."
   );
 
@@ -234,8 +246,9 @@ Object Tape_Not_Tape "Not a Tape"
     "Cassette should be moved to player inventory when playing a different tape."
   );
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from playing the other tape is incorrect."
   );
 

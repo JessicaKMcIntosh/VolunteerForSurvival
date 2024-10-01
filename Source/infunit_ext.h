@@ -50,3 +50,24 @@ Message "Adding Inform Unit Test library extensions.";
     ! else
     rfalse;
 ];
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Asserts that the first two parameters are equal using the StrmCmp routine.
+[ assertStrCmp
+    first second optErrorText   ! parameters
+    doContinue ! optional parameter
+    ;
+
+    if (infunit__assertTrue( (StrCmp(CheckString, PrintedString) == 0), optErrorText, true ))
+    {
+        print "^[ expected the string:^";
+        PrintString(first);
+        print "^but captured the string:^";
+        PrintString(second);
+        print "^]^";
+        infunit__throw( doContinue );
+        rtrue;
+    }
+    ! else
+    rfalse;
+];

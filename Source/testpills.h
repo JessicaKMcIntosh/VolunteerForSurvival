@@ -80,8 +80,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Eat_Full);
   CaptureOutput(_TestPill_HelperEatPill);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message eating a pill is incorrect."
   );
 
@@ -105,8 +106,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Eat_One);
   CaptureOutput(_TestPill_HelperEatPill);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message eating a pill is incorrect, one pill."
   );
 
@@ -130,8 +132,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Eat_Empty);
   CaptureOutput(_TestPill_HelperEatPill);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message eating a pill is incorrect."
   );
 
@@ -161,8 +164,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Number_Empty);
   CaptureOutput(_TestPill_HelperPrintNumber);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from empty pill bottle is incorrect."
   );
 
@@ -171,8 +175,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Number_One);
   CaptureOutput(_TestPill_HelperPrintNumber);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from empty pill bottle is incorrect."
   );
 
@@ -181,8 +186,9 @@ Pills_Class Pill_Bottle "pill bottle"
   WriteString(CheckString, Pills_MSG_Number_More);
   CaptureOutput(_TestPill_HelperPrintNumber);
 
-  assertTrue(
-    (StrCmp(CheckString, PrintedString) == 0),
+  assertStrCmp(
+    CheckString,
+    PrintedString,
     "Output message from empty pill bottle is incorrect."
   );
 
