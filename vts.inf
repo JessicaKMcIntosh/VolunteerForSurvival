@@ -24,7 +24,7 @@ Constant Headline
  "^A survival horror text adventure game.^
   By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>^^";
 Constant OBJECT_SCORE 1;
-Constant MAX_SCORE = 3;
+Constant MAX_SCORE = 4;
 
 ! ------------------------------------------------------------------------------
 ! Libraries
@@ -38,6 +38,7 @@ Include "Grammar";
 
 ! Game specific libraries.
 Include "Help";
+Include "Lamp";
 Include "Pills";
 Include "Tape";
 Include "XYZZY";
@@ -121,46 +122,13 @@ Scenery_Class -> Start_Drop_Box "Drop Box"
   has container openable
 ;
 
-
-! Lantern to see the way.
-Item_Class -> -> Camping_Lantern "camping lantern"
-  with
-    name 'camping' 'lantern' 'lamp' 'light',
-    description "A fancy futuristic camping lantern.",
-    describe [;
-      print "^You see a ", (name) self, " here.";
-      if (self has light) " (providing light)";
-    ],
-    before [;
-      SwitchOn:
-        if (self has light) {
-          "The ", (name) self," is already switched on.";
-        } else{
-          give self light;
-          give self on;
-          "The ", (name) self," is now on.";
-        }
-      SwitchOff:
-        if (self hasnt light) {
-          "The ", (name) self," is already switched off.";
-        } else{
-          give self ~light;
-          give self ~on;
-          "The ", (name) self," is now off.";
-        }
-      Turn:
-        if (self has light) {
-          <<SwitchOff Camping_Lantern>>;
-        } else {
-          <<SwitchOn Camping_Lantern>>;
-        }
-    ],
-  has switchable scored
+Lamp_Class -> -> Camping_Lantern "camping lantern"
 ;
 
 Item_Class -> -> Crowbar "crowbar"
   with
-    description "An odly familiar orange crowbar."
+    description "An odly familiar orange crowbar.",
+  has scored
 ;
 
 Dark_Room_Class Shelter_Entrance "Entrance to the government shelter."
@@ -187,7 +155,6 @@ Tape_Cassette_Class -> Tape_1 "tape #1"
 ! Items - Items that don't have any particular home.
 ! ------------------------------------------------------------------------------
 
-! Tape player and tapes.
 Tape_Player_Class Tape_Player "tape player"
   with
     description
@@ -236,7 +203,7 @@ Pills_Class Pill_Bottle "pill bottle"
   ! Give the player the microcassette player.
   move Tape_Player to player;
 
-  ! Give the player the bottle of pills ten start the Daemon.
+  ! Give the player the bottle of pills then start the Daemon.
   move Pill_Bottle to player;
   StartDaemon(Pill_Bottle);
 
@@ -261,8 +228,7 @@ Pills_Class Pill_Bottle "pill bottle"
 
 ! General Use verb.
 Verb 'use'
-  * switchable -> Turn;
-
-! Turn the lantern on and off.
-Extend only 'light' first * switchable -> SwitchOn;
-Verb 'extinguish' * switchable -> SwitchOff;
+  *             -> Help
+  * edible      -> Eat
+  * openable    -> Open
+  * switchable  -> Turn;
