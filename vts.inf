@@ -24,7 +24,7 @@ Constant Headline
  "^A survival horror text adventure game.^
   By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>^^";
 Constant OBJECT_SCORE 1;
-Constant MAX_SCORE = 4;
+Constant MAX_SCORE = 6;
 
 ! ------------------------------------------------------------------------------
 ! Libraries
@@ -109,10 +109,12 @@ Door_Class -> Start_Metal_Door "Metal Door"
     describe [; rtrue; ],
     before [;
       Open:
-      if (self has locked) "^The large metal door is locked with a keypad.";
-      rtrue;
+        if (self has locked) "^The large metal door is locked with a keypad.";
+        rtrue;
+      Unlock:
+        "The door is locked with a keypad.";
     ],
-  has locked
+  has locked lockable
 ;
 
 Scenery_Class -> Start_Drop_Box "Drop Box"
@@ -129,6 +131,20 @@ Item_Class -> -> Crowbar "crowbar"
   with
     name 'crowbar' 'orange',
     description "An odly familiar orange crowbar.",
+  has scored
+;
+
+Item_Class -> -> Radio "old radio"
+  with
+    name 'radio',
+    description "An old radio that should pickup messages from the shelter.",
+  has scored
+;
+
+Item_Class -> -> Notebook "small notebook"
+  with
+    name 'notebook' 'note' 'book',
+    description "Not yet implemented."
   has scored
 ;
 
