@@ -59,14 +59,16 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   move Tape_Player to player;
 
   ! Run the tests.
-  StartTest(_TestTapePlayerCreated);
-  StartTest(_TestTapeCassetteCreated);
-  StartTest(_TestTapeCassetteEject);
-  StartTest(_TestTapeCassetteInventory);
-  StartTest(_TestTapeCassettePlayed);
+  StartTest(_TestTape_PlayerCreated);
+  StartTest(_TestTape_CassetteCreated);
+  StartTest(_TestTape_CassetteEject);
+  StartTest(_TestTape_CassetteInventory);
+  StartTest(_TestTape_CassettePlayed);
 ];
 
-[_TestTapePlayerCreated;
+! Test Routines.
+
+[_TestTape_PlayerCreated;
   print "Verify the tape player was created successfully.^";
 
   assertNotNothing(
@@ -82,7 +84,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   print "Success...^^";
 ];
 
-[_TestTapeCassetteCreated;
+[_TestTape_CassetteCreated;
   print "Verify the tape cassette was created successfully.^";
 
   assertNotNothing(
@@ -98,7 +100,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   print "Success...^^";
 ];
 
-[_TestTapeCassetteEject;
+[_TestTape_CassetteEject;
   print "Verify ejecting a cassette tape works.^";
 
   ! Eject an empty tape player.
@@ -126,13 +128,10 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   );
 
   ! Empty the tape player.
-  ! CaptureOutput doesn't work for this one.
   move Tape_1 to Tape_Player;
   action = ##Empty;
   WriteString(CheckString, Tape_MSG_Eject_Tape);
-  CaptureStart();
-  Tape_Player.before();
-  CaptureStop();
+  CaptureOutput(_TestTape_HelperPlayerBefore);
 
   assertTrue(
     (Tape_1 in player),
@@ -147,14 +146,12 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   print "Success...^^";
 ];
 
-[_TestTapeCassetteInventory;
+[_TestTape_CassetteInventory;
   print "Verify tape player inventory works.^";
 
   ! Inventory of an empty tape player.
   WriteString(CheckString, Tape_MSG_Inventory_Empty);
-  CaptureStart();
-  Tape_Player.invent();
-  CaptureStop();
+  CaptureOutput(_TestTape_HelperPlayerInvent);
 
   assertTrue(
     (StrCmp(CheckString, PrintedString) == 0),
@@ -162,12 +159,9 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   );
 
   ! Inventory of a tape player containing a cassette tape.
-  ! CaptureOutput doesn't work for this one.
   move Tape_1 to Tape_Player;
   WriteString(CheckString, Tape_MSG_Inventory_Tape);
-  CaptureStart();
-  Tape_Player.invent();
-  CaptureStop();
+  CaptureOutput(_TestTape_HelperPlayerInvent);
   move Tape_1 to player;
 
   assertTrue(
@@ -178,7 +172,7 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   print "Success...^^";
 ];
 
-[_TestTapeCassettePlayed;
+[_TestTape_CassettePlayed;
   print "Verify playing a tape works.^";
 
   ! Play with the tape player empty.
@@ -244,4 +238,14 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
   move Tape_2 to player;
 
   print "Success...^^";
+];
+
+! Test Helpers.
+
+[_TestTape_HelperPlayerBefore;
+  Tape_Player.before();
+];
+
+[_TestTape_HelperPlayerInvent;
+  Tape_Player.invent();
 ];
