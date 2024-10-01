@@ -99,7 +99,8 @@ Class Pills_Class
 ! ------------------------------------------------------------------------------
 
 ! Pring the number of pills in the bottle.
-[Pills_Print_Number bottle;
+[ Pills_Print_Number
+  bottle;
   if (bottle.number == 0) {
     print "Empty";
   } else {

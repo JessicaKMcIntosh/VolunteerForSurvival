@@ -36,6 +36,15 @@ The inspiration for VTS came from a video about PSX/PS1 era horror games.\
 
 VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/) on Windows.
 
+### Coding style
+
+The Coding style follows that of the Inform 6 Library source.
+
+The following deviations are made:
+
+* Two spaces for indention.
+* Routine variables on a separate line. Or separate lines as required.
+
 ### Source Files
 
 * [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.

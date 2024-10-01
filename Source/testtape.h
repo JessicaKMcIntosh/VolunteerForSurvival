@@ -78,7 +78,7 @@ Object Tape_Not_Tape "Not a Tape"
 
 ! Test Routines.
 
-[_TestTape_PlayerCreated;
+[ _TestTape_PlayerCreated;
   print "Verify the tape player was created successfully.^";
 
   assertNotNothing(
@@ -94,7 +94,7 @@ Object Tape_Not_Tape "Not a Tape"
   print "Success...^^";
 ];
 
-[_TestTape_CassetteCreated;
+[ _TestTape_CassetteCreated;
   print "Verify the tape cassette was created successfully.^";
 
   assertNotNothing(
@@ -110,7 +110,7 @@ Object Tape_Not_Tape "Not a Tape"
   print "Success...^^";
 ];
 
-[_TestTape_CassetteEject;
+[ _TestTape_CassetteEject;
   print "Verify ejecting a cassette tape works.^";
 
   ! Eject an empty tape player.
@@ -159,7 +159,7 @@ Object Tape_Not_Tape "Not a Tape"
   print "Success...^^";
 ];
 
-[_TestTape_CassetteInventory;
+[ _TestTape_CassetteInventory;
   print "Verify tape player inventory works.^";
 
   ! Inventory of an empty tape player.
@@ -187,7 +187,7 @@ Object Tape_Not_Tape "Not a Tape"
   print "Success...^^";
 ];
 
-[_TestTape_CassettePlayed;
+[ _TestTape_CassettePlayed;
   print "Verify playing a tape works.^";
 
   ! Play with the tape player empty.
@@ -272,10 +272,10 @@ Object Tape_Not_Tape "Not a Tape"
 
 ! Test Helpers.
 
-[_TestTape_HelperPlayerBefore;
+[ _TestTape_HelperPlayerBefore;
   Tape_Player.before();
 ];
 
-[_TestTape_HelperPlayerInvent;
+[ _TestTape_HelperPlayerInvent;
   Tape_Player.invent();
 ];

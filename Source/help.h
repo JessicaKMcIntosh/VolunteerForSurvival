@@ -72,14 +72,15 @@ Global Help_Topic_Word = nothing;
 
 ! Set the global Help_Topic_Word to the word.
 ! This is an ugly hack, but it works.
-[HelpTopic word;
+[ HelpTopic
+  word;
   word = NextWord();
   Help_Topic_word = word;
   Help_Topic = true;
 ];
 
 ! Print help text for the user.
-[HelpSub;
+[ HelpSub;
   ! Do we have a noun?
   if (noun == nothing) {
     ! No noun. Do we have a help topic?

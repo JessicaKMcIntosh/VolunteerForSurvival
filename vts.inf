@@ -106,7 +106,9 @@ Door_Class -> Start_Metal_Door "Metal Door"
     when_closed "The large metal door is closed and locked tight.",
     door_to Shelter_Entrance,
     door_dir e_to,
-    describe [; rtrue; ],
+    describe [;
+      rtrue;
+    ],
     before [;
       Open:
         if (self has locked) "^The large metal door is locked with a keypad.";
@@ -120,7 +122,9 @@ Door_Class -> Start_Metal_Door "Metal Door"
 Scenery_Class -> Start_Drop_Box "Drop Box"
   with name 'drop' 'box',
     description "A drop box used to exchange items with the Shelter.",
-    describe [; rtrue; ],
+    describe [;
+      rtrue;
+    ],
   has container openable
 ;
 

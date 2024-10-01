@@ -61,7 +61,7 @@ Pills_Class Pill_Bottle "pill bottle"
 
 ! Test Routines.
 
-[_TestPill_PillsCreated;
+[ _TestPill_PillsCreated;
   print "Verify the pill bottle was created successfully.^";
 
   assertNotNothing(
@@ -77,7 +77,7 @@ Pills_Class Pill_Bottle "pill bottle"
   print "Success...^^";
 ];
 
-[_TestPill_Daemon;
+[ _TestPill_Daemon;
   print "Verify the pills daemon works corectly.^";
 
   ! Message for extra time.
@@ -133,7 +133,7 @@ Pills_Class Pill_Bottle "pill bottle"
   print "Success...^^";
 ];
 
-[_TestPill_EatPill;
+[ _TestPill_EatPill;
   print "Verify eating pills works corectly.^";
 
   ! Eat a pill from a full bottle.
@@ -220,7 +220,7 @@ Pills_Class Pill_Bottle "pill bottle"
   print "Success...^^";
 ];
 
-[_TestPill_PrintNumber;
+[ _TestPill_PrintNumber;
   print "Verify the number of pills is printed corectly.^";
 
   ! The numer of pills in an empty bottle.
@@ -261,14 +261,14 @@ Pills_Class Pill_Bottle "pill bottle"
 
 ! Test Helpers.
 
-[_TestPill_HelperDaemon;
+[ _TestPill_HelperDaemon;
   Pill_Bottle.daemon();
 ];
 
-[_TestPill_HelperEatPill;
+[ _TestPill_HelperEatPill;
   Pill_Bottle.before();
 ];
 
-[_TestPill_HelperPrintNumber;
+[ _TestPill_HelperPrintNumber;
   Pills_Print_Number(Pill_Bottle);
 ];

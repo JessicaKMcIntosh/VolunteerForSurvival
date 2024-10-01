@@ -165,32 +165,32 @@ Class Tape_Cassette_Class
 ! Gives the tape general after it is played.
 ! Will execute before and after actions on the tape played.
 ! If the tape is scored but not moved then score the tape.
-[PlayTapeSub
+[ PlayTapeSub
   tape;
-    if (children(Tape_Player) == 0) {
-      "The ", (name) Tape_Player, " is empty.";
+  if (children(Tape_Player) == 0) {
+    "The ", (name) Tape_Player, " is empty.";
+  } else {
+    tape = child(Tape_Player);
+    action = ##Play;
+    if (tape provides before) tape.before();
+    if (tape provides inside_description) {
+      tape.inside_description();
     } else {
-      tape = child(Tape_Player);
-      action = ##Play;
-      if (tape provides before) tape.before();
-      if (tape provides inside_description) {
-        tape.inside_description();
-      } else {
-        tape.description();
-      }
-      if (tape hasnt general) give tape general;
-      if (tape provides after) tape.after();
-      if (tape has scored && tape hasnt moved) {
-        give tape moved;
-        score = score + OBJECT_SCORE;
-        things_score = things_score + OBJECT_SCORE;
-      }
+      tape.description();
     }
+    if (tape hasnt general) give tape general;
+    if (tape provides after) tape.after();
+    if (tape has scored && tape hasnt moved) {
+      give tape moved;
+      score = score + OBJECT_SCORE;
+      things_score = things_score + OBJECT_SCORE;
+    }
+  }
 ];
 
 ! Eject the current tape from the tape player.
-[EjectSub
-tape;
+[ EjectSub
+  tape;
   if (Tape_Player notin player)
     "You are not carrying a ", (string) TAPE_PLAYER_NAME, ".";
   if (children(Tape_Player) ~= 0) {
