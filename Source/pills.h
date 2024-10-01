@@ -66,6 +66,7 @@ Class Pills_Class
 
         ! Take a pill.
         self.number--;
+        self.time_left = self.time_left + PILLS_DURATION;
         print "You take a pill. You have ";
         if (noun.number == 0) {
           print "no more pills";
@@ -73,8 +74,7 @@ Class Pills_Class
           Pills_Print_Number(self);
         }
         print " left.^";
-        self.time_left = self.time_left + PILLS_DURATION;
-      rtrue;
+        rtrue;
     ],
     daemon [;
       self.time_left--;
