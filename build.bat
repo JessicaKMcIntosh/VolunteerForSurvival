@@ -35,6 +35,7 @@ REM Figure out what we were given on the command line.
     if /i "%1"=="tests" CALL :RunTests
     if /i "%1"=="help"  CALL :ShowHelp
     if /i "%1"=="/?"    CALL :ShowHelp
+    if /i "%1"=="/h"    CALL :ShowHelp
     if /i "%1"=="-h"    CALL :ShowHelp
     shift
     if not -%1-==-- goto ProcessArgs
@@ -51,15 +52,14 @@ REM Build the game.
 :RunBuild
     ECHO Building %APPNAME%...
     CALL :DeleteFile "vts.z5"
-
-    %COMPILER% +inform6 ++Extensions ++Source -S vts.inf
+    CALL :CompileFile "vts.inf"
     EXIT /b
 
 REM Built the tests.
 :RunBuildtest
     ECHO Building %APPNAME% unit tests...
     CALL :DeleteFile "unit.z5"
-    %COMPILER% +inform6 ++Extensions ++Source -S unit.inf
+    CALL :CompileFile "unit.inf"
     EXIT /b
 
 REM Cleanup build artifacts.
@@ -74,7 +74,7 @@ REM Build the game with debug enabled.
 :RunDebug
     ECHO Building %APPNAME%...
     CALL :DeleteFile "vts.z5"
-    %COMPILER% +inform6 ++Extensions ++Source -SD vts.inf
+    CALL :CompileFile "vts.inf" "-D"
     EXIT /b
 
 REM Run the integration tests.
@@ -83,13 +83,20 @@ REM Run the integration tests.
     ECHO.
     ECHO Running %APPNAME% Integration tests...
     SET ERRORCOUNT=0
-    SET OUTPUTFILE=%INTEGOUT%
+    SET TESTCOUNT=0
     CALL :DeleteFile "%INTEGOUT%"
-    ECHO %APPNAME% Integration Test Results>> %OUTPUTFILE%
-    ECHO.>> %OUTPUTFILE%
+    ECHO %APPNAME% Integration Test Results>> %INTEGOUT%
+    ECHO.>> %INTEGOUT%
+
+    REM Loop over the tests and run each one.
     FOR %%I IN (Tests/*.rec) DO CALL :runintegtest %%~nI
-    if %ERRORCOUNT% NEQ 0 (
-        ECHO Tests have failed: %ERRORCOUNT%
+
+    REM Check if there were errors.
+    ECHO.
+    if %ERRORCOUNT% EQU 0 (
+        ECHO All tests were successful!
+    ) else (
+        ECHO Tests have failed: %ERRORCOUNT% out of %TESTCOUNT% tests
         ECHO See the file '%INTEGOUT%' for more information.
     )
     EXIT /b
@@ -97,13 +104,14 @@ REM Run the integration tests.
 REM Run an integration test.
 :runintegtest
     SET TEST_FILE=%1
-    CALL :WriteStringNoEOL "Running Integ Test: %TEST_FILE%..."
+    CALL :WriteStringNoEOL "%INTEGOUT%" "Running Integ Test: %TEST_FILE%..."
+    SET /A TESTCOUNT = %TESTCOUNT% + 1
     TYPE Tests\%TEST_FILE%.rec | %INTERPRETER% vts.z5 > Tests\temp.txt 2>&1
-    FC /w Tests\%TEST_FILE%.txt Tests\temp.txt >> %OUTPUTFILE%
+    FC /w Tests\%TEST_FILE%.txt Tests\temp.txt >> %INTEGOUT%
     IF %ERRORLEVEL% EQU 0 (
-        CALL :WriteString "Succeeded."
+        CALL :WriteString "%INTEGOUT%" "Succeeded."
     ) else (
-        CALL :WriteString "Failed!"
+        CALL :WriteString "%INTEGOUT%" "Failed!"
         SET /A ERRORCOUNT = %ERRORCOUNT% + 1
     )
     DEL Tests\temp.txt
@@ -143,7 +151,15 @@ REM Show some help text.
 
 REM       -----===== Helper functions. ======------
 
+REM Compile a file.
+REM %1 - The file to compile.
+REM %2 - Any extra compile options.
+:CompileFile
+    %COMPILER% +inform6 ++Extensions ++Source -S %~2 %~1
+    EXIT /b
+
 REM Delete a file if it exists.
+REM %1 - The file to delete.
 :DeleteFile
     IF EXIST %1 (
         DEL %1
@@ -151,25 +167,29 @@ REM Delete a file if it exists.
     EXIT /b
 
 REM Write a string to STDOUT and the log file.
+REM %1 - The file to write the string to.
+REM %2 - The string to write.
 :WriteString
     IF -%1-==-- (
         ECHO.
-        ECHO.>> %OUTPUTFILE%
+        ECHO.>> %1%
     ) else (
-        ECHO %~1
-        ECHO %~1>> %OUTPUTFILE%
+        ECHO %~2
+        ECHO %~2>> %1%
     )
     EXIT /b
 
 REM Write a string to STDOUT and the log file. Special case.
 REM No newline is output to STDOUT and a space is added to the end.
+REM %1 - The file to write the string to.
+REM %2 - The string to write.
 :WriteStringNoEOL
     IF -%1-==-- (
         ECHO.
-        ECHO.>> %OUTPUTFILE%
+        ECHO.>> %1%
     ) else (
-        set <NUL /p="%~1 "
-        ECHO %~1>> %OUTPUTFILE%
+        set <NUL /p="%~2 "
+        ECHO %~2>> %1%
     )
     EXIT /b
 
