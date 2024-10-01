@@ -21,14 +21,17 @@ Replace Main;
 ! Libraries
 ! ------------------------------------------------------------------------------
 
+! Standard libraries.
 Include "Parser";
 Include "VerbLib";
 Include "Grammar";
 
+! Libraries used for testing.
 Include "istring";
 Include "infunit";
 Include "infunit_ext";
 
+! Game specific testing libraries.
 Include "testpills";
 Include "testtape";
 
@@ -42,10 +45,6 @@ Array CheckString->MAX_STR_LEN;
 
 ! Fake player.
 Object Fake_Player "Fake Player"
-;
-
-! Fake object.
-Object Fake_Object "Fake Object"
 ;
 
 ! ------------------------------------------------------------------------------
@@ -70,16 +69,32 @@ Object Fake_Object "Fake Object"
 ];
 
 ! Prepare objects for each test.
-[PrepareObjects
-  temp_object;
+! Resets state for each test so they all have the same starting point.
+[PrepareObjects;
+  ! Prepare the player.
   player = Fake_Player;
+  deadflag = 0;
+
+  ! Prepare action processing.
   action = nothing;
+  inp1 = nothing;
+  inp2 = nothing;
   noun = nothing;
+  second = nothing;
+
+  ! Prepare the scoring variables.
+  score = 0;
+  last_score = 0;
+  places_score = 0;
+  things_score = 0;
+
+  ! Other random variables.
+  lookmode = 2;
+  turns = 0;
 
   ! Remove everything from the player object.
   while(child(player)) {
-    temp_object = child(player);
-    remove(temp_object);
+    remove(child(player));
   }
 ];
 
