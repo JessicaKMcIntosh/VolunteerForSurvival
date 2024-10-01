@@ -57,6 +57,25 @@ Class Pills_Class
         print ")";
       }
     ],
+    before [;
+      Eat:
+        ! No more pills left.
+        if (self.number == 0) {
+          "The pill bottle is empty.";
+        }
+
+        ! Take a pill.
+        self.number--;
+        print "You take a pill. You have ";
+        if (noun.number == 0) {
+          print "no more pills";
+        } else {
+          Pills_Print_Number(self);
+        }
+        print " left.^";
+        self.time_left = self.time_left + PILLS_DURATION;
+      rtrue;
+    ],
     daemon [;
       self.time_left--;
 #Ifdef DEBUG;
@@ -90,34 +109,3 @@ Class Pills_Class
     }
   }
 ];
-
-! Special case for te pills. We want the pill bottle to stay in inventory.
-[Pills_EatSub;
-  ! Call the system eat routine if this is not our pills.
-  if (~~(noun ofclass Pills_Class)) {
-    EatSub();
-  }
-
-  ! No more pills left.
-  if (noun.number == 0) {
-    "The pill bottle is empty.";
-  }
-
-  ! Take a pill.
-  noun.number--;
-  print "You take a pill. You have ";
-  if (noun.number == 0) {
-    print "no more pills";
-  } else {
-    Pills_Print_Number(noun);
-  }
-  print " left.^";
-  noun.time_left = noun.time_left + PILLS_DURATION;
-];
-
-! ------------------------------------------------------------------------------
-! Grammar
-! ------------------------------------------------------------------------------
-
-Extend 'eat' first
-  * held   -> Pills_Eat;
