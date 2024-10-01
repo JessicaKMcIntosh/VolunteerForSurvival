@@ -137,9 +137,31 @@ Using the 'Inform 6' extension:
 * Follow the steps for 'Compiling under Windows' to download the compiler and Library.
 * If you are on Linux/Unix update the file `.vscode/settings.json` and remove `.exe` from the setting `inform6.inform6Path`.
 
+## Credits
+
+* Inform 6 Compiler and Library by Graham Nelson and David Griffith.
+* [betatest.h](https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/betatest.h) - A Betatesting Aid. by Marnie Parker aka Doe
+* [infunit.h](https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/infunit.h) - An outline test harness for Inform, based on jUnit. by Matt Albrecht
+* [istring.h](https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/istring.h) - The Inform String Library: A reconstruction of the ansi C string functions. By L. Ross Raszewski
+* [zorkh.zip](https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/zorkh.zip) - A collection of Zork-related library extensions, Release 2, by Joe Merical. Inspiration for the camping lantern.
+
 ## Copyright and License
 
-Created by Jessica McIntosh\
-JessicaKMcIntosh AT gmail DOT com
+Volunteer For Survival was created by Jessica McIntosh\
+JessicaKMcIntosh AT gmail DOT com\
+<https://github.com/JessicaKMcIntosh/VolunteerForSurvival>
 
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. See the file LICENSE for details.
+
+---
+
+The Inform 6 Library is Copyright Graham Nelson 1993-2004 and David Griffith 2012-2022
+See the file inform6/COPYING for details.
+
+---
+
+Files in directory Extensions were downloaded from The Interactive Fiction Archive
+from the Inform 6 Library contributions directory. I do not claim ownership on
+any files in this directory. All files belong to their creator. See the files
+for details.\
+<https://ifarchive.org/indexes/if-archive/infocom/compilers/inform6/library/contributions/>
