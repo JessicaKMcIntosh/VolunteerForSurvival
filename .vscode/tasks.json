@@ -6,7 +6,7 @@
     { // Build the VTS game using the build scripts.
       "label": "Build VTS Game",
       "type": "shell",
-      "command": "/bin/sh build.sh",
+      "command": "bash build.sh",
       "windows": {
         "command": "build.bat",
       },
@@ -38,7 +38,7 @@
     { // Build the VTS game using the build scripts with debug enabled.
       "label": "Build VTS Game DEBUG",
       "type": "shell",
-      "command": "/bin/sh build.sh debug",
+      "command": "bash build.sh debug",
       "windows": {
         "command": "build.bat debug",
       },
@@ -69,7 +69,7 @@
     { // Run the VTS tests using the build scripts.
       "label": "Run VTS Unit Tests",
       "type": "shell",
-      "command": "/bin/sh build.sh unit",
+      "command": "bash build.sh unit",
       "windows": {
         "command": "build.bat unit",
       },
