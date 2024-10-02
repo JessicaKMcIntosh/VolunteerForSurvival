@@ -22,9 +22,9 @@ Replace Main;
 ! ------------------------------------------------------------------------------
 
 ! Standard libraries.
-Include "Parser";
-Include "VerbLib";
-Include "Grammar";
+Include "parser";
+Include "verblib";
+Include "grammar";
 
 ! Libraries used for testing.
 Include "istring";

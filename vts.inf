@@ -31,17 +31,17 @@ Constant MAX_SCORE = 6;
 ! ------------------------------------------------------------------------------
 
 ! Standard libraries and extensions.
-Include "Parser";
+Include "parser";
 ! Include "betatest";
-Include "VerbLib";
-Include "Grammar";
+Include "verblib";
+Include "grammar";
 
 ! Game specific libraries.
-Include "Help";
-Include "Lamp";
-Include "Pills";
-Include "Tape";
-Include "XYZZY";
+Include "help";
+Include "lamp";
+Include "pills";
+Include "tape";
+Include "xyzzy";
 
 ! ------------------------------------------------------------------------------
 ! Attributes
