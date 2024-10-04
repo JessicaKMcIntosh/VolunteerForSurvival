@@ -1,0 +1,235 @@
+! ------------------------------------------------------------------------------
+! Gen City - Generate the room code for the city.
+!
+! Created by Jessica McIntosh
+! JessicaKMcIntosh AT gmail DOT com
+!
+! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+! International License. See the file LICENSE for details.
+! ------------------------------------------------------------------------------
+! This file will generate all of the rooms for the city.
+!
+! Room notation: ROOM_AVE_STREET
+! If a room is between streets or avenues then the locations they are between
+! are added. See the examples.
+!
+! The edges of the map will refence Avenues and Streets that are no included
+! in the map for consistency in naming.
+!
+! Rooms for the City will automatically link together.
+!
+! Intersections:
+!   City_20_21        The intersection between 20th Ave and 21st St.
+!   Subway_20_35      The subway station between 20th Ave and 35th St.
+! Avenues:
+!   City_20_21_23     On 20th Ave between 21st St and 23rd St.
+!   Subway_22_21_23   Subway station on 22nd Ave between 21st St and 23rd St.
+!   Storm_24_29_31    Storm drain on 24th Ave between 29th St and 31st St.
+! Streets:
+!   City_18_20_21     On 21st St between 18th Ave and 20th Ave.
+!   Subway_20_22_21   Subway station on 21st St between 20th Ave and 22nd Ave.
+!   Storm_30_32_27    Storm drain on 27th St between 20th Ave and 32nd Ave.
+
+! ------------------------------------------------------------------------------
+! Meta Data
+! ------------------------------------------------------------------------------
+
+Release 0;
+
+! ------------------------------------------------------------------------------
+! Constants
+! ------------------------------------------------------------------------------
+
+! City grid layout.
+Constant First_Ave = 20;
+Constant Last_Ave = 22; !32;
+Constant First_Street = 21;
+Constant Last_Street = 23; !37;
+
+! ------------------------------------------------------------------------------
+! Helper code
+! ------------------------------------------------------------------------------
+
+[ NumberSuffix
+  Number
+  Remainder;
+
+  Remainder = Number % 10;
+  print Number;
+  switch (Remainder) {
+    1:        print "st";
+    2:        print "nd";
+    3:        print "rd";
+    default:  print "th";
+  }
+];
+
+! Print the name of an Avenue between two Streets.
+[ PrintHalfAve
+  Avenue  ! The avenue being generated.
+  Left    ! The street to the left of this room.
+  Right;  ! The street to the right of this room.
+
+  NumberSuffix(Avenue);
+  print " Ave between ";
+  NumberSuffix(Left);
+  print " St and ";
+  NumberSuffix(Right);
+  print " St";
+];
+
+! Print the name of a stree between two Avenues.
+[ PrintHalfStreet
+  Street  ! The street being generated.
+  Above   ! The avenue above this room.
+  Below;  ! The avenue below this room.
+
+  NumberSuffix(Street);
+  print " St between ";
+  NumberSuffix(Above);
+  print "Ave and ";
+  NumberSuffix(Below);
+  print " Ave";
+];
+
+! Print the name of an intersection.
+[ PrintIntersection
+  Avenue  ! The avenue being generated.
+  Street; ! The street being generated.
+
+  NumberSuffix(Avenue);
+  print " Ave and ";
+  NumberSuffix(Street);
+  print " St";
+];
+
+! ------------------------------------------------------------------------------
+! Generate the city
+! ------------------------------------------------------------------------------
+
+! Generate a room on an avenue between two streets.
+[ RoomHalfAve
+  Avenue  ! The avenue being generated.
+  Left    ! The street to the left of this room.
+  Right;  ! The street to the right of this room.
+
+  ! Generate the room code.
+  print "CITY_CLASS City_", Avenue, "_", Left, "_", Right, " ~";
+  PrintHalfAve(Avenue, Left, Right);
+  print "~^";
+  print "  with^";
+
+  ! Generate the description.
+  print "    description ~^";
+  if (Left >= First_Street) {
+    print "    West to ";  PrintIntersection(Avenue, Left); print ".^";
+  }
+  if (Right <= Last_Street) {
+    print "    East to ";  PrintIntersection(Avenue, Right); print ".^";
+  }
+  print "    ~,^";
+
+  ! Generate the directions.
+  if (Left >= First_Street) {
+    print "    w_to City_", Avenue, "_", Left, ",^";
+  }
+  if (Right <= Last_Street) {
+    print "    e_to City_", Avenue, "_", Right, ",^";
+  }
+  print ";^^";
+];
+
+! Generate a room on a street betweeen two avenues.
+[ RoomHalfStreet
+  Street  ! The street being generated.
+  Above   ! The avenue above this room.
+  Below;  ! The avenue below this room.
+
+  ! Generate the room code.
+  print "CITY_CLASS City_", Above, "_", Below, "_", Street, " ~";
+  PrintHalfStreet(Street, Above, Below);
+  print "~^";
+  print "  with^";
+
+  ! Generate the description.
+  print "    description ~^";
+  if  (Above >= First_Ave) {
+    print "    North to "; PrintIntersection(Above, Street); print ".^";
+  }
+  if (Below <= Last_Ave) {
+    print "    South to "; PrintIntersection(Below, Street); print ".^";
+  }
+  print "    ~,^";
+
+  ! Generate the directions.
+  if  (Above >= First_Ave) {
+    print "    n_to City_", Above, "_", Street, ",^";
+  }
+  if (Below <= Last_Ave) {
+    print "    s_to City_", Below, "_", Street, ",^";
+  }
+  print ";^^";
+];
+
+! Generate a room at an intersection.
+[ RoomIntersection
+  Avenue  ! The avenue being generated.
+  Street; ! The street being generated.
+
+  ! Generate the room code.
+  print "CITY_CLASS City_", Avenue, "_", Street, " ~";
+  PrintIntersection(Avenue, Street);
+  print "~^";
+  print "  with^";
+
+  ! Generate the description.
+  print "    description ~^";
+  print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".^";
+  print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".^";
+  print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".^";
+  print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".^";
+  print "    ~,^";
+
+  ! Generate the directions.
+  print "    n_to City_", (Avenue - 2),"_", Avenue, "_", Street, ",^";
+  print "    s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
+  print "    w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
+  print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
+  print ";^^";
+];
+
+[ GenerateRooms
+    Avenue
+    Street;
+
+  ! Loop over the avenues and streets to generate the city grid.
+  for (Avenue = First_Ave: Avenue <= Last_Ave: Avenue = Avenue + 2) {
+    for (Street = First_Street: Street <= Last_Street: Street = Street + 2) {
+      print ">>", Avenue, " - ", Street,"<<^";
+      RoomIntersection(Avenue, Street);
+
+      ! Generate the half Avenue room to the left of the current Street.
+      RoomHalfAve(Avenue, (Street - 2), Street);
+
+      ! Generate the half Street above the current Avenue.
+      RoomHalfStreet(Street, (Avenue - 2), Avenue);
+
+      ! On the last Street generate the half Avenue to the right.
+      if (Street >= Last_Street) {
+        RoomHalfAve(Avenue, Street, (Street + 2));
+      }
+
+      ! On the last Avenue generate the half Street below.
+      if (Avenue >= Last_Ave) {
+        RoomHalfStreet(Street, Avenue, (Avenue + 2));
+      }
+    }
+  }
+];
+
+! Main function for running the tests.
+[ Main;
+  print "Generating the city map code.^^";
+
+  GenerateRooms();
+];
