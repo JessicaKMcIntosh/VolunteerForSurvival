@@ -17,7 +17,48 @@
 !
 ! IF the istring.h library is included adds extra functionality.
 !
-! TODO: More details here.
+! Main testing interface:
+!
+! Run a test. Executes the provided routine.
+! Unit_RunTest(RoutineName);
+!
+! After running at least one test the report will print the number of tests
+! run, failed and successful.
+! Unit_Report();
+!
+! Assertions:
+! For all assertions setting Continue to true will continue execution if the
+! assertion fails. By default the test stops at the first failed assertion.
+!
+! If an assertion fails ErrorText is printed along with the text name and
+! the expected and actual values.
+!
+! Executes a routine and captures any output that is printed.
+! The output is compared to a string.
+! Requires the library istring.h to be loaded.
+! Unit_AssertCapture(RoutineName, ExpectedOutput, ErrorText, Continue);
+!
+! Checks that ActualValue matches ExpectedValue.
+! Unit_AssertEquals(ExpectedValue, ActualValue, ErrorText, Continue);
+!
+! Checks if Condition is false.
+! Unit_AssertFalse(Condition, ErrorText, Continue);
+!
+! Checkes that Object belongs to the class Expected.
+! Unit_AssertOfClass(Object, Expected, ErrorText, Continue);
+!
+! Checks that Value is not equal to nothing.
+! Unit_AssertNotNothing(Value, ErrorText, Continue);
+!
+! Compares the strings Expected and Actual using the StrCmp routine.
+! Requires the library istring.h to be loaded.
+! Unit_AssertStrCmp(Expected, Actual, ErrorText, Continue);
+!
+! Checks if Condition is true.
+! Unit_AssertTrue(Condition, ErrorText, Continue);
+!
+! Always fails.
+! Unit_Fail(ErrorText, Continue);
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -72,7 +113,7 @@ Array _Unit_Expected->MAX_STR_LEN;
 #Ifdef ISTRING_LIBRARY;
 ! Execute a routine and compare the captured output to the expected string.
 [ Unit_AssertCapture
-  Routine   ! The routine to capture output for.
+  Routine   ! (Required) The routine to capture output for.
   Expected  ! (Required) The expected string.
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
@@ -121,14 +162,14 @@ Array _Unit_Expected->MAX_STR_LEN;
   }
 ];
 
-! Check if the is value is of the expected class.
+! Check if the object is of the expected class.
 [ Unit_AssertOfClass
-  Value ! (Required) The value to test.
-  Actual    ! (Required) The actual value.
+  Object    ! (Required) The object to test.
+  Expected  ! (Required) The expected class.
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
-  if (_Unit_Assert((Value ofclass Actual), ErrorText, "AssertOfClass")) {
+  if (_Unit_Assert((Object ofclass Expected), ErrorText, "AssertOfClass")) {
     print "[The object (", (name) Value, ") is not of the class (", (name) Actual, ")]^^";
     _Unit_Throw(Continue);
   }
@@ -136,7 +177,7 @@ Array _Unit_Expected->MAX_STR_LEN;
 
 ! Check if the value is not equal to nothing.
 [ Unit_AssertNotNothing
-  Value ! (Required) The value to test.
+  Value     ! (Required) The value to test.
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
