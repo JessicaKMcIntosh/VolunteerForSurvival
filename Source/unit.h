@@ -170,7 +170,7 @@ Array _Unit_Expected->MAX_STR_LEN;
   Continue; ! (Optional) Continue execution after a failure.
 
   if (_Unit_Assert((Object ofclass Expected), ErrorText, "AssertOfClass")) {
-    print "[The object (", (name) Value, ") is not of the class (", (name) Actual, ")]^^";
+    print "[The object (", (name) Object, ") is not of the class (", (name) Expected, ")]^^";
     _Unit_Throw(Continue);
   }
 ];
