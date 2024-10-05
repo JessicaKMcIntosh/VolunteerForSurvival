@@ -73,6 +73,14 @@ Class City_Class
   has light
 ;
 
+! Subways.
+Class Subway_Class
+;
+
+! Storm drains.
+Class Storm_Class
+;
+
 ! Object the player can posess.
 Class Item_Class
 ;
@@ -91,8 +99,10 @@ Class Door_Class
 ! The world
 ! ------------------------------------------------------------------------------
 
-! Include the City source file here.
+! Include the City source files here.
 Include "city";
+Include "subway";
+Include "storm";
 
 ! Starting Area
 Room_Class Start_Room "Empty Alley Dead End"

@@ -19,16 +19,22 @@
 ! Rooms for the City will automatically link together.
 !
 ! Intersections:
-!   City_20_21        The intersection between 20th Ave and 21st St.
-!   Subway_20_35      The subway station between 20th Ave and 35th St.
+!   City_20_21            The intersection between 20th Ave and 21st St.
+!   Subway_20_35          The subway station between 20th Ave and 35th St.
 ! Avenues:
-!   City_20_21_23     On 20th Ave between 21st St and 23rd St.
-!   Subway_22_21_23   Subway station on 22nd Ave between 21st St and 23rd St.
-!   Storm_24_29_31    Storm drain on 24th Ave between 29th St and 31st St.
+!   City_20_21_23         On 20th Ave between 21st St and 23rd St.
+!   Subway_LINE_22_21_23  Subway station on 22nd Ave between 21st St and 23rd St.
+!   Storm_24_29_31        Storm drain on 24th Ave between 29th St and 31st St.
 ! Streets:
-!   City_18_20_21     On 21st St between 18th Ave and 20th Ave.
-!   Subway_20_22_21   Subway station on 21st St between 20th Ave and 22nd Ave.
-!   Storm_30_32_27    Storm drain on 27th St between 20th Ave and 32nd Ave.
+!   City_18_20_21         On 21st St between 18th Ave and 20th Ave.
+!   Subway_LINE_20_22_21  Subway station on 21st St between 20th Ave and 22nd Ave.
+!   Storm_30_32_27        Storm drain on 27th St between 20th Ave and 32nd Ave.
+
+! ------------------------------------------------------------------------------
+! TODO
+! ------------------------------------------------------------------------------
+! 20th ave to Subway junction
+! 37th street to Subway juction
 
 ! ------------------------------------------------------------------------------
 ! Meta Data
@@ -47,7 +53,33 @@ Constant First_Street = 21;
 Constant Last_Street = 37;
 
 ! ------------------------------------------------------------------------------
-! Helper code
+! Subway and Storm Drain table
+! ------------------------------------------------------------------------------
+
+! A letter indicates that room matches up with the Subway or a storm drain.
+! S = Storm drain
+! B, G, O = Subway
+! b, g, o = Subway with storm drain underneath.
+Array Under_Table -->
+!     21      23      25      27      29      31      33      35      37
+  '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' 'B' '_' '_' '_'
+  'O' '_' '_' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' '_' '_' '_' 'B' '_' '_' 'S' ! 20
+  '_' 'o' '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'b' '_' 'S' '_'
+  'G' '_' 'O' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' '_' '_' '_' 'B' '_' '_' 'S' ! 22
+  '_' '_' '_' 'O' '_' 'O' '_' 'O' '_' 'O' '_' '_' '_' '_' '_' '_' '_' '_' '_'
+  'G' '_' '_' '_' 'S' '_' '_' '_' '_' '_' 'o' '_' '_' '_' '_' '_' 'B' '_' 'S' ! 24
+  '_' 'G' '_' '_' '_' '_' '_' '_' '_' '_' '_' 'O' '_' '_' '_' '_' '_' '_' '_'
+  '_' '_' 'G' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' 'O' '_' '_' '_' 'B' '_' 'S' ! 26
+  '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' 'O' '_' '_' '_' '_' '_'
+  '_' '_' 'G' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' '_' 'O' '_' '_' 'B' '_' 'S' ! 28
+  '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' 'O' '_' '_' '_' '_' '_'
+  '_' '_' 'G' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' '_' 'O' '_' '_' '_' '_' 'S' ! 30
+  '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'S' '_' 'o' '_' 'b' '_' 'S' '_'
+  '_' '_' 'G' '_' 'S' '_' '_' '_' '_' '_' 'S' '_' '_' '_' 'O' '_' 'B' '_' 'S' ! 32
+  '_' '_' '_' 'G' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' '_' 'O' '_' '_' '_';
+
+! ------------------------------------------------------------------------------
+! Helper Routines
 ! ------------------------------------------------------------------------------
 
 [ NumberSuffix
@@ -78,7 +110,7 @@ Constant Last_Street = 37;
   print " St";
 ];
 
-! Print the name of a stree between two Avenues.
+! Print the name of a street between two Avenues.
 [ PrintHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
@@ -103,15 +135,121 @@ Constant Last_Street = 37;
   print " St";
 ];
 
+! Print the color of a subway from the code.
+[ PrintColor
+  Code;   ! The Subway code.
+
+  switch (code) {
+    'B':  print "Blue";
+    'G':  print "Green";
+    'O':  print "Orange";
+  }
+];
+
 ! ------------------------------------------------------------------------------
-! Generate the city
+! Generate the storm drains
+! ------------------------------------------------------------------------------
+
+! Generate a storm drain on an avenue between two streets.
+[ StormHalfAve
+  Avenue  ! The avenue being generated.
+  Left    ! The street to the left of this room.
+  Right   ! The street to the right of this room.
+  Code    ! Code from the Under_Table array.
+  Subway; ! True if there is a subway.
+
+  print "Storm_Class Storm_", Avenue, "_", Left, "_", Right, " ~";
+  print "Storm Drain below ";
+  PrintHalfAve(Avenue, Left, Right);
+  print "~^";
+  print "  with^";
+
+  ! Generate the description.
+  print "    description ~^";
+  if (Subway)               { print "    Up to the ", (PrintColor) Code, " subway line.@@94^"; }
+  else                      { print "    Up to "; PrintHalfAve(Avenue, Left, Right); print ".@@94^"; }
+  if (Avenue > First_Ave)   { print "    North to under "; PrintHalfAve((Avenue - 2), Left, Right); print ".@@94^"; }
+  if (Avenue < Last_Ave)    { print "    South to under "; PrintHalfAve((Avenue + 2), Left, Right); print ".@@94^"; }
+  print "    ~,^";
+
+  ! Generate the directions.
+  if (Subway)               print "    u_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
+  else                      print "    u_to City_", Avenue, "_", Left, "_", Right, ",^";
+  if (Avenue > First_Ave)   print "    n_to Storm_", (Avenue - 2), "_", Left, "_", Right, ",^";
+  if (Avenue < Last_Ave)    print "    s_to Storm_", (Avenue + 2), "_", Left, "_", Right, ",^";
+
+  ! Special cases.
+  if (Avenue == 20 && Left == 23) print "    w_to Storm_Junction_20_23,^";
+  if (Avenue == 20 && Left == 29) print "    w_to Storm_Junction_20_29,^";
+  if (Avenue == 20 && Left == 37) print "    w_to Storm_Junction_20_37,^";
+  if (Avenue == 30 && Left == 23) print "    w_to Storm_Junction_30_23,^";
+  if (Avenue == 30 && Left == 29) print "    w_to Storm_Junction_30_29,^";
+  if (Avenue == 30 && Left == 37) print "    w_to Storm_Junction_30_37,^";
+  if (Avenue == 32 && Left == 37) print "    s_to Storm_Junction_34_37,^";
+
+  print ";^^";
+];
+
+! Generate a storm drain on a street betweeen two avenues.
+[ StormHalfStreet
+  Street  ! The street being generated.
+  Above   ! The avenue above this room.
+  Below   ! The avenue below this room.
+  Code    ! Code from the Under_Table array.
+  Subway; ! True if there is a subway.
+
+  ! Generate the room code.
+  print "Storm_Class Storm_", Above, "_", Below, "_", Street, " ~";
+  print "Storm Drain below ";
+  PrintHalfStreet(Street, Above, Below);
+  print "~^";
+  print "  with^";
+
+  ! Generate the description.
+  print "    description ~^";
+  if (Subway)                 { print "    Up to the ", (PrintColor) Code, " subway line.@@94^"; }
+  else                        { print "    Up to "; PrintHalfStreet(Street, Above, Below); print ".@@94^"; }
+  if (Street > First_Street)  { print "    West to under "; PrintHalfStreet((Street - 2), Above, Below); print ".@@94^"; }
+  if (Street < Last_Street)   { print "    East to under "; PrintHalfStreet((Street + 2), Above, Below); print ".@@94^"; }
+  print "    ~,^";
+
+  ! Generate the directions.
+  if (Subway)                 print "    u_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
+  else                        print "    u_to City_", Above, "_", Below, "_", Street, ",^";
+  if (Street > First_Street)  print "    w_to Storm_", Above, "_", Below, "_", (Street - 2), ",^";
+  if (Street < Last_Street)   print "    e_to Storm_", Above, "_", Below, "_", (Street + 2), ",^";
+
+  ! Special case.
+  if (Street == 23 && Above == 20) print "    n_to Storm_Junction_20_23,^";
+  if (Street == 23 && Above == 30) print "    n_to Storm_Junction_30_23,^";
+  if (Street == 29 && Above == 20) print "    n_to Storm_Junction_20_29,^";
+  if (Street == 29 && Above == 30) print "    n_to Storm_Junction_30_29,^";
+  if (Street == 37 && Above == 20) print "    n_to Storm_Junction_20_37,^";
+  if (Street == 37 && Above == 30) print "    n_to Storm_Junction_30_37,^";
+  if (Street == 21 && Above == 20) print "    w_to Storm_Junction_20_19,^";
+
+  print ";^^";
+];
+! ------------------------------------------------------------------------------
+! Generate the city streets
 ! ------------------------------------------------------------------------------
 
 ! Generate a room on an avenue between two streets.
 [ RoomHalfAve
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
-  Right;  ! The street to the right of this room.
+  Right   ! The street to the right of this room.
+  Pointer ! Pointer into the Under_Table array.
+  Code    ! Code from the Under_Table array.
+  Subway  ! True if there is a subway.
+  Storm;  ! True if there is a storm drain.
+
+  ! Figure out where in the Under_Table this room is.
+  Pointer = ((Avenue - 19) * 19) + (Left - 19);
+  Code = Under_Table-->Pointer;
+  if (Code == 'S') Storm = true;
+  if (Code > 97) { Storm = true; Code = Code - 32; }
+  if (Code == 'B' or 'G' or 'O') Subway = true;
 
   ! Generate the room code.
   print "City_Class City_", Avenue, "_", Left, "_", Right, " ~";
@@ -121,29 +259,40 @@ Constant Last_Street = 37;
 
   ! Generate the description.
   print "    description ~^";
-  if (Left >= First_Street) {
-    print "    West to ";  PrintIntersection(Avenue, Left); print ".@@94^";
-  }
-  if (Right <= Last_Street) {
-    print "    East to ";  PrintIntersection(Avenue, Right); print ".@@94^";
-  }
+  if (Left >= First_Street || (Left == 19 && Avenue == 20))
+                            { print "    West to "; PrintIntersection(Avenue, Left); print ".@@94^"; }
+  if (Right <= Last_Street) { print "    East to "; PrintIntersection(Avenue, Right); print ".@@94^"; }
+  if (Subway)               { print "    Down to the ", (PrintColor) Code, " subway line.@@94^"; }
+  if (Storm && ~~ Subway)   { print "    Down to the storm drain.@@94^"; }
   print "    ~,^";
 
   ! Generate the directions.
-  if (Left >= First_Street) {
-    print "    w_to City_", Avenue, "_", Left, ",^";
-  }
-  if (Right <= Last_Street) {
-    print "    e_to City_", Avenue, "_", Right, ",^";
-  }
+  if (Left >= First_Street || (Left == 19 && Avenue == 20))
+                            print "    w_to City_", Avenue, "_", Left, ",^";
+  if (Right <= Last_Street) print "    e_to City_", Avenue, "_", Right, ",^";
+  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
+  if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Left, "_", Right, ",^";
   print ";^^";
+
+  if (Storm) StormHalfAve(Avenue, Left, Right, Code, Subway);
 ];
 
 ! Generate a room on a street betweeen two avenues.
 [ RoomHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
-  Below;  ! The avenue below this room.
+  Below   ! The avenue below this room.
+  Pointer ! Pointer into the Under_Table array.
+  Code    ! Code from the Under_Table array.
+  Subway  ! True if there is a subway.
+  Storm;  ! True if there is a storm drain.
+
+  ! Figure out where in the Under_Table this room is.
+  Pointer = ((Above - 18) * 19) + (Street - 20);
+  Code = Under_Table-->Pointer;
+  if (Code == 'S') Storm = true;
+  if (Code > 97) { Storm = true; Code = Code - 32; }
+  if (Code == 'B' or 'G' or 'O') Subway = true;
 
   ! Generate the room code.
   print "City_Class City_", Above, "_", Below, "_", Street, " ~";
@@ -153,28 +302,39 @@ Constant Last_Street = 37;
 
   ! Generate the description.
   print "    description ~^";
-  if  (Above >= First_Ave) {
-    print "    North to "; PrintIntersection(Above, Street); print ".@@94^";
-  }
-  if (Below <= Last_Ave) {
-    print "    South to "; PrintIntersection(Below, Street); print ".@@94^";
-  }
+  if (Above >= First_Ave)   { print "    North to "; PrintIntersection(Above, Street); print ".@@94^"; }
+  if (Below <= Last_Ave || (Street == 37 && Below == 34))
+                            { print "    South to "; PrintIntersection(Below, Street); print ".@@94^"; }
+  if (Subway)               { print "    Down to the ", (PrintColor) Code, " subway line.@@94^"; }
+  if (Storm && ~~ Subway)   { print "    Down to the storm drain.@@94^"; }
   print "    ~,^";
 
   ! Generate the directions.
-  if  (Above >= First_Ave) {
-    print "    n_to City_", Above, "_", Street, ",^";
-  }
-  if (Below <= Last_Ave) {
-    print "    s_to City_", Below, "_", Street, ",^";
-  }
+  if (Above >= First_Ave)   print "    n_to City_", Above, "_", Street, ",^";
+  if (Below <= Last_Ave || (Street == 37 && Below == 34))
+                            print "    s_to City_", Below, "_", Street, ",^";
+  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
+  if (Storm && ~~ Subway)   print "    d_to Storm_", Above, "_", Below, "_", Street, ",^";
   print ";^^";
+
+  if (Storm) StormHalfStreet(Street, Above, Below, Code, Subway);
 ];
 
 ! Generate a room at an intersection.
 [ RoomIntersection
   Avenue  ! The avenue being generated.
-  Street; ! The street being generated.
+  Street  ! The street being generated.
+  Pointer ! Pointer into the Under_Table array.
+  Code    ! Code from the Under_Table array.
+  Subway  ! True if there is a subway.
+  Storm;  ! True if there is a storm drain.
+
+  ! Figure out where in the Under_Table this room is.
+  Pointer = ((Avenue - 19) * 19) + (Street - 20);
+  Code = Under_Table-->Pointer;
+  if (Code == 'S') Storm = true;
+  if (Code > 97) { Storm = true; Code = Code - 32; }
+  if (Code == 'B' or 'G' or 'O') Subway = true;
 
   ! Generate the room code.
   print "City_Class City_", Avenue, "_", Street, " ~";
@@ -183,20 +343,28 @@ Constant Last_Street = 37;
   print "  with^";
 
   ! Generate the description.
-  print "    description ~^";
-  print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
-  print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
-  print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".@@94^";
-  print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".@@94^";
+                            print "    description ~^";
+                            print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
+                            print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
+                            print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".@@94^";
+                            print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".@@94^";
+  if (Subway)               print "    Down to the ", (PrintColor) Code, " subway line.@@94^";
+  if (Storm && ~~ Subway)   print "    Down to the storm drain.@@94^";
   print "    ~,^";
 
   ! Generate the directions.
-  print "    n_to City_", (Avenue - 2),"_", Avenue, "_", Street, ",^";
-  print "    s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
-  print "    w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
-  print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
+                            print "    n_to City_", (Avenue - 2),"_", Avenue, "_", Street, ",^";
+                            print "    s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
+                            print "    w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
+                            print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
+  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, "_", (Street + 2), ",^";
+  if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Street, "_", (Street + 2), ",^";
   print ";^^";
 ];
+
+! ------------------------------------------------------------------------------
+! Generate the rooms of the city
+! ------------------------------------------------------------------------------
 
 [ GenerateRooms
     Avenue
@@ -229,6 +397,10 @@ Constant Last_Street = 37;
 ! Main function for running the tests.
 [ Main;
   ! print "Generating the city map code.^^";
+
+  ! Print a warning at the top of the file.
+  print "! Warning! This file is generated from the file 'Utilities/gencity.inf'.^";
+  print "! DO NOT EDIT THIS FILE BY HAND.^^";
 
   GenerateRooms();
 ];
