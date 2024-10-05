@@ -68,6 +68,11 @@ Class Room_Class
 Class Dark_Room_Class
 ;
 
+! City streets.
+Class City_Class
+  has light
+;
+
 ! Object the player can posess.
 Class Item_Class
 ;
@@ -85,6 +90,9 @@ Class Door_Class
 ! ------------------------------------------------------------------------------
 ! The world
 ! ------------------------------------------------------------------------------
+
+! Include the City source file here.
+Include "city";
 
 ! Starting Area
 Room_Class Start_Room "Empty Alley Dead End"
@@ -161,7 +169,8 @@ Room_Class Start_Alley "Empty Alley"
      "An empty alley.^
       To the north is an intersection.^
       To the south is a dead end.",
-    s_to Start_Room
+    s_to Start_Room,
+    n_to City_28_25_27,
 ;
 
 Tape_Cassette_Class -> Tape_1 "tape #1"

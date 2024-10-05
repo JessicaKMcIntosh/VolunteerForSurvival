@@ -57,6 +57,7 @@ The following deviations are made:
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
 * [Source/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzunitzy.h) - A unit testing library.
 * [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
+* [Utilities/gencity.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/gencity.inf) - Generates the file `Source/city.h` file. Must be built with Docker or on Unix.
 * [Extensions/betatest.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/betatest.h) - Adds commands for best testing to record the output of the game with comments.
 * [Extensions/istring.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/istring.h) - A strings library used for checking the printed output in unit tests.
 
@@ -93,6 +94,15 @@ The following deviations are made:
   <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/examples/>
 
 ## Compiling Volunteer For Survival
+
+### Compiling with Docker
+
+The build process will attempt to use [Docker](https://www.docker.com/) if installed.
+The build script will create a new image `vts:0.0`.
+This image uses Debian stable and installs the packages `frotz` `inform6-compiler`.
+Using Docker greatly simplifies the process and is the recommended method.
+
+Compiling outside of Docker will be depreciated once I test it under Linux.
 
 ### Compiling under Windows
 

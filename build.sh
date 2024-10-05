@@ -32,6 +32,8 @@ TESTCOUNT=0
 
 # Build the game and tests.
 function RunAll {
+    RunCity
+    echo ""
     RunBuild
     echo ""
     RunBuildtest
@@ -51,6 +53,16 @@ function RunBuildtest {
     CompileFile "unit.inf"
 }
 
+# Build the city.h file.
+function RunCity {
+    echo "Building ${APPNAME} city.h..."
+    DeleteFile "Utilities/gencity.z5"
+    DeleteFile "Source/city.h"
+    CompileFile "Utilities/gencity.inf" "Utilities/gencity.z5"
+    $INTERPRETER -m -p -q Utilities/gencity.z5 > Source/city.h
+    DeleteFile "Utilities/gencity.z5"
+}
+
 # Cleanup build artifacts.
 function RunClean {
     echo "Cleaning ${APPNAME}..."
@@ -63,7 +75,7 @@ function RunClean {
 function RunDebug {
     echo "Building ${APPNAME}..."
     DeleteFile "vts.z5"
-    CompileFile "vts.inf" "-D"
+    CompileFile "-D" "vts.inf"
 }
 
 # Run the integration tests.
@@ -129,6 +141,7 @@ function ShowHelp {
     echo ""
     echo "Commands:"
     echo "all   - Build the game and the unit tests."
+    echo "city  - Build the city.h file."
     echo "build - Builds the ${APPNAME} game. (Default)"
     echo "clean - Delete all built files."
     echo "integ - Run the integration tests."
@@ -142,10 +155,8 @@ function ShowHelp {
 #       -----===== Helper functions. ======------
 
 # Compile a file.
-# %1 - The file to compile.
-# %2 - Any extra compile options.
 function CompileFile {
-    ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S $2 $1
+    ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S $@
 }
 
 # Delete a file if it exists.
@@ -179,22 +190,23 @@ if [[ "$#" -eq "0" ]] ; then
     echo "See '$0 help' for more information."
     echo ""
     RunBuild
+    exit
 fi
 
 # Figure out what we were given on the command line.
 while [[ "$#" -gt "0" ]] ; do
-    if  [[ "$1" = "all"   ]] then RunAll   ; fi
-    if  [[ "$1" = "build" ]] then RunBuild ; fi
-    if  [[ "$1" = "clean" ]] then RunClean ; fi
-    if  [[ "$1" = "debug" ]] then RunDebug ; fi
-    if  [[ "$1" = "integ" ]] then RunInteg ; fi
-    if  [[ "$1" = "unit"  ]] then RunUnit  ; fi
-    if  [[ "$1" = "test"  ]] then RunTests ; fi
-    if  [[ "$1" = "tests" ]] then RunTests ; fi
-    if  [[ "$1" = "help"  ]] then ShowHelp ; fi
-    if  [[ "$1" = "/?"    ]] then ShowHelp ; fi
-    if  [[ "$1" = "/h"    ]] then ShowHelp ; fi
-    if  [[ "$1" = "-h"    ]] then ShowHelp ; fi
+    if  [[ "$1" = "all"   ]] then RunAll    ; fi
+    if  [[ "$1" = "city"  ]] then RunCity   ; fi
+    if  [[ "$1" = "build" ]] then RunBuild  ; fi
+    if  [[ "$1" = "clean" ]] then RunClean  ; fi
+    if  [[ "$1" = "debug" ]] then RunDebug  ; fi
+    if  [[ "$1" = "integ" ]] then RunInteg  ; fi
+    if  [[ "$1" = "unit"  ]] then RunUnit   ; fi
+    if  [[ "$1" = "test"  ]] then RunTests  ; fi
+    if  [[ "$1" = "tests" ]] then RunTests  ; fi
+    if  [[ "$1" = "help"  ]] then ShowHelp  ; fi
+    if  [[ "$1" = "/?"    ]] then ShowHelp  ; fi
+    if  [[ "$1" = "/h"    ]] then ShowHelp  ; fi
+    if  [[ "$1" = "-h"    ]] then ShowHelp  ; fi
     shift
 done
-exit

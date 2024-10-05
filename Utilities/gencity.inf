@@ -42,9 +42,9 @@ Release 0;
 
 ! City grid layout.
 Constant First_Ave = 20;
-Constant Last_Ave = 22; !32;
+Constant Last_Ave = 32;
 Constant First_Street = 21;
-Constant Last_Street = 23; !37;
+Constant Last_Street = 37;
 
 ! ------------------------------------------------------------------------------
 ! Helper code
@@ -114,7 +114,7 @@ Constant Last_Street = 23; !37;
   Right;  ! The street to the right of this room.
 
   ! Generate the room code.
-  print "CITY_CLASS City_", Avenue, "_", Left, "_", Right, " ~";
+  print "City_Class City_", Avenue, "_", Left, "_", Right, " ~";
   PrintHalfAve(Avenue, Left, Right);
   print "~^";
   print "  with^";
@@ -122,10 +122,10 @@ Constant Last_Street = 23; !37;
   ! Generate the description.
   print "    description ~^";
   if (Left >= First_Street) {
-    print "    West to ";  PrintIntersection(Avenue, Left); print ".^";
+    print "    West to ";  PrintIntersection(Avenue, Left); print ".@@94^";
   }
   if (Right <= Last_Street) {
-    print "    East to ";  PrintIntersection(Avenue, Right); print ".^";
+    print "    East to ";  PrintIntersection(Avenue, Right); print ".@@94^";
   }
   print "    ~,^";
 
@@ -146,7 +146,7 @@ Constant Last_Street = 23; !37;
   Below;  ! The avenue below this room.
 
   ! Generate the room code.
-  print "CITY_CLASS City_", Above, "_", Below, "_", Street, " ~";
+  print "City_Class City_", Above, "_", Below, "_", Street, " ~";
   PrintHalfStreet(Street, Above, Below);
   print "~^";
   print "  with^";
@@ -154,10 +154,10 @@ Constant Last_Street = 23; !37;
   ! Generate the description.
   print "    description ~^";
   if  (Above >= First_Ave) {
-    print "    North to "; PrintIntersection(Above, Street); print ".^";
+    print "    North to "; PrintIntersection(Above, Street); print ".@@94^";
   }
   if (Below <= Last_Ave) {
-    print "    South to "; PrintIntersection(Below, Street); print ".^";
+    print "    South to "; PrintIntersection(Below, Street); print ".@@94^";
   }
   print "    ~,^";
 
@@ -177,17 +177,17 @@ Constant Last_Street = 23; !37;
   Street; ! The street being generated.
 
   ! Generate the room code.
-  print "CITY_CLASS City_", Avenue, "_", Street, " ~";
+  print "City_Class City_", Avenue, "_", Street, " ~";
   PrintIntersection(Avenue, Street);
   print "~^";
   print "  with^";
 
   ! Generate the description.
   print "    description ~^";
-  print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".^";
-  print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".^";
-  print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".^";
-  print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".^";
+  print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
+  print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
+  print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".@@94^";
+  print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".@@94^";
   print "    ~,^";
 
   ! Generate the directions.
@@ -205,7 +205,6 @@ Constant Last_Street = 23; !37;
   ! Loop over the avenues and streets to generate the city grid.
   for (Avenue = First_Ave: Avenue <= Last_Ave: Avenue = Avenue + 2) {
     for (Street = First_Street: Street <= Last_Street: Street = Street + 2) {
-      print ">>", Avenue, " - ", Street,"<<^";
       RoomIntersection(Avenue, Street);
 
       ! Generate the half Avenue room to the left of the current Street.
@@ -229,7 +228,7 @@ Constant Last_Street = 23; !37;
 
 ! Main function for running the tests.
 [ Main;
-  print "Generating the city map code.^^";
+  ! print "Generating the city map code.^^";
 
   GenerateRooms();
 ];
