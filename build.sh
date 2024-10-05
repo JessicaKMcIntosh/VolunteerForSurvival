@@ -3,8 +3,14 @@
 # See the README file for details.
 
 # Compiler setting:
-INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
-#INFORM_COMPILER="inform" # Use this line for the system compiler.
+#INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
+INFORM_COMPILER="inform" # Use this line for the system compiler.
+
+# Debian likes to put games like Frotz in '/usr/games/' and then not add this
+# directory to the PATH.
+if [[ -d "/usr/games" ]] ; then
+    PATH="$PATH:/usr/games";
+fi
 
 # If using the local compiler make sure it is executable.
 if [[ "$INFORM_COMPILER" = "./inform6/inform" &&  ! -x "$INFORM_COMPILER" ]] ; then

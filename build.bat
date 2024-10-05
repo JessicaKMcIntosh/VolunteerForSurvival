@@ -22,6 +22,30 @@ SET APPNAME=Volunteer For Survival
 REM The output file for the integration test results.
 SET INTEGOUT=integ_results.txt
 
+REM The name of the docker image.
+SET DOCKERIMAGE=vts:0.0
+
+REM Check if Docker is installed and should be used.
+SET USEDOCKER=no
+docker --help > NUL 2>&1
+IF %ERRORLEVEL% EQU 0 (
+    ECHO Docker detected...
+    SET USEDOCKER=yes
+)
+
+REM Did the user disable Docker.
+IF /I -%1-==-/D- (
+    SET USEDOCKER=no
+)
+
+REM If we are using Docker make sure the image exists.
+IF %USEDOCKER% == yes CALL :DockerBuildImage
+
+REM If using Docker then run the build there.
+IF %USEDOCKER% == yes GOTO :DockerRun
+
+REM       -----===== Process Command Line ======------
+
 REM Check for a command line argument.
 REM If none just run the build.
 IF -%1-==-- (
@@ -160,6 +184,9 @@ REM Show some help text.
     ECHO help  - Display this help text. Also /H or /?
     ECHO tests - Build and run all tests for %APPNAME%.
     ECHO unit  - Build then run the %APPNAME% unit tests.
+    ECHO.
+    ECHO Options:
+    ECHO /D    - Do not use Docker, even if it is available.
     GOTO exitscript
 
 REM       -----===== Helper Functions ======------
@@ -204,6 +231,27 @@ REM %2 - The string to write.
         set <NUL /p="%~2 "
         ECHO %~2>> %1%
     )
+    EXIT /B
+
+REM       -----===== Docker Functions ======------
+
+REM Build the Docker image if it does not already exist.
+
+:DockerBuildImage
+    SET HASIMAGE=no
+    FOR /F %%F IN ('docker images -q %DOCKERIMAGE%') DO SET HASIMAGE=%%F
+
+    if %HASIMAGE% == no (
+        ECHO Building the Docker Image...
+        docker buildx build --tag %DOCKERIMAGE% - < Dockerfile
+        ECHO Complete.
+    )
+    EXIT /B
+
+REM Run the build in Docker.
+:DockerRun
+    ECHO Running the build in Docker...
+    docker run --rm -t -v "%CD%:/src" %DOCKERIMAGE% bash -c -e "cd /src; bash build.sh %1 %2 %3 %4 %5"
     EXIT /B
 
 REM Exit the script.
