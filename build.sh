@@ -56,10 +56,16 @@ function RunBuildtest {
 # Build the city.h file.
 function RunCity {
     echo "Building ${APPNAME} city.h..."
+    echo "Compiling Utilities/gencity.inf..."
     DeleteFile "Utilities/gencity.z5"
-    DeleteFile "Source/city.h"
     CompileFile "Utilities/gencity.inf" "Utilities/gencity.z5"
-    $INTERPRETER -m -p -q Utilities/gencity.z5 > Source/city.h
+    if [[ "$?" -ne "0" ]] ; then
+        echo "Error compiling. Aborting!"
+        exit 1
+    fi
+    echo "Generating Source/city.h..."
+    DeleteFile "Source/city.h"
+    $INTERPRETER -h 100000 -m -p -q -w 100 Utilities/gencity.z5 > Source/city.h
     DeleteFile "Utilities/gencity.z5"
 }
 
