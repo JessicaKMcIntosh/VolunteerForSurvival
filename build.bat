@@ -13,6 +13,9 @@ REM SET COMPILER="inform6"
 REM Set the dfrotz intepreter command for running the tests.
 SET INTERPRETER=inform6\dfrotz
 
+REM The name of this script for help text.
+SET THISSCRIPT=%0
+
 REM Application name for output.
 SET APPNAME=Volunteer For Survival
 
@@ -30,42 +33,44 @@ IF -%1-==-- (
 
 REM Figure out what we were given on the command line.
 :ProcessArgs
-    if /i "%1"=="all"   CALL :RunAll
-    if /i "%1"=="build" CALL :RunBuild
-    if /i "%1"=="clean" CALL :RunClean
-    if /i "%1"=="debug" CALL :RunDebug
-    if /i "%1"=="integ" CALL :RunInteg
-    if /i "%1"=="unit"  CALL :RunUnit
-    if /i "%1"=="test"  CALL :RunTests
-    if /i "%1"=="tests" CALL :RunTests
-    if /i "%1"=="help"  CALL :ShowHelp
-    if /i "%1"=="/?"    CALL :ShowHelp
-    if /i "%1"=="/h"    CALL :ShowHelp
-    if /i "%1"=="-h"    CALL :ShowHelp
+    IF /I "%1"=="all"   CALL :RunAll
+    IF /I "%1"=="build" CALL :RunBuild
+    IF /I "%1"=="clean" CALL :RunClean
+    IF /I "%1"=="debug" CALL :RunDebug
+    IF /I "%1"=="integ" CALL :RunInteg
+    IF /I "%1"=="unit"  CALL :RunUnit
+    IF /I "%1"=="test"  CALL :RunTests
+    IF /I "%1"=="tests" CALL :RunTests
+    IF /I "%1"=="help"  CALL :ShowHelp
+    IF /I "%1"=="/?"    CALL :ShowHelp
+    IF /I "%1"=="/h"    CALL :ShowHelp
+    IF /I "%1"=="-h"    CALL :ShowHelp
     shift
-    if not -%1-==-- goto ProcessArgs
+    IF NOT -%1-==-- GOTO ProcessArgs
     GOTO exitscript
+
+REM       -----===== Build Functions ======------
 
 REM Build the game and tests.
 :RunAll
     CALL :RunBuild
     ECHO.
     CALL :RunBuildtest
-    EXIT /b
+    EXIT /B
 
 REM Build the game.
 :RunBuild
     ECHO Building %APPNAME%...
     CALL :DeleteFile "vts.z5"
     CALL :CompileFile "vts.inf"
-    EXIT /b
+    EXIT /B
 
 REM Built the tests.
 :RunBuildtest
     ECHO Building %APPNAME% unit tests...
     CALL :DeleteFile "unit.z5"
     CALL :CompileFile "unit.inf"
-    EXIT /b
+    EXIT /B
 
 REM Cleanup build artifacts.
 :RunClean
@@ -73,14 +78,14 @@ REM Cleanup build artifacts.
     CALL :DeleteFile "vts.z5"
     CALL :DeleteFile "unit.z5"
     CALL :DeleteFile "%INTEGOUT%"
-    EXIT /b
+    EXIT /B
 
 REM Build the game with debug enabled.
 :RunDebug
     ECHO Building %APPNAME%...
     CALL :DeleteFile "vts.z5"
     CALL :CompileFile "vts.inf" "-D"
-    EXIT /b
+    EXIT /B
 
 REM Run the integration tests.
 :RunInteg
@@ -104,7 +109,7 @@ REM Run the integration tests.
         ECHO Tests have failed: %ERRORCOUNT% out of %TESTCOUNT% tests
         ECHO See the file '%INTEGOUT%' for more information.
     )
-    EXIT /b
+    EXIT /B
 
 REM Run an integration test.
 :RunIntegTest
@@ -120,7 +125,7 @@ REM Run an integration test.
         SET /A ERRORCOUNT = %ERRORCOUNT% + 1
     )
     DEL Tests\temp.txt
-    EXIT /b
+    EXIT /B
 
 REM Run the unit tests.
 :RunUnit
@@ -129,19 +134,22 @@ REM Run the unit tests.
     ECHO Running %APPNAME% unit tests...
     ECHO. | %INTERPRETER% -h 100 -p -Z 2 unit.z5
     ECHO.
-    EXIT /b
+    EXIT /B
 
 REM Run the tests.
 :RunTests
     ECHO Running %APPNAME% tests...
     CALL :RunUnit
     CALL :RunInteg
-    EXIT /b
+    EXIT /B
+
+REM       -----===== Help Text ======------
 
 REM Show some help text.
 :ShowHelp
     ECHO %APPNAME% Windows Build Script
     ECHO Performs build tasks for %APPNAME%.
+    ECHO Usage %THISSCRIPT% [OPTIONS] COMMAND(s)
     ECHO.
     ECHO Commands:
     ECHO all   - Build the game and the unit tests.
@@ -149,19 +157,19 @@ REM Show some help text.
     ECHO clean - Delete all built files.
     ECHO integ - Run the integration tests.
     ECHO debug - Build the game with debug enabled.
-    ECHO help  - Display this help text.
+    ECHO help  - Display this help text. Also /H or /?
     ECHO tests - Build and run all tests for %APPNAME%.
     ECHO unit  - Build then run the %APPNAME% unit tests.
     GOTO exitscript
 
-REM       -----===== Helper functions. ======------
+REM       -----===== Helper Functions ======------
 
 REM Compile a file.
 REM %1 - The file to compile.
 REM %2 - Any extra compile options.
 :CompileFile
     %COMPILER% +inform6 ++Extensions ++Source -S %~2 %~1
-    EXIT /b
+    EXIT /B
 
 REM Delete a file if it exists.
 REM %1 - The file to delete.
@@ -169,7 +177,7 @@ REM %1 - The file to delete.
     IF EXIST %1 (
         DEL %1
     )
-    EXIT /b
+    EXIT /B
 
 REM Write a string to STDOUT and the log file.
 REM %1 - The file to write the string to.
@@ -182,7 +190,7 @@ REM %2 - The string to write.
         ECHO %~2
         ECHO %~2>> %1%
     )
-    EXIT /b
+    EXIT /B
 
 REM Write a string to STDOUT and the log file. Special case.
 REM No newline is output to STDOUT and a space is added to the end.
@@ -196,7 +204,7 @@ REM %2 - The string to write.
         set <NUL /p="%~2 "
         ECHO %~2>> %1%
     )
-    EXIT /b
+    EXIT /B
 
 REM Exit the script.
 :exitscript
