@@ -4,6 +4,9 @@
         "*.h": "inform6",
         "LICENSE": "text" // Stop the markdown plugin from complaining.
     },
+    "[inform6]": {
+        "editor.tabSize": 2
+    },
     "cSpell.ignoreWords": [
         "Frotz"
     ],
