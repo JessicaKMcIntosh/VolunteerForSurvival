@@ -108,10 +108,15 @@ Include "storm";
 Room_Class Start_Room "Empty Alley Dead End"
   with
     description
-       "You are laying in a small empty alley.^
-        To the east is a large metal door leading back to the shelter.^
+       "To the east is a large metal door leading back to the shelter.^
         Next to the door, built into the wall, is a drop box.^
         To the north is more of the empty alley.",
+    initial [;
+      print "^";
+      print "You are laying in a small empty alley.^";
+      print "You feel a hard object in your pocket.";
+      print "^";
+    ],
     e_to Start_Metal_Door,
     n_to Start_Alley,
     in_to Start_Metal_Door
@@ -149,7 +154,7 @@ Scenery_Class -> Start_Drop_Box "Drop Box"
 Lamp_Class -> -> Camping_Lantern "camping lantern"
 ;
 
-Item_Class -> -> Crowbar "crowbar"
+Item_Class -> -> Crowbar "orange crowbar"
   with
     name 'crowbar' 'orange',
     description "An odly familiar orange crowbar.",

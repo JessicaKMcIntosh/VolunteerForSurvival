@@ -31,7 +31,20 @@ Constant Help_Text_General
   Examples are LOOK, EXAMINE, OPEN, TAKE and so on.^
   ^
   To get help on a topic or object type 'HELP TOPIC'.^
-  To get a list of words used in the game type 'HELP WORDS'.^";
+  To get a list of words used in the game type 'HELP WORDS'.
+  If you are completely lost type 'HELP FIRST'.^";
+Constant Help_Text_First_Steps
+ "There are the first steps to start your exploration.^
+  ^
+  PLAY^
+  INVENTORY^
+  OPEN BOX^
+  TAKE ALL^
+  NORTH^
+  ^
+  TAKE ALL^
+  PLAY #1^
+  NORTH^";
 Constant Help_Text_Notword "That is not a valid word in this game.^";
 Constant Help_Text_Unknown "Help is not available on this topic.^";
 Constant Help_Text_Words
@@ -90,6 +103,7 @@ Global Help_Topic_Word = nothing;
         'close':    print (string) Help_Text_Word_Close;
         'eat':      print (string) Help_Text_Word_Eat;
         'examine':  print (string) Help_Text_Word_Examine;
+        'first':    print (string) Help_Text_First_Steps;
         'go':       print (string) Help_Text_Word_Go;
         'inventory':print (string) Help_Text_Word_Inventory;
         'look':     print (string) Help_Text_Word_Look;
