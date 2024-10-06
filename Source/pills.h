@@ -47,7 +47,9 @@ Class Pills_Class
     description
      "Bottle of Agalsirodine pills.^
       Warning, not for human consumption.^
-      Will cause memory loss, hallucinations and brain damage.",
+      Will cause memory loss, hallucinations and brain damage.^
+      ^
+      The label says to take one pill regularly to avoid mind control.",
     number PILLS_DEFAULT_COUNT,
     time_left PILLS_DURATION,
     invent [;
