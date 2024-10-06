@@ -125,15 +125,23 @@ The files required are included in the subdirectory `inform6`.
 
 ### Compiling under Unix
 
-The files required are included in the subdirectory `inform6`.
-
-* Run the build.sh file \
-  `sh ./build.sh`
-
-If the included files do not work:
+Linux generally has the inform6 package available for install.
+It is recommended to install the package.
 
 * WARNING: Do not use the old Inform 6.31 version under Linux.
-  Download the latest version and compile from source.
+  If this is the only version available for your version of Linux then
+  download the latest version and compile from source.
+
+To buld VTS:
+
+* Run the build.sh file \
+  `bash ./build.sh`
+
+There is a version of the inform compiler for Linux included.
+To use this version edit the file `build.sh` and see the variable `INFORM_COMPILER`.
+
+To install the latest version of the compiler from source:
+
 * Download the Inform 6 compiler source .tar.gz file from:
   <http://www.ifarchive.org/if-archive/infocom/compilers/inform6/source/>
   As of writing this the current file is: inform-6.41-r1.tar.gz
@@ -145,8 +153,6 @@ If the included files do not work:
 * Change to the VTS folder and update the file `build.sh`.
   Change the comment for the variable `INFORM_COMPILER`.
 
-* Run the build.sh file \
-  `sh ./build.sh`
 
 ### Compiling using Visual Studio Code
 
@@ -154,6 +160,7 @@ Using the included build shell or batch files:
 
 * Run the task `Build VTS Game`. This is the default build task.
 * The task `Run VTS Tests` will build and run the tests. This is the default test task.
+* Run the task `Build VTS Game DEBUG` to compile VTS with DEBUG enabled.
 
 Using the 'Inform 6' extension:
 
