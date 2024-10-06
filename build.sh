@@ -36,7 +36,7 @@ function RunAll {
     echo ""
     RunBuild
     echo ""
-    RunBuildtest
+    RunBuildUnit
 }
 
 # Build the game.
@@ -47,10 +47,10 @@ function RunBuild {
 }
 
 # Built the tests.
-function RunBuildtest {
+function RunBuildUnit {
     echo "Building ${APPNAME} unit tests..."
-    DeleteFile "unit.z5"
-    CompileFile "unit.inf"
+    DeleteFile "Utilities/unit.z5"
+    CompileFile "Utilities/unit.inf" "Utilities/unit.z5"
 }
 
 # Build the city.h file.
@@ -73,7 +73,7 @@ function RunCity {
 function RunClean {
     echo "Cleaning ${APPNAME}..."
     DeleteFile "vts.z5"
-    DeleteFile "unit.z5"
+    DeleteFile "Utilities/unit.z5"
     DeleteFile "${INTEGOUT}"
 }
 
@@ -126,10 +126,11 @@ function RunIntegTest {
 
 # Run the unit tests.
 function RunUnit {
-    RunBuildtest
+    RunBuildUnit
     echo ""
     echo "Running ${APPNAME} unit tests..."
-    echo "" | ${INTERPRETER} -h 100 -p -Z 2 unit.z5
+    # -h 100000 -m -p -q -w 100
+    echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 Utilities/unit.z5
     echo ""
 }
 

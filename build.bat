@@ -79,7 +79,7 @@ REM Build the game and tests.
 :RunAll
     CALL :RunBuild
     ECHO.
-    CALL :RunBuildtest
+    CALL :RunBuildUnit
     EXIT /B
 
 REM Build the game.
@@ -90,17 +90,17 @@ REM Build the game.
     EXIT /B
 
 REM Built the tests.
-:RunBuildtest
+:RunBuildUnit
     ECHO Building %APPNAME% unit tests...
-    CALL :DeleteFile "unit.z5"
-    CALL :CompileFile "unit.inf"
+    CALL :DeleteFile "Utilities/unit.z5"
+    CALL :CompileFile "Utilities/unit.inf" "Utilities/unit.z5"
     EXIT /B
 
 REM Cleanup build artifacts.
 :RunClean
     ECHO Cleaning %APPNAME%...
     CALL :DeleteFile "vts.z5"
-    CALL :DeleteFile "unit.z5"
+    CALL :DeleteFile "Utilities/unit.z5"
     CALL :DeleteFile "%INTEGOUT%"
     EXIT /B
 
@@ -108,7 +108,7 @@ REM Build the game with debug enabled.
 :RunDebug
     ECHO Building %APPNAME%...
     CALL :DeleteFile "vts.z5"
-    CALL :CompileFile "vts.inf" "-D"
+    CALL :CompileFile "-D" "vts.inf"
     EXIT /B
 
 REM Run the integration tests.
@@ -153,10 +153,10 @@ REM Run an integration test.
 
 REM Run the unit tests.
 :RunUnit
-    CALL :RunBuildtest
+    CALL :RunBuildUnit
     ECHO.
     ECHO Running %APPNAME% unit tests...
-    ECHO. | %INTERPRETER% -h 100 -p -Z 2 unit.z5
+    ECHO. | %INTERPRETER% -h 100 -p -Z 2 Utilities/unit.z5
     ECHO.
     EXIT /B
 
@@ -192,10 +192,8 @@ REM Show some help text.
 REM       -----===== Helper Functions ======------
 
 REM Compile a file.
-REM %1 - The file to compile.
-REM %2 - Any extra compile options.
 :CompileFile
-    %COMPILER% +inform6 ++Extensions ++Source -S %~2 %~1
+    %COMPILER% +inform6 ++Extensions ++Source -S %~1 %~2  %~3  %~4
     EXIT /B
 
 REM Delete a file if it exists.
