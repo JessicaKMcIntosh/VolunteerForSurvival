@@ -264,6 +264,7 @@ Array Under_Table -->
   if (Right <= Last_Street) { print "    East to "; PrintIntersection(Avenue, Right); print ".@@94^"; }
   if (Subway)               { print "    Down to the ", (PrintColor) Code, " subway line.@@94^"; }
   if (Storm && ~~ Subway)   { print "    Down to the storm drain.@@94^"; }
+  if (Avenue == 28 && Left == 25 && Right == 27) print "    South to a suspiciously empty alley.@@94^";
   print "    ~,^";
 
   ! Generate the directions.
@@ -272,6 +273,7 @@ Array Under_Table -->
   if (Right <= Last_Street) print "    e_to City_", Avenue, "_", Right, ",^";
   if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
   if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Left, "_", Right, ",^";
+  if (Avenue == 28 && Left == 25 && Right == 27) print "    s_to Start_Alley,^";
   print ";^^";
 
   if (Storm) StormHalfAve(Avenue, Left, Right, Code, Subway);

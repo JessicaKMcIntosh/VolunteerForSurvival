@@ -1701,9 +1701,11 @@ City_Class City_28_25_27 "28th Ave between 25th St and 27th St"
     description "
     West to 28th Ave and 25th St.^
     East to 28th Ave and 27th St.^
+    South to a suspiciously empty alley.^
     ",
     w_to City_28_25,
     e_to City_28_27,
+    s_to Start_Alley,
 ;
 
 City_Class City_26_28_27 "27th St between 26th Ave and 28th Ave"
@@ -1753,9 +1755,9 @@ City_Class City_26_28_29 "29th St between 26th Ave and 28th Ave"
 City_Class City_28_31 "28th Ave and 31st St"
   with
     description "
+
     North to 31st St between 26th Ave and 28th Ave.^
     South to 31st St between 28th Ave and 30th Ave.^
-
     West to 28th Ave between 29th St and 31st St.^
     East to 28th Ave between 31st St and 33rd St.^
     ",
@@ -1913,9 +1915,9 @@ City_Class City_28_37_39 "28th Ave between 37th St and 39th St"
     West to 28th Ave and 37th St.^
     Down to the storm drain.^
     ",
+
     w_to City_28_37,
     d_to Storm_28_37_39,
-
 ;
 
 Storm_Class Storm_28_37_39 "Storm Drain below 28th Ave between 37th St and 39th St"
@@ -2073,9 +2075,9 @@ City_Class City_30_25_27 "30th Ave between 25th St and 27th St"
 
 City_Class City_28_30_27 "27th St between 28th Ave and 30th Ave"
   with
+
     description "
     North to 28th Ave and 27th St.^
-
     South to 30th Ave and 27th St.^
     ",
     n_to City_28_27,
@@ -2233,9 +2235,9 @@ City_Class City_28_30_35 "35th St between 28th Ave and 30th Ave"
     North to 28th Ave and 35th St.^
     South to 30th Ave and 35th St.^
     ",
+
     n_to City_28_35,
     s_to City_30_35,
-
 ;
 
 City_Class City_30_37 "30th Ave and 37th St"
@@ -2393,9 +2395,9 @@ Storm_Class Storm_30_32_23 "Storm Drain below 23rd St between 30th Ave and 32nd 
     East to under 25th St between 30th Ave and 32nd Ave.^
     ",
     u_to City_30_32_23,
+
     w_to Storm_30_32_21,
     e_to Storm_30_32_25,
-
     n_to Storm_Junction_30_23,
 ;
 
@@ -2553,9 +2555,9 @@ City_Class City_32_27_29 "32nd Ave between 27th St and 29th St"
     West to 32nd Ave and 27th St.^
     East to 32nd Ave and 29th St.^
     ",
+
     w_to City_32_27,
     e_to City_32_29,
-
 ;
 
 City_Class City_30_32_29 "29th St between 30th Ave and 32nd Ave"
@@ -2713,6 +2715,7 @@ City_Class City_32_34_33 "33rd St between 32nd Ave and 34th Ave"
     North to 32nd Ave and 33rd St.^
     ",
     n_to City_32_33,
+
 ;
 
 City_Class City_32_35 "32nd Ave and 35th St"
