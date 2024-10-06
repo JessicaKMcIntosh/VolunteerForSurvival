@@ -2,11 +2,15 @@
 
 It’s been five years since the aliens invaded earth. We got an early warning of their approach so we were prepared. Shelters were built to house people during the conflict. Unfortunately, due to hubris, the world governments expected to defeat the aliens quickly. As a result the shelters were only intended to last for a decade. Thanks to overcrowding, the supplies have nearly run out. For the past year volunteers have been sent out to collect supplies. You are only the latest.
 
-VTS is a survival horror text adventure game. You are tasked with finding supplies to keep the shelter going.
+Welcome to Vololtol city.
 
 Can you survive the alien wasteland and make it back to the shelter?
 
-See the map file `Map/vfs_map.png` for a map of Vololtol city.
+VTS is a survival horror text adventure game. You are tasked with finding supplies to keep the shelter going.
+
+![Map of Vololtol city](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vfs_map.png?raw=true)
+
+See the map file [Map/vfs_map.png](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vfs_map.png).
 
 ## Playing Volunteer For Survival
 
@@ -50,7 +54,7 @@ The following deviations are made:
 ### Source Files
 
 * [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.
-* [test_vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/test_vts.inf) - The Inform game file for the unit tests.
+* [Utilities/unit.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/unit.inf) - The Inform game file for the unit tests.
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - Storm drain junctions.
