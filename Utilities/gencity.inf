@@ -47,6 +47,14 @@ Constant First_Street = 21;
 Constant Last_Street = 37;
 
 ! ------------------------------------------------------------------------------
+! Globals
+! ------------------------------------------------------------------------------
+
+Global Code;    ! The code from Under_Table for the current location.
+Global Storm;   ! The current location has a Storm Drain.
+Global Subway;  ! The cirrent location has a Subway.
+
+! ------------------------------------------------------------------------------
 ! Subway and Storm Drain table
 ! ------------------------------------------------------------------------------
 
@@ -76,23 +84,34 @@ Array Under_Table -->
 ! Helper Routines
 ! ------------------------------------------------------------------------------
 
-! Return the code from Under_Table for the given location.
-[ GetTableCode
+! Lookup the current location in Under_Table then set globals.
+[ LookupUnderTable
   Avenue    ! Avenue to lookup.
   Street    ! Street to lookup.
   Pointer;  ! Pointer into the Under_Table array.
 
+  ! Get the code for the current location.
   Pointer = ((Avenue - 19) * 19) + (Street - 20);
-  return Under_Table-->Pointer;
+  Code = Under_Table-->Pointer;
+
+  ! This location has a Storm Drain.
+  if (Code == 'S') Storm = true;
+  else Storm = false;
+
+  ! A Storm drain and a Subway.
+  ! Set Code to the uppercase letter.
+  if (Code > 97) { Storm = true; Code = Code - 32; }
+
+  ! This location has a Subway.
+  if (Code == 'B' or 'G' or 'O') Subway = true;
+  else Subway = false;
 ];
 
 [ NumberSuffix
-  Number
-  Remainder;
+  Number;
 
-  Remainder = Number % 10;
   print Number;
-  switch (Remainder) {
+  switch (Number % 10) {
     1:        print "st";
     2:        print "nd";
     3:        print "rd";
@@ -106,12 +125,12 @@ Array Under_Table -->
   Left    ! The street to the left of this room.
   Right;  ! The street to the right of this room.
 
-  NumberSuffix(Avenue);
-  print " Ave between ";
-  NumberSuffix(Left);
-  print " St and ";
-  NumberSuffix(Right);
-  print " St";
+  print (NumberSuffix) Avenue,
+        " Ave between ",
+        (NumberSuffix) Left,
+        " St and ",
+        (NumberSuffix) Right,
+        " St";
 ];
 
 ! Print the name of a street between two Avenues.
@@ -120,12 +139,12 @@ Array Under_Table -->
   Above   ! The avenue above this room.
   Below;  ! The avenue below this room.
 
-  NumberSuffix(Street);
-  print " St between ";
-  NumberSuffix(Above);
-  print " Ave and ";
-  NumberSuffix(Below);
-  print " Ave";
+  print (NumberSuffix) Street,
+        " St between ",
+        (NumberSuffix) Above,
+        " Ave and ",
+        (NumberSuffix) Below,
+        " Ave";
 ];
 
 ! Print the name of an intersection.
@@ -133,10 +152,10 @@ Array Under_Table -->
   Avenue  ! The avenue being generated.
   Street; ! The street being generated.
 
-  NumberSuffix(Avenue);
-  print " Ave and ";
-  NumberSuffix(Street);
-  print " St";
+  print (NumberSuffix) Avenue,
+        " Ave and ",
+        (NumberSuffix) Street,
+        " St";
 ];
 
 ! Print the color of a subway from the code.
@@ -158,9 +177,7 @@ Array Under_Table -->
 [ StormHalfAvenue
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
-  Right   ! The street to the right of this room.
-  Code    ! Code from the Under_Table array.
-  Subway; ! True if there is a subway.
+  Right;  ! The street to the right of this room.
 
   print "Storm_Class Storm_", Avenue, "_", Left, "_", Right, " ~";
   print "Storm Drain below ";
@@ -198,9 +215,7 @@ Array Under_Table -->
 [ StormHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
-  Below   ! The avenue below this room.
-  Code    ! Code from the Under_Table array.
-  Subway; ! True if there is a subway.
+  Below;  ! The avenue below this room.
 
   ! Generate the room code.
   print "Storm_Class Storm_", Above, "_", Below, "_", Street, " ~";
@@ -242,17 +257,12 @@ Array Under_Table -->
 [ CityHalfAvenue
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
-  Right   ! The street to the right of this room.
-  Code    ! Code from the Under_Table array.
-  Subway  ! True if there is a subway.
-  Storm;  ! True if there is a storm drain.
+  Right;  ! The street to the right of this room.
+
 
   ! Figure out where in the Under_Table this room is.
   ! Offset the street over to our actual loation in the table.
-  Code = GetTableCode(Avenue, (Left + 1));
-  if (Code == 'S') Storm = true;
-  if (Code > 97) { Storm = true; Code = Code - 32; }
-  if (Code == 'B' or 'G' or 'O') Subway = true;
+  LookupUnderTable(Avenue, (Left + 1));
 
   ! Generate the room code.
   print "City_Class City_", Avenue, "_", Left, "_", Right, " ~";
@@ -276,27 +286,24 @@ Array Under_Table -->
   if (Right <= Last_Street) print "    e_to City_", Avenue, "_", Right, ",^";
   if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
   if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Left, "_", Right, ",^";
+
+  ! Special case.
   if (Avenue == 28 && Left == 25 && Right == 27) print "    s_to Start_Alley,^";
+
   print ";^^";
 
-  if (Storm) StormHalfAvenue(Avenue, Left, Right, Code, Subway);
+  if (Storm) StormHalfAvenue(Avenue, Left, Right);
 ];
 
 ! Generate a room on a street betweeen two avenues.
 [ CityHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
-  Below   ! The avenue below this room.
-  Code    ! Code from the Under_Table array.
-  Subway  ! True if there is a subway.
-  Storm;  ! True if there is a storm drain.
+  Below;  ! The avenue below this room.
 
   ! Figure out where in the Under_Table this room is.
   ! Offset the avenue down one to our actual location in the table.
-  Code = GetTableCode((Above + 1), Street);
-  if (Code == 'S') Storm = true;
-  if (Code > 97) { Storm = true; Code = Code - 32; }
-  if (Code == 'B' or 'G' or 'O') Subway = true;
+  LookupUnderTable((Above + 1), Street);
 
   ! Generate the room code.
   print "City_Class City_", Above, "_", Below, "_", Street, " ~";
@@ -319,24 +326,19 @@ Array Under_Table -->
                             print "    s_to City_", Below, "_", Street, ",^";
   if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
   if (Storm && ~~ Subway)   print "    d_to Storm_", Above, "_", Below, "_", Street, ",^";
+
   print ";^^";
 
-  if (Storm) StormHalfStreet(Street, Above, Below, Code, Subway);
+  if (Storm) StormHalfStreet(Street, Above, Below);
 ];
 
 ! Generate a room at an intersection.
 [ CityIntersection
   Avenue  ! The avenue being generated.
-  Street  ! The street being generated.
-  Code    ! Code from the Under_Table array.
-  Subway  ! True if there is a subway.
-  Storm;  ! True if there is a storm drain.
+  Street; ! The street being generated.
 
   ! Figure out where in the Under_Table this room is.
-  Code = GetTableCode(Avenue, Street);
-  if (Code == 'S') Storm = true;
-  if (Code > 97) { Storm = true; Code = Code - 32; }
-  if (Code == 'B' or 'G' or 'O') Subway = true;
+  LookupUnderTable(Avenue, Street);
 
   ! Generate the room code.
   print "City_Class City_", Avenue, "_", Street, " ~";
@@ -361,6 +363,7 @@ Array Under_Table -->
                             print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
   if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, ",^";
   if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Street, "_", (Street + 2), ",^";
+
   print ";^^";
 ];
 
