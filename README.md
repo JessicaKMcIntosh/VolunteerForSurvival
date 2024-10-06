@@ -6,6 +6,8 @@ VTS is a survival horror text adventure game. You are tasked with finding suppli
 
 Can you survive the alien wasteland and make it back to the shelter?
 
+See the map file `Map/vfs_map.png` for a map of Vololtol city.
+
 ## Playing Volunteer For Survival
 
 Playing VTS Online:
