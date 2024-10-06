@@ -119,7 +119,7 @@ Array Under_Table -->
   NumberSuffix(Street);
   print " St between ";
   NumberSuffix(Above);
-  print "Ave and ";
+  print " Ave and ";
   NumberSuffix(Below);
   print " Ave";
 ];
@@ -357,7 +357,7 @@ Array Under_Table -->
                             print "    s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
                             print "    w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
                             print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
-  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, "_", (Street + 2), ",^";
+  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, ",^";
   if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Street, "_", (Street + 2), ",^";
   print ";^^";
 ];
