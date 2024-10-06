@@ -31,12 +31,6 @@
 !   Storm_30_32_27        Storm drain on 27th St between 20th Ave and 32nd Ave.
 
 ! ------------------------------------------------------------------------------
-! TODO
-! ------------------------------------------------------------------------------
-! 20th ave to Subway junction
-! 37th street to Subway juction
-
-! ------------------------------------------------------------------------------
 ! Meta Data
 ! ------------------------------------------------------------------------------
 
@@ -82,6 +76,16 @@ Array Under_Table -->
 ! Helper Routines
 ! ------------------------------------------------------------------------------
 
+! Return the code from Under_Table for the given location.
+[ GetTableCode
+  Avenue    ! Avenue to lookup.
+  Street    ! Street to lookup.
+  Pointer;  ! Pointer into the Under_Table array.
+
+  Pointer = ((Avenue - 19) * 19) + (Street - 20);
+  return Under_Table-->Pointer;
+];
+
 [ NumberSuffix
   Number
   Remainder;
@@ -97,7 +101,7 @@ Array Under_Table -->
 ];
 
 ! Print the name of an Avenue between two Streets.
-[ PrintHalfAve
+[ PrintHalfAvenue
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
   Right;  ! The street to the right of this room.
@@ -151,7 +155,7 @@ Array Under_Table -->
 ! ------------------------------------------------------------------------------
 
 ! Generate a storm drain on an avenue between two streets.
-[ StormHalfAve
+[ StormHalfAvenue
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
   Right   ! The street to the right of this room.
@@ -160,16 +164,16 @@ Array Under_Table -->
 
   print "Storm_Class Storm_", Avenue, "_", Left, "_", Right, " ~";
   print "Storm Drain below ";
-  PrintHalfAve(Avenue, Left, Right);
+  PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
   print "  with^";
 
   ! Generate the description.
   print "    description ~^";
   if (Subway)               { print "    Up to the ", (PrintColor) Code, " subway line.@@94^"; }
-  else                      { print "    Up to "; PrintHalfAve(Avenue, Left, Right); print ".@@94^"; }
-  if (Avenue > First_Ave)   { print "    North to under "; PrintHalfAve((Avenue - 2), Left, Right); print ".@@94^"; }
-  if (Avenue < Last_Ave)    { print "    South to under "; PrintHalfAve((Avenue + 2), Left, Right); print ".@@94^"; }
+  else                      { print "    Up to "; PrintHalfAvenue(Avenue, Left, Right); print ".@@94^"; }
+  if (Avenue > First_Ave)   { print "    North to under "; PrintHalfAvenue((Avenue - 2), Left, Right); print ".@@94^"; }
+  if (Avenue < Last_Ave)    { print "    South to under "; PrintHalfAvenue((Avenue + 2), Left, Right); print ".@@94^"; }
   print "    ~,^";
 
   ! Generate the directions.
@@ -235,25 +239,24 @@ Array Under_Table -->
 ! ------------------------------------------------------------------------------
 
 ! Generate a room on an avenue between two streets.
-[ RoomHalfAve
+[ CityHalfAvenue
   Avenue  ! The avenue being generated.
   Left    ! The street to the left of this room.
   Right   ! The street to the right of this room.
-  Pointer ! Pointer into the Under_Table array.
   Code    ! Code from the Under_Table array.
   Subway  ! True if there is a subway.
   Storm;  ! True if there is a storm drain.
 
   ! Figure out where in the Under_Table this room is.
-  Pointer = ((Avenue - 19) * 19) + (Left - 19);
-  Code = Under_Table-->Pointer;
+  ! Offset the street over to our actual loation in the table.
+  Code = GetTableCode(Avenue, (Left + 1));
   if (Code == 'S') Storm = true;
   if (Code > 97) { Storm = true; Code = Code - 32; }
   if (Code == 'B' or 'G' or 'O') Subway = true;
 
   ! Generate the room code.
   print "City_Class City_", Avenue, "_", Left, "_", Right, " ~";
-  PrintHalfAve(Avenue, Left, Right);
+  PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
   print "  with^";
 
@@ -276,22 +279,21 @@ Array Under_Table -->
   if (Avenue == 28 && Left == 25 && Right == 27) print "    s_to Start_Alley,^";
   print ";^^";
 
-  if (Storm) StormHalfAve(Avenue, Left, Right, Code, Subway);
+  if (Storm) StormHalfAvenue(Avenue, Left, Right, Code, Subway);
 ];
 
 ! Generate a room on a street betweeen two avenues.
-[ RoomHalfStreet
+[ CityHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
   Below   ! The avenue below this room.
-  Pointer ! Pointer into the Under_Table array.
   Code    ! Code from the Under_Table array.
   Subway  ! True if there is a subway.
   Storm;  ! True if there is a storm drain.
 
   ! Figure out where in the Under_Table this room is.
-  Pointer = ((Above - 18) * 19) + (Street - 20);
-  Code = Under_Table-->Pointer;
+  ! Offset the avenue down one to our actual location in the table.
+  Code = GetTableCode((Above + 1), Street);
   if (Code == 'S') Storm = true;
   if (Code > 97) { Storm = true; Code = Code - 32; }
   if (Code == 'B' or 'G' or 'O') Subway = true;
@@ -323,17 +325,15 @@ Array Under_Table -->
 ];
 
 ! Generate a room at an intersection.
-[ RoomIntersection
+[ CityIntersection
   Avenue  ! The avenue being generated.
   Street  ! The street being generated.
-  Pointer ! Pointer into the Under_Table array.
   Code    ! Code from the Under_Table array.
   Subway  ! True if there is a subway.
   Storm;  ! True if there is a storm drain.
 
   ! Figure out where in the Under_Table this room is.
-  Pointer = ((Avenue - 19) * 19) + (Street - 20);
-  Code = Under_Table-->Pointer;
+  Code = GetTableCode(Avenue, Street);
   if (Code == 'S') Storm = true;
   if (Code > 97) { Storm = true; Code = Code - 32; }
   if (Code == 'B' or 'G' or 'O') Subway = true;
@@ -348,8 +348,8 @@ Array Under_Table -->
                             print "    description ~^";
                             print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
                             print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
-                            print "    West to ";  PrintHalfAve(Avenue, (Street - 2), Street); print ".@@94^";
-                            print "    East to ";  PrintHalfAve(Avenue, Street, (Street + 2)); print ".@@94^";
+                            print "    West to ";  PrintHalfAvenue(Avenue, (Street - 2), Street); print ".@@94^";
+                            print "    East to ";  PrintHalfAvenue(Avenue, Street, (Street + 2)); print ".@@94^";
   if (Subway)               print "    Down to the ", (PrintColor) Code, " subway line.@@94^";
   if (Storm && ~~ Subway)   print "    Down to the storm drain.@@94^";
   print "    ~,^";
@@ -375,22 +375,23 @@ Array Under_Table -->
   ! Loop over the avenues and streets to generate the city grid.
   for (Avenue = First_Ave: Avenue <= Last_Ave: Avenue = Avenue + 2) {
     for (Street = First_Street: Street <= Last_Street: Street = Street + 2) {
-      RoomIntersection(Avenue, Street);
+      ! Generate the intersection of the Avenue and Street.
+      CityIntersection(Avenue, Street);
 
       ! Generate the half Avenue room to the left of the current Street.
-      RoomHalfAve(Avenue, (Street - 2), Street);
+      CityHalfAvenue(Avenue, (Street - 2), Street);
 
       ! Generate the half Street above the current Avenue.
-      RoomHalfStreet(Street, (Avenue - 2), Avenue);
+      CityHalfStreet(Street, (Avenue - 2), Avenue);
 
       ! On the last Street generate the half Avenue to the right.
       if (Street >= Last_Street) {
-        RoomHalfAve(Avenue, Street, (Street + 2));
+        CityHalfAvenue(Avenue, Street, (Street + 2));
       }
 
       ! On the last Avenue generate the half Street below.
       if (Avenue >= Last_Ave) {
-        RoomHalfStreet(Street, Avenue, (Avenue + 2));
+        CityHalfStreet(Street, Avenue, (Avenue + 2));
       }
     }
   }
