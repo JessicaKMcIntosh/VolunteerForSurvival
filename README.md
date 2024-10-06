@@ -153,7 +153,6 @@ To install the latest version of the compiler from source:
 * Change to the VTS folder and update the file `build.sh`.
   Change the comment for the variable `INFORM_COMPILER`.
 
-
 ### Compiling using Visual Studio Code
 
 Using the included build shell or batch files:
