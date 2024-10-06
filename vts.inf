@@ -22,7 +22,19 @@ Serial "230914";
 Constant Story "Volunteer For Survival";
 Constant Headline
  "^A survival horror text adventure game.^
-  By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>^^";
+  By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>^
+  ^
+  It's been five years since the aliens invaded earth. We got an early warning^
+  of their approach so we were prepared. Shelters were built to house people^
+  during the conflict. Unfortunately, due to hubris, the world governments^
+  expected to defeat the aliens quickly. As a result the shelters were only^
+  intended to last for a decade. Thanks to overcrowding, the supplies have^
+  nearly run out. For the past year volunteers have been sent out to collect^
+  supplies. You are only the latest.^
+  ^
+  Welcome to Vololtol city.^
+  ^
+  Can you survive the alien wasteland and make it back to the shelter?^^";
 Constant OBJECT_SCORE 1;
 Constant MAX_SCORE = 6;
 
@@ -39,6 +51,7 @@ Include "grammar";
 ! Game specific libraries.
 Include "help";
 Include "lamp";
+Include "loot";
 Include "pills";
 Include "tape";
 Include "xyzzy";
