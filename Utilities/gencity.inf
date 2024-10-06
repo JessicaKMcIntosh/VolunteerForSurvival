@@ -230,7 +230,7 @@ Array Under_Table -->
   if (Street == 29 && Above == 30) print "    n_to Storm_Junction_30_29,^";
   if (Street == 37 && Above == 20) print "    n_to Storm_Junction_20_37,^";
   if (Street == 37 && Above == 30) print "    n_to Storm_Junction_30_37,^";
-  if (Street == 21 && Above == 20) print "    w_to Storm_Junction_20_19,^";
+  if (Street == 21 && Above == 20) print "    n_to Storm_Junction_20_19,^";
 
   print ";^^";
 ];

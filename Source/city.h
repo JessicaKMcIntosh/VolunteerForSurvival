@@ -387,7 +387,7 @@ Storm_Class Storm_20_22_21 "Storm Drain below 21st St between 20th Ave and 22nd 
     ",
     u_to Subway_Orange_20_22_21,
     e_to Storm_20_22_23,
-    w_to Storm_Junction_20_19,
+    n_to Storm_Junction_20_19,
 ;
 
 City_Class City_22_23 "22nd Ave and 23rd St"
