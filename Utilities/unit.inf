@@ -40,7 +40,7 @@ Include "testtape";
 ! ------------------------------------------------------------------------------
 
 ! Fake player.
-Object Fake_Player "Fake Player"
+Class Fake_Player(1)
 ;
 
 ! ------------------------------------------------------------------------------
@@ -51,7 +51,8 @@ Object Fake_Player "Fake Player"
 ! Resets state for each test so they all have the same starting point.
 [ PrepareObjects;
   ! Prepare the player.
-  player = Fake_Player;
+  if (player ~= nothing) Fake_Player.destroy(player);
+  player = Fake_Player.create();
   deadflag = 0;
 
   ! Prepare action processing.
@@ -70,11 +71,6 @@ Object Fake_Player "Fake Player"
   ! Other random variables.
   lookmode = 2;
   turns = 0;
-
-  ! Remove everything from the player object.
-  while(child(player)) {
-    remove(child(player));
-  }
 ];
 
 ! ------------------------------------------------------------------------------
