@@ -76,7 +76,9 @@ Object Tape_Not_Tape "Not a Tape"
   Unit_RunTest(_TestTape_CassettePlayed);
 ];
 
-! Test Routines.
+! ------------------------------------------------------------------------------
+! Test Routines
+! ------------------------------------------------------------------------------
 
 [ _TestTape_PlayerCreated;
   print "Verify the tape player was created successfully.^";
@@ -243,7 +245,9 @@ Object Tape_Not_Tape "Not a Tape"
   print "Success...^^";
 ];
 
-! Test Helpers.
+! ------------------------------------------------------------------------------
+! Test Helpers
+! ------------------------------------------------------------------------------
 
 [ _TestTape_HelperPlayerBefore;
   Tape_Player.before();

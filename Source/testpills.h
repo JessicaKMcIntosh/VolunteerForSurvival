@@ -39,7 +39,6 @@ Constant Pills_MSG_Number_More "25 pills";
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
-
 Pills_Class Pill_Bottle "pill bottle"
 ;
 
@@ -59,7 +58,9 @@ Pills_Class Pill_Bottle "pill bottle"
   Unit_RunTest(_TestPill_PrintNumber);
 ];
 
-! Test Routines.
+! ------------------------------------------------------------------------------
+! Test Routines
+! ------------------------------------------------------------------------------
 
 [ _TestPill_PillsCreated;
   print "Verify the pill bottle was created successfully.^";
@@ -229,7 +230,9 @@ Pills_Class Pill_Bottle "pill bottle"
   print "Success...^^";
 ];
 
-! Test Helpers.
+! ------------------------------------------------------------------------------
+! Test Helpers
+! ------------------------------------------------------------------------------
 
 [ _TestPill_HelperDaemon;
   Pill_Bottle.daemon();

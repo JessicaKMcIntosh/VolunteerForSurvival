@@ -48,7 +48,9 @@ Lamp_Class Lamp "Lamp"
   Unit_RunTest(_TestLamp_LampSwitch);
 ];
 
-! Test Routines.
+! ------------------------------------------------------------------------------
+! Test Routines
+! ------------------------------------------------------------------------------
 
 [ _TestLamp_LampCreated;
   print "Verify the lamp was created successfully.^";
@@ -134,7 +136,9 @@ Lamp_Class Lamp "Lamp"
   print "Success...^^";
 ];
 
-! Test Helpers.
+! ------------------------------------------------------------------------------
+! Test Helpers
+! ------------------------------------------------------------------------------
 
 [ _TestLamp_HelperBefore;
   Lamp.before();
