@@ -277,11 +277,11 @@ Pills_Class Pill_Bottle "pill bottle"
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
-! Hand the player moving from one dark location to another. (ie. kill them)
+! Handle the player moving from one dark location to another. (ie. kill them)
 [ DarkToDark;
   deadflag = 1;
-  "You have been attacked by an angry creature in the dark.^
-   As you lay there bleading out you reconsider not using the lantern you were provided.";
+  "You have been attacked by a vicious creature in the dark.^
+   As you lay there bleading out you reconsider not using the lantern.";
 ];
 
 ! ------------------------------------------------------------------------------
