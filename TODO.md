@@ -24,11 +24,11 @@
 
 * (Game Play) Make the use verb work on doors. USE CROWBAR TO OPEN DOOR
 
-* (Game Play) Add a note about feeling the tape player in your pocket to the initial description of the first room.
-
-* (Documentation) Fill in documentation for the new unit testing library.
-
 ## Completed
+
+* (Documentation) Fill in documentation for the new unit testing library. 2024-10-09
+
+* (Game Play) Add a note about feeling the tape player in your pocket to the initial description of the first room. 2024-10-05
 
 * (Building) Add all the build commands to the shell script. 2024-10-01
 
