@@ -39,39 +39,8 @@ Include "testtape";
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
-! Fake player.
-Class Fake_Player(1)
-;
-
-! ------------------------------------------------------------------------------
-! Test Code
-! ------------------------------------------------------------------------------
-
-! Prepare objects for each test.
-! Resets state for each test so they all have the same starting point.
-[ PrepareObjects;
-  ! Prepare the player.
-  if (player ~= nothing) Fake_Player.destroy(player);
-  player = Fake_Player.create();
-  deadflag = 0;
-
-  ! Prepare action processing.
-  action = nothing;
-  inp1 = nothing;
-  inp2 = nothing;
-  noun = nothing;
-  second = nothing;
-
-  ! Prepare the scoring variables.
-  score = 0;
-  last_score = 0;
-  places_score = 0;
-  things_score = 0;
-
-  ! Other random variables.
-  lookmode = 2;
-  turns = 0;
-];
+! Unit testing object.
+Unit_Class Unit "Unit testing object";
 
 ! ------------------------------------------------------------------------------
 ! Run Tests
@@ -85,17 +54,9 @@ Class Fake_Player(1)
 [ Main;
   print "Running tests for VTS.^^";
 
-  ! Run the Lamp tests.
-  PrepareObjects();
-  TestLampRun();
+  ! Run all of the created unit tests.
+  Unit.Run();
 
-  ! Run the Pills tests.
-  PrepareObjects();
-  TestPillRun();
-
-  ! Run the Tape tests.
-  PrepareObjects();
-  TestTapeRun();
-
-  Unit_Report();
+  ! Generate the report.
+  Unit.Report();
 ];

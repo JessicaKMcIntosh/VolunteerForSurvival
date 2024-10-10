@@ -60,6 +60,21 @@
 ! Always fails.
 ! Unit_Fail(ErrorText, Continue);
 ! ------------------------------------------------------------------------------
+! USAGE - Object
+! ------------------------------------------------------------------------------
+! An object interface is provided to make creating and running tests easier.
+! All objects created from the class Unit_Test_Class will be run.
+!
+! Create a unit object to run the tests with.
+! Unit_Class Unit "Unit testing object";
+!
+! Create a unit test object with the property RunTest created to run the tests.
+! Unit_Test_Class Unit_Test "Unit Test"
+!   with
+!     RunTest [;
+!       Unit_AssertTrue(true, "True should always be true.");
+!     ];
+! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
 ! Meta Data
@@ -82,6 +97,62 @@ Global _Unit_Exception;
 Array _Unit_Captured->MAX_STR_LEN;
 Array _Unit_Expected->MAX_STR_LEN;
 #Endif;
+
+! ------------------------------------------------------------------------------
+! Test Objects
+! ------------------------------------------------------------------------------
+
+! Fake player class to make the standard library happy.
+Class Fake_Player(1);
+
+! Class to run the unit tests.
+Class Unit_Class
+  with
+    Run [
+      Test;
+      objectloop (Test ofclass Unit_Test_Class) {
+        Test.Run();
+      }
+    ],
+    Report [;
+      Unit_Report();
+    ];
+
+! Class to create a unit test.
+Class Unit_Test_Class
+  with
+    ! Run this test object.
+    Run [;
+      print "Running Tests for ", (name) self, "...^";
+      self.Initialize();
+      self.RunTest();
+    ],
+    ! Placeholder for the actual tests to be run.
+    RunTest [; ],
+    ! Initialize data so tests run in a normalish environment.
+    Initialize [;
+      ! Prepare the player.
+      if (player ~= nothing) Fake_Player.destroy(player);
+      player = Fake_Player.create();
+      deadflag = 0;
+
+      ! Prepare action processing.
+      action = nothing;
+      inp1 = nothing;
+      inp2 = nothing;
+      noun = nothing;
+      second = nothing;
+
+      ! Prepare the scoring variables.
+      score = 0;
+      last_score = 0;
+      places_score = 0;
+      things_score = 0;
+
+      ! Other random variables.
+      lookmode = 2;
+      turns = 0;
+    ];
 
 ! ------------------------------------------------------------------------------
 ! Interface Subroutines

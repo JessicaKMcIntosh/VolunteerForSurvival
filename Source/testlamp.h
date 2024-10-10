@@ -30,23 +30,22 @@ Constant Lamp_MSG_Description_Off "^You see a Lamp here.";
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
-
+! A lamp object to test.
 Lamp_Class Lamp "Lamp"
 ;
 
-! ------------------------------------------------------------------------------
-! Test Code
-! ------------------------------------------------------------------------------
+! Object to run the tests.
+Unit_Test_Class Lamp_Tests "Lamp library"
+  with
+    RunTest [;
+      ! Prepare test objects.
+      move Lamp to player;
 
-[ TestLampRun;
-  ! Prepare test objects.
-  move Lamp to player;
-
-  ! Run the tests.
-  print "Testing the Lamp library.^^";
-  Unit_RunTest(_TestLamp_LampCreated);
-  Unit_RunTest(_TestLamp_LampSwitch);
-];
+      ! Run the tests.
+      Unit_RunTest(_TestLamp_LampCreated);
+      Unit_RunTest(_TestLamp_LampSwitch);
+    ],
+;
 
 ! ------------------------------------------------------------------------------
 ! Test Routines

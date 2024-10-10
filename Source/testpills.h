@@ -39,24 +39,24 @@ Constant Pills_MSG_Number_More "25 pills";
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
+! Pill bottle object to test.
 Pills_Class Pill_Bottle "pill bottle"
 ;
 
-! ------------------------------------------------------------------------------
-! Test Code
-! ------------------------------------------------------------------------------
+! Object to run the tests.
+Unit_Test_Class Pill_Tests "Pills library"
+  with
+    RunTest [;
+      ! Prepare test objects.
+      move Pill_Bottle to player;
 
-[ TestPillRun;
-  ! Prepare test objects.
-  move Pill_Bottle to player;
-
-  ! Run the tests.
-  print "Testing the Pills library.^^";
-  Unit_RunTest(_TestPill_PillsCreated);
-  Unit_RunTest(_TestPill_Daemon);
-  Unit_RunTest(_TestPill_EatPill);
-  Unit_RunTest(_TestPill_PrintNumber);
-];
+      ! Run the tests.
+      Unit_RunTest(_TestPill_PillsCreated);
+      Unit_RunTest(_TestPill_Daemon);
+      Unit_RunTest(_TestPill_EatPill);
+      Unit_RunTest(_TestPill_PrintNumber);
+    ],
+;
 
 ! ------------------------------------------------------------------------------
 ! Test Routines

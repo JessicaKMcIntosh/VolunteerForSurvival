@@ -38,9 +38,11 @@ Constant Tape_MSG_Play_Wrong "Can not play 'Not a Tape'. It is not a cassette ta
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
+! Tape player object to test.
 Tape_Player_Class Tape_Player "Tape Player"
 ;
 
+! A tape to test the tape player with.
 Tape_Cassette_Class Tape_1 "cassette tape first"
   with
     name 'cassette' 'tape',
@@ -48,6 +50,7 @@ Tape_Cassette_Class Tape_1 "cassette tape first"
     inside_description "This is the contents of the cassette tape first."
 ;
 
+! A different tape to test te tape player with.
 Tape_Cassette_Class Tape_2 "cassette tape other"
   with
     name 'cassette' 'tape',
@@ -59,22 +62,21 @@ Tape_Cassette_Class Tape_2 "cassette tape other"
 Object Tape_Not_Tape "Not a Tape"
 ;
 
-! ------------------------------------------------------------------------------
-! Test Code
-! ------------------------------------------------------------------------------
+! Object to run the tests.
+Unit_Test_Class Tape_Tests "Tape library"
+  with
+    RunTest [;
+      ! Prepare test objects.
+      move Tape_Player to player;
 
-[ TestTapeRun;
-  ! Prepare test objects.
-  move Tape_Player to player;
-
-  ! Run the tests.
-  print "Testing the Tape library.^^";
-  Unit_RunTest(_TestTape_PlayerCreated);
-  Unit_RunTest(_TestTape_CassetteCreated);
-  Unit_RunTest(_TestTape_CassetteEject);
-  Unit_RunTest(_TestTape_CassetteInventory);
-  Unit_RunTest(_TestTape_CassettePlayed);
-];
+      ! Run the tests.
+      Unit_RunTest(_TestTape_PlayerCreated);
+      Unit_RunTest(_TestTape_CassetteCreated);
+      Unit_RunTest(_TestTape_CassetteEject);
+      Unit_RunTest(_TestTape_CassetteInventory);
+      Unit_RunTest(_TestTape_CassettePlayed);
+    ],
+;
 
 ! ------------------------------------------------------------------------------
 ! Test Routines
