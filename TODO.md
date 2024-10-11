@@ -18,6 +18,8 @@
 
 * (Game Play) Implement the radio.
 
+* (Game Play) Implement the backpack.
+
 * (Game Play) Implement the notebook.
 
 * (Building) Add building a Release ZIP file.

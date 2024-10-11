@@ -54,8 +54,11 @@ The following deviations are made:
 ### Source Files
 
 * [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.
+* [Utilities/gencity.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/gencity.inf) - Generates the file `Source/city.h` file. Must be built with Docker or on Unix.
 * [Utilities/unit.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/unit.inf) - The Inform game file for the unit tests.
+* [Source/city.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/city.h) - The main city map. Generated from `Utilities/gencity.inf`.
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
+* [Source/loot.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/loot.h) - Implementation of loot and loot containing containers.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - Storm drain junctions.
 * [Source/subway.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - The subway stations and junctions.
@@ -65,7 +68,6 @@ The following deviations are made:
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
 * [Source/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzunitzy.h) - A unit testing library.
 * [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
-* [Utilities/gencity.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/gencity.inf) - Generates the file `Source/city.h` file. Must be built with Docker or on Unix.
 * [Extensions/betatest.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/betatest.h) - Adds commands for best testing to record the output of the game with comments.
 * [Extensions/istring.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/istring.h) - A strings library used for checking the printed output in unit tests.
 
