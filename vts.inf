@@ -253,6 +253,9 @@ Pills_Class Pill_Bottle "pill bottle"
 [ Initialise;
   location = Start_Room;
 
+! Setup the loot.
+  SetupLoot();
+
   ! Give the player the microcassette player.
   move Tape_Player to player;
 
