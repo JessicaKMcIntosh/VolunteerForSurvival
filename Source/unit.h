@@ -103,7 +103,8 @@ Array _Unit_Expected->MAX_STR_LEN;
 ! ------------------------------------------------------------------------------
 
 ! Fake player class to make the standard library happy.
-Class Fake_Player(1);
+Class Fake_Player(1)
+  class SelfClass;
 
 ! Class to run the unit tests.
 Class Unit_Class
