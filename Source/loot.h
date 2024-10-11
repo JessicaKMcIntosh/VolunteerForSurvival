@@ -123,7 +123,7 @@ Class Loot_Junk_Spoiled_Canned_Food(Loot_Max_Items)
   with
     name 'can' 'food' 'spoiled',
     short_name "spoiled can of food",
-    description "A worthless spoiled can of food that does not smell good."
+    description "A worthless spoiled can of food that does not smell good.",
     plural "spoiled cans of food",
 ;
 
