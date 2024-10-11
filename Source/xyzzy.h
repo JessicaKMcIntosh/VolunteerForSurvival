@@ -29,6 +29,14 @@ Object XYZZY_Token "XYZZY Token"
   with
     name 'xyzzy' 'token' 'xyzzy_token',
     description "A token given to those that say the magic word.",
+    before [;
+      Rub:
+        if (player notin Start_Room) {
+          print "A magical spell carries you back to the starting room.^";
+          move player to Start_Room;
+          rtrue;
+        }
+    ]
   has scored
 ;
 
