@@ -49,7 +49,7 @@ Constant Help_Text_Notword "That is not a valid word in this game.^";
 Constant Help_Text_Unknown "Help is not available on this topic.^";
 Constant Help_Text_Words
  "These are the words used in this game:^
-  EAT EXAMINE GO INVENTORY OPEN LOOK PLAY SCORE TAKE TURN USE^
+  EAT EXAMINE GO INVENTORY OPEN LOOK PLAY SCORE TAKE TURN UNLOCK USE^
   Directions: NORTH SOUTH EAST WEST UP DOWN^";
 
 ! Help text for specific words.
@@ -70,6 +70,7 @@ Constant Help_Text_Word_Take
   TAKE ALL takes all available objects on ground or from open containers.^";
 Constant Help_Text_Word_Turn "TURN an object on or off.^";
 Constant Help_Text_Word_Score "SCORE shows your current score out of the maximum score.^";
+Constant Help_Text_Word_Unlock "UNLOCK CONTAINER WITH ITEM to unlock a container with a key (crowbar).^";
 Constant Help_Text_Word_Use "USE attempts to do the right thing for an item. Try it.^";
 
 ! ------------------------------------------------------------------------------
@@ -112,6 +113,7 @@ Global Help_Topic_Word = nothing;
         'take':     print (string) Help_Text_Word_Take;
         'turn':     print (string) Help_Text_Word_Turn;
         'score':    print (string) Help_Text_Word_Score;
+        'score':    print (string) Help_Text_Word_Unlock;
         'use':      print (string) Help_Text_Word_Use;
         'words':    print (string) Help_Text_Words;
         default:    print (string) Help_Text_Unknown;
