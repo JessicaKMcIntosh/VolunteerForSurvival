@@ -81,7 +81,7 @@ Class Pills_Class
     daemon [;
       self.time_left--;
 #Ifdef DEBUG;
-      print "^pill time left ", self.time_left, " turns.^";;
+      print "^DEBUG: pill time left ", self.time_left, " turns.^";;
 #Endif;
       if (self.time_left <= 0) {
         deadflag = 1;
