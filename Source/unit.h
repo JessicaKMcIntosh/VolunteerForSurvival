@@ -88,8 +88,11 @@ Message "Loading the Unit library.";
 ! Globals
 ! ------------------------------------------------------------------------------
 
+! Test counts for the report.
 Global Unit_TestCount = 0;
 GLobal Unit_FailCount = 0;
+
+! For throwing and catching.
 Global _Unit_Exception;
 
 ! Only if the istring library is included.
@@ -102,8 +105,8 @@ Array _Unit_Expected->MAX_STR_LEN;
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
-! Fake player class to make the standard library happy.
-Class Fake_Player(1)
+! Player class to make the standard library happy.
+Class Unit_Player(1)
   class SelfClass;
 
 ! Class to run the unit tests.
@@ -133,8 +136,8 @@ Class Unit_Test_Class
     ! Initialize data so tests run in a normalish environment.
     Initialize [;
       ! Prepare the player.
-      if (player ~= nothing) Fake_Player.destroy(player);
-      player = Fake_Player.create();
+      if (player ~= nothing) Unit_Player.destroy(player);
+      player = Unit_Player.create();
       deadflag = 0;
 
       ! Prepare action processing.
