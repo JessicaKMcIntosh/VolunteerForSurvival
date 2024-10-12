@@ -59,6 +59,13 @@ Include "pills";
 Include "tape";
 Include "xyzzy";
 
+! The world.
+Include "classes";
+Include "city";
+Include "subway";
+Include "storm";
+Include "starting";
+
 ! ------------------------------------------------------------------------------
 ! Attributes
 ! ------------------------------------------------------------------------------
