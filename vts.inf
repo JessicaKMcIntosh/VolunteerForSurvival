@@ -178,9 +178,9 @@ Verb 'use'
   * edible      -> Eat
   * openable    -> Open
   * switchable  -> Turn
-  * 'crowbar' noun    -> Crowbar
-  * 'crowbar' locked  -> Crowbar
-  * 'crowbar' 'open'/'on'/'with' noun    -> Crowbar
-  * 'crowbar' 'open'/'on'/'with' locked  -> Crowbar
-  * 'crowbar' 'to' 'open' noun    -> Crowbar
-  * 'crowbar' 'to' 'open' locked  -> Crowbar;
+  * 'crowbar'/'bar'/'crow' noun    -> Crowbar
+  * 'crowbar'/'bar'/'crow' locked  -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' noun    -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' locked  -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open' noun    -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open' locked  -> Crowbar;
