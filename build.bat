@@ -92,15 +92,15 @@ REM Build the game.
 REM Built the tests.
 :RunBuildUnit
     ECHO Building %APPNAME% unit tests...
-    CALL :DeleteFile "Utilities/unit.z5"
-    CALL :CompileFile "Utilities/unit.inf" "Utilities/unit.z5"
+    CALL :DeleteFile "Utilities\unit.z5"
+    CALL :CompileFile "Utilities\unit.inf" "Utilities\unit.z5"
     EXIT /B
 
 REM Cleanup build artifacts.
 :RunClean
     ECHO Cleaning %APPNAME%...
     CALL :DeleteFile "vts.z5"
-    CALL :DeleteFile "Utilities/unit.z5"
+    CALL :DeleteFile "Utilities\unit.z5"
     CALL :DeleteFile "%INTEGOUT%"
     EXIT /B
 
@@ -123,7 +123,7 @@ REM Run the integration tests.
     ECHO.>> %INTEGOUT%
 
     REM Loop over the tests and run each one.
-    FOR %%I IN (Tests/*.rec) DO CALL :RunIntegTest %%~nI
+    FOR %%I IN (Tests\*.rec) DO CALL :RunIntegTest %%~nI
 
     REM Check if there were errors.
     ECHO.
@@ -156,7 +156,7 @@ REM Run the unit tests.
     CALL :RunBuildUnit
     ECHO.
     ECHO Running %APPNAME% unit tests...
-    ECHO. | %INTERPRETER% -h 100 -p -Z 2 Utilities/unit.z5
+    ECHO. | %INTERPRETER% -h 100 -p -Z 2 Utilities\unit.z5
     ECHO.
     EXIT /B
 
