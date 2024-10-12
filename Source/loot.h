@@ -45,7 +45,10 @@ Constant Loot_Max_Items = 10;
 ! The number of treasure and junk classes.
 Constant Loot_Number_Treasure = 5;
 Constant Loot_Number_Junk = 5;
+
+! Number of loot items for the loot tables.
 Constant Loot_Number = (Loot_Number_Treasure + Loot_Number_Junk);
+Constant Loot_Number_Trash = 6;
 Constant Loot_Number_Subway = 4;
 
 ! The number of loot containers of each type to create.
@@ -57,6 +60,9 @@ Constant Loot_Containers = 20;
 
 ! The table of all loot available.
 Array Loot_Table --> (Loot_Number + 1);
+
+! The trash loot table.
+Array Loot_Table_Trash --> (Loot_Number_Trash + 1);
 
 ! The subway loot table.
 Array Loot_Table_Subway --> (Loot_Number_Subway + 1);
@@ -229,10 +235,13 @@ Class Loot_Container_Trash(Loot_Containers)
     rfalse;
   }
 
-  ! Create the loot. Specal case for the Subway.
+  ! Create the loot. Specal case for the Subway and trash cans.
   if (Container ofclass Subway_Class) {
     RandomNumber = random(Loot_Number_Subway);
     RandomClass = Loot_Table_Subway-->RandomNumber;
+  } else if (Container ofclass Loot_Container_Trash) {
+    RandomNumber = random(Loot_Number_Trash);
+    RandomClass = Loot_Table_Trash-->RandomNumber;
   } else {
     RandomClass = Loot_Table-->RandomNumber;
   }
@@ -253,8 +262,6 @@ Class Loot_Container_Trash(Loot_Containers)
 ! Setup the loot.
 [ SetupLoot
   RandomNumber  ! Randomize where mailboxes appear.
-  Mailboxes     ! The number of mailboxes created.
-  TrashCans     ! The number of trash cans to create.
   Container     ! The loot container to place.
   LootLocation; ! The location to place the loot.
 
@@ -274,6 +281,14 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table-->9  = Loot_Junk_Ruined_Office_Supplies;
   Loot_Table-->10 = Loot_Junk_Junk;
 
+  ! Create the loot table.
+  Loot_Table_Trash-->1  = Loot_Treasure_Scrap_Metal;
+  Loot_Table_Trash-->2  = Loot_Junk_Spoiled_Canned_Food;
+  Loot_Table_Trash-->3  = Loot_Junk_Broken_Electronics;
+  Loot_Table_Trash-->4  = Loot_Junk_Rusty_Tools;
+  Loot_Table_Trash-->5  = Loot_Junk_Ruined_Office_Supplies;
+  Loot_Table_Trash-->6  = Loot_Junk_Junk;
+
   ! Create the Subway loot table.
   Loot_Table_Subway-->1  = Loot_Treasure_Scrap_Metal;
   Loot_Table_Subway-->2  = Loot_Treasure_Scrap_Toobox;
@@ -285,14 +300,11 @@ Class Loot_Container_Trash(Loot_Containers)
   #Endif;
 
   ! Generate loot containers.
-  Mailboxes = 1;
-  TrashCans = 1;
   objectloop (LootLocation ofclass City_Class) {
-    RandomNumber = random(5);
+    RandomNumber = random(9);
 
     ! Create a mail drop box.
-    if (RandomNumber == 1 && Mailboxes <= Loot_Containers) {
-      Mailboxes++;
+    if (RandomNumber == 1 && Loot_Container_Mail.remaining() > 0) {
       Container = Loot_Container_Mail.create();
       #Ifdef DEBUG;
         print
@@ -304,8 +316,7 @@ Class Loot_Container_Trash(Loot_Containers)
     }
 
     ! Create a trash can.
-    if (RandomNumber == 5 && TrashCans <= Loot_Containers) {
-      TrashCans++;
+    if (RandomNumber == 5 && Loot_Container_Trash.remaining() > 0) {
       Container = Loot_Container_Trash.create();
       #Ifdef DEBUG;
         print
@@ -322,7 +333,7 @@ Class Loot_Container_Trash(Loot_Containers)
 
   ! Drop some random loot in the subway tunnels.
   objectloop (LootLocation ofclass Subway_Class) {
-    if (random(5) == 1) {
+    if (random(5) == 2) {
       CreateRandomLoot(LootLocation);
       #Ifdef DEBUG;
         print
@@ -334,6 +345,9 @@ Class Loot_Container_Trash(Loot_Containers)
 
   #Ifdef DEBUG;
     print "DEBUG: Loot generation complete.^";
+
+    print (name) Loot_Container_Mail, " has remaining ", Loot_Container_Mail.remaining(),"^";
+    print (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
 
     ! The number of objects that can be created for each loot class.
     for (RandomNumber = 1: RandomNumber <= Loot_Number: RandomNumber++){
