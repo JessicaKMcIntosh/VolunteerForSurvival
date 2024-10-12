@@ -25,21 +25,15 @@ SET INTEGOUT=integ_results.txt
 REM The name of the docker image.
 SET DOCKERIMAGE=vts:0.0
 
-REM Check if Docker is installed and should be used.
-SET USEDOCKER=no
-docker --help > NUL 2>&1
-IF %ERRORLEVEL% EQU 0 (
-    ECHO Docker detected...
-    SET USEDOCKER=yes
-)
-
 REM Did the user disable Docker.
+SET USEDOCKER=yes
 IF /I -%1-==-/D- (
     SET USEDOCKER=no
+    SHIFT
 )
 
-REM If we are using Docker make sure the image exists.
-IF %USEDOCKER% == yes CALL :DockerBuildImage
+REM Check if Docker is installed.
+IF %USEDOCKER% == yes CALL :DockerCheck
 
 REM If using Docker then run the build there.
 IF %USEDOCKER% == yes GOTO :DockerRun
@@ -246,11 +240,30 @@ REM Build the Docker image if it does not already exist.
     )
     EXIT /B
 
+REM Check if Docker is installed.
+:DockerCheck
+    docker --help > NUL 2>&1
+    IF %ERRORLEVEL% EQU 0 (
+        ECHO Docker detected...
+    ) else (
+        SET USEDOCKER=no
+    )
+    EXIT /B
+
 REM Run the build in Docker.
 :DockerRun
+    REM Check if Docker is running.
+    docker stats --no-stream > NUL 2>&1
+    IF %ERRORLEVEL% NEQ 0 (
+        ECHO Docker is not running. Aborting!
+        GOTO :exitscript
+    )
+
+    CALL :DockerBuildImage
+
     ECHO Running the build in Docker...
     docker run --rm -t -v "%CD%:/src" %DOCKERIMAGE% bash -c -e "cd /src; bash build.sh %1 %2 %3 %4 %5"
-    EXIT /B
+    GOTO :exitscript
 
 REM Exit the script.
 :exitscript
