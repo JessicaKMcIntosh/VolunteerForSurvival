@@ -301,6 +301,8 @@ Class Loot_Container_Trash(Loot_Containers)
 
   ! Generate loot containers.
   objectloop (LootLocation ofclass City_Class) {
+    if (LootLocation == City_28_25_27) continue;
+
     RandomNumber = random(9);
 
     ! Create a mail drop box.

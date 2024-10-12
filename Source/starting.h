@@ -24,6 +24,7 @@ Message "Loading the starting area.";
 ! Starting Area
 ! ------------------------------------------------------------------------------
 
+! The room the player spawns into.
 Room_Class Start_Room "Empty Alley Dead End"
   with
     description
@@ -75,7 +76,7 @@ Lamp_Class -> -> Camping_Lantern "camping lantern"
 
 Item_Class -> -> Crowbar "orange crowbar"
   with
-    name 'crowbar' 'orange',
+    name 'bar' 'crow' 'crowbar' 'orange',
     description "An odly familiar orange crowbar.",
   has scored
 ;
@@ -94,9 +95,11 @@ Item_Class -> -> Notebook "small notebook"
   has scored
 ;
 
+! More will be done with this later.
 Dark_Room_Class Shelter_Entrance "Entrance to the government shelter."
 ;
 
+! Second room of the starting area.
 Room_Class Start_Alley "Empty Alley"
   with
     description
@@ -112,5 +115,25 @@ Tape_Cassette_Class -> Tape_1 "tape #1"
     name 'cassette' 'tape' '#1' 'tape_1' 'tape_#1',
     description "A microcassette tape containing a message from another volunteer.",
     inside_description "Send help. There are aliens out here who can read.... <STATIC>",
+  has scored
+;
+
+! Put a mailbox on the first city street.
+Loot_Container_Mail First_Mailbox City_28_25_27
+  with
+    description "A worn mail drop box.",
+    short_name "worn mail drop box",
+  has locked
+;
+
+Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
+  with
+    name 'cassette' 'tape' '#2' 'tape_2' 'tape_#2',
+    description "A microcassette tape containing a message from another volunteer.",
+    inside_description
+     "Jones, make sure you leave some food for me.^
+      I found those things you wanted so you better pay me back.^
+      Some day you need to tell me what the hell a Zork even is.^
+      Ungrateful piece of ...",
   has scored
 ;
