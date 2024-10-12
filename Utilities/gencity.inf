@@ -286,7 +286,8 @@ Array Under_Table -->
   if (Right <= Last_Street) { PrintCarat(); print "    East to "; PrintIntersection(Avenue, Right); print "."; }
   if (Subway)               { PrintCarat(); print "    Down to the ", (PrintColor) Code, " subway line."; }
   if (Storm && ~~ Subway)   { PrintCarat(); print "    Down to the storm drain."; }
-  if (Avenue == 28 && Left == 25 && Right == 27) print "    South to a suspiciously empty alley.";
+  if (Avenue == 28 && Left == 25 && Right == 27)
+                            { PrintCarat(); print "    South to a suspiciously empty alley."; }
   print "^    ~,^";
 
   ! Generate the directions.
