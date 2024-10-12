@@ -65,11 +65,11 @@ REM Figure out what we were given on the command line.
     IF /I "%1"=="unit"  CALL :RunUnit
     IF /I "%1"=="test"  CALL :RunTests
     IF /I "%1"=="tests" CALL :RunTests
-    IF /I "%1"=="help"  CALL :ShowHelp
-    IF /I "%1"=="/?"    CALL :ShowHelp
-    IF /I "%1"=="/h"    CALL :ShowHelp
-    IF /I "%1"=="-h"    CALL :ShowHelp
-    shift
+    IF /I "%1"=="help"  GOTO :ShowHelp
+    IF /I "%1"=="/?"    GOTO :ShowHelp
+    IF /I "%1"=="/h"    GOTO :ShowHelp
+    IF /I "%1"=="-h"    GOTO :ShowHelp
+    SHIFT
     IF NOT -%1-==-- GOTO ProcessArgs
     GOTO exitscript
 
@@ -187,7 +187,7 @@ REM Show some help text.
     ECHO.
     ECHO Options:
     ECHO /D    - Do not use Docker, even if it is available.
-    GOTO exitscript
+    GOTO :exitscript
 
 REM       -----===== Helper Functions ======------
 
