@@ -15,10 +15,10 @@ The following deviations are made:
 The general idea is to be as clear as possible.
 We all have large monitors now so long names, using vertical space and comments are encouraged.
 
-## All contributions are welcome.
+## All contributions are welcome
 
 If you have anything to contribute do so in the way easiest for you.
-Hoever you want to contribute please be clear and spell things out.
+However you want to contribute please be clear and spell things out.
 If you wan to contribute code please follow the existing style.
 Examples are:
 
