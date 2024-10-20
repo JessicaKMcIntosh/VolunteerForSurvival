@@ -53,6 +53,7 @@ REM Figure out what we were given on the command line.
 :ProcessArgs
     IF /I "%1"=="all"   CALL :RunAll
     IF /I "%1"=="build" CALL :RunBuild
+    IF /I "%1"=="city"  CALL :RunCity
     IF /I "%1"=="clean" CALL :RunClean
     IF /I "%1"=="debug" CALL :RunDebug
     IF /I "%1"=="integ" CALL :RunInteg
@@ -90,6 +91,11 @@ REM Built the tests.
     CALL :CompileFile "Utilities\unit.inf" "Utilities\unit.z5"
     EXIT /B
 
+REM Build the City file. (Really prints an error.)
+:RunCity
+    ECHO Docker is required for building the city.h file.
+    EXIT /B
+
 REM Cleanup build artifacts.
 :RunClean
     ECHO Cleaning %APPNAME%...
@@ -107,42 +113,7 @@ REM Build the game with debug enabled.
 
 REM Run the integration tests.
 :RunInteg
-    CALL :RunBuild
-    ECHO.
-    ECHO Running %APPNAME% Integration tests...
-    SET ERRORCOUNT=0
-    SET TESTCOUNT=0
-    CALL :DeleteFile "%INTEGOUT%"
-    ECHO %APPNAME% Integration Test Results>> %INTEGOUT%
-    ECHO.>> %INTEGOUT%
-
-    REM Loop over the tests and run each one.
-    FOR %%I IN (Tests\*.rec) DO CALL :RunIntegTest %%~nI
-
-    REM Check if there were errors.
-    ECHO.
-    if %ERRORCOUNT% EQU 0 (
-        ECHO All tests were successful!
-    ) else (
-        ECHO Tests have failed: %ERRORCOUNT% out of %TESTCOUNT% tests
-        ECHO See the file '%INTEGOUT%' for more information.
-    )
-    EXIT /B
-
-REM Run an integration test.
-:RunIntegTest
-    SET TEST_FILE=%1
-    CALL :WriteStringNoEOL "%INTEGOUT%" "Running Integ Test: %TEST_FILE%..."
-    SET /A TESTCOUNT = %TESTCOUNT% + 1
-    TYPE Tests\%TEST_FILE%.rec | %INTERPRETER% vts.z5 > Tests\temp.txt 2>&1
-    FC /w Tests\%TEST_FILE%.txt Tests\temp.txt >> %INTEGOUT%
-    IF %ERRORLEVEL% EQU 0 (
-        CALL :WriteString "%INTEGOUT%" "Succeeded."
-    ) else (
-        CALL :WriteString "%INTEGOUT%" "Failed!"
-        SET /A ERRORCOUNT = %ERRORCOUNT% + 1
-    )
-    DEL Tests\temp.txt
+    ECHO Docker is required for running the integration tests.
     EXIT /B
 
 REM Run the unit tests.
@@ -172,8 +143,9 @@ REM Show some help text.
     ECHO Commands:
     ECHO all   - Build the game and the unit tests.
     ECHO build - Builds the %APPNAME% game. (Default)
+    ECHO city  - Build the city.h file. (Requires Docker)
     ECHO clean - Delete all built files.
-    ECHO integ - Run the integration tests.
+    ECHO integ - Run the integration tests. (Requires Docker)
     ECHO debug - Build the game with debug enabled.
     ECHO help  - Display this help text. Also /H or /?
     ECHO tests - Build and run all tests for %APPNAME%.
@@ -195,33 +167,6 @@ REM %1 - The file to delete.
 :DeleteFile
     IF EXIST %1 (
         DEL %1
-    )
-    EXIT /B
-
-REM Write a string to STDOUT and the log file.
-REM %1 - The file to write the string to.
-REM %2 - The string to write.
-:WriteString
-    IF -%1-==-- (
-        ECHO.
-        ECHO.>> %1%
-    ) else (
-        ECHO %~2
-        ECHO %~2>> %1%
-    )
-    EXIT /B
-
-REM Write a string to STDOUT and the log file. Special case.
-REM No newline is output to STDOUT and a space is added to the end.
-REM %1 - The file to write the string to.
-REM %2 - The string to write.
-:WriteStringNoEOL
-    IF -%1-==-- (
-        ECHO.
-        ECHO.>> %1%
-    ) else (
-        set <NUL /p="%~2 "
-        ECHO %~2>> %1%
     )
     EXIT /B
 
