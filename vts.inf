@@ -47,7 +47,6 @@ Constant MAX_SCORE = 7;
 
 ! Standard libraries and extensions.
 Include "parser";
-! Include "betatest";
 Include "verblib";
 Include "grammar";
 
@@ -137,10 +136,6 @@ Pills_Class Pill_Bottle "pill bottle"
     https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki^
   ";
 ];
-
-  !   A Beta test utility is present in this game.^
-  !   Enter 'beta test on' to enable the utility.^
-  !   This will turn on the game script.^
 
 ! ------------------------------------------------------------------------------
 ! Subroutines
