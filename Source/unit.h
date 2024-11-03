@@ -65,6 +65,10 @@
 ! An object interface is provided to make creating and running tests easier.
 ! All objects created from the class Unit_Test_Class will be run.
 !
+! If the Inform standard library is included various globals are set before
+! each Unit_Test_Class object is run. Including creating a fake player object.
+! See Unit_Test_Class.Initialize() for details.
+!
 ! Create a unit object to run the tests with.
 ! Unit_Class Unit "Unit testing object";
 !
@@ -106,8 +110,10 @@ Array _Unit_Expected->MAX_STR_LEN;
 ! ------------------------------------------------------------------------------
 
 ! Player class to make the standard library happy.
+#Ifdef LIBRARY_VERSION;
 Class Unit_Player(1)
   class SelfClass;
+Endif;
 
 ! Class to run the unit tests.
 Class Unit_Class
@@ -135,27 +141,30 @@ Class Unit_Test_Class
     RunTest [; ],
     ! Initialize data so tests run in a normalish environment.
     Initialize [;
-      ! Prepare the player.
-      if (player ~= nothing) Unit_Player.destroy(player);
-      player = Unit_Player.create();
-      deadflag = 0;
+      #Ifdef LIBRARY_VERSION;
+        ! Prepare the player.
+        if (player ~= nothing) Unit_Player.destroy(player);
+        player = Unit_Player.create();
+        deadflag = 0;
 
-      ! Prepare action processing.
-      action = nothing;
-      inp1 = nothing;
-      inp2 = nothing;
-      noun = nothing;
-      second = nothing;
+        ! Prepare action processing.
+        action = nothing;
+        inp1 = nothing;
+        inp2 = nothing;
+        noun = nothing;
+        second = nothing;
 
-      ! Prepare the scoring variables.
-      score = 0;
-      last_score = 0;
-      places_score = 0;
-      things_score = 0;
+        ! Prepare the scoring variables.
+        score = 0;
+        last_score = 0;
+        places_score = 0;
+        things_score = 0;
 
-      ! Other random variables.
-      lookmode = 2;
-      turns = 0;
+        ! Other random variables.
+        lookmode = 2;
+        turns = 0;
+      #Endif;
+
     ];
 
 ! ------------------------------------------------------------------------------
