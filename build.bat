@@ -35,6 +35,9 @@ IF /I -%1-==-/D- (
 REM Check if Docker is installed.
 IF %USEDOCKER% == yes CALL :DockerCheck
 
+REM Special case for running an interactive Docker container.
+IF /I "%1"=="docker" GOTO :DockerInteractive
+
 REM If using Docker then run the build there.
 IF %USEDOCKER% == yes GOTO :DockerRun
 
@@ -141,18 +144,19 @@ REM Show some help text.
     ECHO Usage %THISSCRIPT% [OPTIONS] COMMAND(s)
     ECHO.
     ECHO Commands:
-    ECHO all   - Build the game and the unit tests.
-    ECHO build - Builds the %APPNAME% game. (Default)
-    ECHO city  - Build the city.h file. (Requires Docker)
-    ECHO clean - Delete all built files.
-    ECHO integ - Run the integration tests. (Requires Docker)
-    ECHO debug - Build the game with debug enabled.
-    ECHO help  - Display this help text. Also /H or /?
-    ECHO tests - Build and run all tests for %APPNAME%.
-    ECHO unit  - Build then run the %APPNAME% unit tests.
+    ECHO all    - Build the game and the unit tests.
+    ECHO build  - Builds the %APPNAME% game. (Default)
+    ECHO city   - Build the city.h file. (Requires Docker)
+    ECHO clean  - Delete all built files.
+    ECHO docker - Starts an interactive Docker container.
+    ECHO integ  - Run the integration tests. (Requires Docker)
+    ECHO debug  - Build the game with debug enabled.
+    ECHO help   - Display this help text. Also /H or /?
+    ECHO tests  - Build and run all tests for %APPNAME%.
+    ECHO unit   - Build then run the %APPNAME% unit tests.
     ECHO.
     ECHO Options:
-    ECHO /D    - Do not use Docker, even if it is available.
+    ECHO /D     - Do not use Docker, even if it is available.
     GOTO :exitscript
 
 REM       -----===== Helper Functions ======------
@@ -183,6 +187,17 @@ REM Build the Docker image if it does not already exist.
         docker buildx build --tag %DOCKERIMAGE% - < Dockerfile
         ECHO Complete.
     )
+    EXIT /B
+
+REM Starts an interactive Docker container.
+:DockerInteractive
+    @REM IF %USEDOCKER% == no (
+    @REM     ECHO Docker is not installed or is disabled...
+    @REM     EXIT /B
+    @REM )
+    ECHO Starting an interactive Docker container...
+    CALL :DockerBuildImage
+    docker run --rm -i -t -v "%CD%:/src" %DOCKERIMAGE% bash
     EXIT /B
 
 REM Check if Docker is installed.
