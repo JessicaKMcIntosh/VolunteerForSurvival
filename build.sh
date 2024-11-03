@@ -86,7 +86,9 @@ function RunDebug {
 
 # Run the integration tests.
 function RunInteg {
-    RunBuild
+    DeleteFile "vts.z5"
+    echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
+    CompileFile "\$#RANDOM_SEED=-1" "vts.inf"
     echo ""
     echo "Running ${APPNAME} Integration tests..."
     DeleteFile "${INTEGOUT}"
@@ -111,14 +113,15 @@ function RunInteg {
 # Run an integration test.
 function RunIntegTest {
     TEST_FILE="${1%.rec}"
-    WriteStringNoEOL "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
+    WriteStringNoEOL "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}... "
     TESTCOUNT=$((TESTCOUNT + 1))
-    cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -q vts.z5 > Tests/temp.txt 2>&1
-    diff -w "Tests/${TEST_FILE}.rec" Tests/temp.txt > /dev/null
+    cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -m -q vts.z5 > Tests/temp.txt 2>&1
+    diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt > /dev/null
     if [[ "$?" -eq "0" ]] ; then
         WriteString "${INTEGOUT}" "Succeeded."
     else
         WriteString "${INTEGOUT}" "Failed!"
+        diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt >> "${INTEGOUT}"
         ERRORCOUNT=$((ERRORCOUNT + 1))
     fi
     rm -f Tests/temp.txt

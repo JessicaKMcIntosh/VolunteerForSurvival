@@ -110,7 +110,7 @@ Pills_Class Pill_Bottle "pill bottle"
   ! If RANDOM_SEED is defined use it to seed the random number generator.
   ! This is purely for testing purposes.
   #Ifdef RANDOM_SEED;
-    print "Seeding the random number generator.^";
+    print "NOTE: Seeding the random number generator with ", RANDOM_SEED, ".^";
     random(RANDOM_SEED);
   #Endif;
 
