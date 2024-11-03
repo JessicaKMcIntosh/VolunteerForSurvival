@@ -107,6 +107,13 @@ Pills_Class Pill_Bottle "pill bottle"
 [ Initialise;
   location = Start_Room;
 
+  ! If RANDOM_SEED is defined use it to seed the random number generator.
+  ! This is purely for testing purposes.
+  #Ifdef RANDOM_SEED;
+    print "Seeding the random number generator.^";
+    random(RANDOM_SEED);
+  #Endif;
+
   ! Setup the loot.
     SetupLoot();
 
