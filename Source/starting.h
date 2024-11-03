@@ -121,7 +121,7 @@ Tape_Cassette_Class -> Tape_1 "tape #1"
 ! Put a mailbox on the first city street.
 Loot_Container_Mail First_Mailbox City_28_25_27
   with
-    description "A worn mail drop box.",
+    description "A worn mail drop box with an odd inscription on the back.",
     short_name "worn mail drop box",
   has locked
 ;
@@ -136,4 +136,12 @@ Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
       Some day you need to tell me what the hell a Zork even is.^
       Ungrateful piece of ...",
   has scored
+;
+
+! Just a bit of fun.
+Object XYZZY_Inscription "Inscription" City_28_25_27
+  with
+    name 'inscription' 'odd',
+    description "The magic word is XYZZY."
+  has concealed static
 ;
