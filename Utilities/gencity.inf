@@ -189,31 +189,31 @@ Array Under_Table -->
   print "Storm Drain below ";
   PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
-  print "  with^";
+  print "with^";
 
   ! Generate the description.
-  print "    description ~^";
+  print "description^~";
   Carat = false; ! Reset the carat before printing the description.
-  if (Subway)               { PrintCarat(); print "    Up to the ", (PrintColor) Code, " subway line."; }
-  else                      { PrintCarat(); print "    Up to "; PrintHalfAvenue(Avenue, Left, Right); print "."; }
-  if (Avenue > First_Ave)   { PrintCarat(); print "    North to under "; PrintHalfAvenue((Avenue - 2), Left, Right); print "."; }
-  if (Avenue < Last_Ave)    { PrintCarat(); print "    South to under "; PrintHalfAvenue((Avenue + 2), Left, Right); print "."; }
-  print "^    ~,^";
+  if (Subway)               { PrintCarat(); print "Up to the ", (PrintColor) Code, " subway line."; }
+  else                      { PrintCarat(); print "Up to "; PrintHalfAvenue(Avenue, Left, Right); print "."; }
+  if (Avenue > First_Ave)   { PrintCarat(); print "North to under "; PrintHalfAvenue((Avenue - 2), Left, Right); print "."; }
+  if (Avenue < Last_Ave)    { PrintCarat(); print "South to under "; PrintHalfAvenue((Avenue + 2), Left, Right); print "."; }
+  print "~,^";
 
   ! Generate the directions.
-  if (Subway)               print "    u_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
-  else                      print "    u_to City_", Avenue, "_", Left, "_", Right, ",^";
-  if (Avenue > First_Ave)   print "    n_to Storm_", (Avenue - 2), "_", Left, "_", Right, ",^";
-  if (Avenue < Last_Ave)    print "    s_to Storm_", (Avenue + 2), "_", Left, "_", Right, ",^";
+  if (Subway)               print "u_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
+  else                      print "u_to City_", Avenue, "_", Left, "_", Right, ",^";
+  if (Avenue > First_Ave)   print "n_to Storm_", (Avenue - 2), "_", Left, "_", Right, ",^";
+  if (Avenue < Last_Ave)    print "s_to Storm_", (Avenue + 2), "_", Left, "_", Right, ",^";
 
   ! Special cases.
-  if (Avenue == 20 && Left == 23) print "    w_to Storm_Junction_20_23,^";
-  if (Avenue == 20 && Left == 29) print "    w_to Storm_Junction_20_29,^";
-  if (Avenue == 20 && Left == 37) print "    w_to Storm_Junction_20_37,^";
-  if (Avenue == 30 && Left == 23) print "    w_to Storm_Junction_30_23,^";
-  if (Avenue == 30 && Left == 29) print "    w_to Storm_Junction_30_29,^";
-  if (Avenue == 30 && Left == 37) print "    w_to Storm_Junction_30_37,^";
-  if (Avenue == 32 && Left == 37) print "    s_to Storm_Junction_34_37,^";
+  if (Avenue == 20 && Left == 23) print "w_to Storm_Junction_20_23,^";
+  if (Avenue == 20 && Left == 29) print "w_to Storm_Junction_20_29,^";
+  if (Avenue == 20 && Left == 37) print "w_to Storm_Junction_20_37,^";
+  if (Avenue == 30 && Left == 23) print "w_to Storm_Junction_30_23,^";
+  if (Avenue == 30 && Left == 29) print "w_to Storm_Junction_30_29,^";
+  if (Avenue == 30 && Left == 37) print "w_to Storm_Junction_30_37,^";
+  if (Avenue == 32 && Left == 37) print "s_to Storm_Junction_34_37,^";
 
   print ";^^";
 ];
@@ -229,31 +229,31 @@ Array Under_Table -->
   print "Storm Drain below ";
   PrintHalfStreet(Street, Above, Below);
   print "~^";
-  print "  with^";
+  print "with^";
 
   ! Generate the description.
-  print "    description ~^";
+  print "description^~";
   Carat = false; ! Reset the carat before printing the description.
-  if (Subway)                 { PrintCarat(); print "    Up to the ", (PrintColor) Code, " subway line."; }
-  else                        { PrintCarat(); print "    Up to "; PrintHalfStreet(Street, Above, Below); print "."; }
-  if (Street > First_Street)  { PrintCarat(); print "    West to under "; PrintHalfStreet((Street - 2), Above, Below); print "."; }
-  if (Street < Last_Street)   { PrintCarat(); print "    East to under "; PrintHalfStreet((Street + 2), Above, Below); print "."; }
-  print "^    ~,^";
+  if (Subway)                 { PrintCarat(); print "Up to the ", (PrintColor) Code, " subway line."; }
+  else                        { PrintCarat(); print "Up to "; PrintHalfStreet(Street, Above, Below); print "."; }
+  if (Street > First_Street)  { PrintCarat(); print "West to under "; PrintHalfStreet((Street - 2), Above, Below); print "."; }
+  if (Street < Last_Street)   { PrintCarat(); print "East to under "; PrintHalfStreet((Street + 2), Above, Below); print "."; }
+  print "~,^";
 
   ! Generate the directions.
-  if (Subway)                 print "    u_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
-  else                        print "    u_to City_", Above, "_", Below, "_", Street, ",^";
-  if (Street > First_Street)  print "    w_to Storm_", Above, "_", Below, "_", (Street - 2), ",^";
-  if (Street < Last_Street)   print "    e_to Storm_", Above, "_", Below, "_", (Street + 2), ",^";
+  if (Subway)                 print "u_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
+  else                        print "u_to City_", Above, "_", Below, "_", Street, ",^";
+  if (Street > First_Street)  print "w_to Storm_", Above, "_", Below, "_", (Street - 2), ",^";
+  if (Street < Last_Street)   print "e_to Storm_", Above, "_", Below, "_", (Street + 2), ",^";
 
   ! Special case.
-  if (Street == 23 && Above == 20) print "    n_to Storm_Junction_20_23,^";
-  if (Street == 23 && Above == 30) print "    n_to Storm_Junction_30_23,^";
-  if (Street == 29 && Above == 20) print "    n_to Storm_Junction_20_29,^";
-  if (Street == 29 && Above == 30) print "    n_to Storm_Junction_30_29,^";
-  if (Street == 37 && Above == 20) print "    n_to Storm_Junction_20_37,^";
-  if (Street == 37 && Above == 30) print "    n_to Storm_Junction_30_37,^";
-  if (Street == 21 && Above == 20) print "    n_to Storm_Junction_20_19,^";
+  if (Street == 23 && Above == 20) print "n_to Storm_Junction_20_23,^";
+  if (Street == 23 && Above == 30) print "n_to Storm_Junction_30_23,^";
+  if (Street == 29 && Above == 20) print "n_to Storm_Junction_20_29,^";
+  if (Street == 29 && Above == 30) print "n_to Storm_Junction_30_29,^";
+  if (Street == 37 && Above == 20) print "n_to Storm_Junction_20_37,^";
+  if (Street == 37 && Above == 30) print "n_to Storm_Junction_30_37,^";
+  if (Street == 21 && Above == 20) print "n_to Storm_Junction_20_19,^";
 
   print ";^^";
 ];
@@ -276,29 +276,29 @@ Array Under_Table -->
   print "City_Class City_", Avenue, "_", Left, "_", Right, " ~";
   PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
-  print "  with^";
+  print "with^";
 
   ! Generate the description.
-  print "    description ~^";
+  print "description^~";
   Carat = false; ! Reset the carat before printing the description.
   if (Left >= First_Street || (Left == 19 && Avenue == 20))
-                            { PrintCarat(); print "    West to "; PrintIntersection(Avenue, Left); print "."; }
-  if (Right <= Last_Street) { PrintCarat(); print "    East to "; PrintIntersection(Avenue, Right); print "."; }
-  if (Subway)               { PrintCarat(); print "    Down to the ", (PrintColor) Code, " subway line."; }
-  if (Storm && ~~ Subway)   { PrintCarat(); print "    Down to the storm drain."; }
+                            { PrintCarat(); print "West to "; PrintIntersection(Avenue, Left); print "."; }
+  if (Right <= Last_Street) { PrintCarat(); print "East to "; PrintIntersection(Avenue, Right); print "."; }
+  if (Subway)               { PrintCarat(); print "Down to the ", (PrintColor) Code, " subway line."; }
+  if (Storm && ~~ Subway)   { PrintCarat(); print "Down to the storm drain."; }
   if (Avenue == 28 && Left == 25 && Right == 27)
-                            { PrintCarat(); print "    South to a suspiciously empty alley."; }
-  print "^    ~,^";
+                            { PrintCarat(); print "South to a suspiciously empty alley."; }
+  print "~,^";
 
   ! Generate the directions.
   if (Left >= First_Street || (Left == 19 && Avenue == 20))
-                            print "    w_to City_", Avenue, "_", Left, ",^";
-  if (Right <= Last_Street) print "    e_to City_", Avenue, "_", Right, ",^";
-  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
-  if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Left, "_", Right, ",^";
+                            print "w_to City_", Avenue, "_", Left, ",^";
+  if (Right <= Last_Street) print "e_to City_", Avenue, "_", Right, ",^";
+  if (Subway)               print "d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Left, "_", Right, ",^";
+  if (Storm && ~~ Subway)   print "d_to Storm_", Avenue, "_", Left, "_", Right, ",^";
 
   ! Special case.
-  if (Avenue == 28 && Left == 25 && Right == 27) print "    s_to Start_Alley,^";
+  if (Avenue == 28 && Left == 25 && Right == 27) print "s_to Start_Alley,^";
 
   print ";^^";
 
@@ -319,24 +319,24 @@ Array Under_Table -->
   print "City_Class City_", Above, "_", Below, "_", Street, " ~";
   PrintHalfStreet(Street, Above, Below);
   print "~^";
-  print "  with^";
+  print "with^";
 
   ! Generate the description.
-  print "    description ~^";
+  print "description^~";
   Carat = false; ! Reset the carat before printing the description.
-  if (Above >= First_Ave)   { PrintCarat(); print "    North to "; PrintIntersection(Above, Street); print "."; }
+  if (Above >= First_Ave)   { PrintCarat(); print "North to "; PrintIntersection(Above, Street); print "."; }
   if (Below <= Last_Ave || (Street == 37 && Below == 34))
-                            { PrintCarat(); print "    South to "; PrintIntersection(Below, Street); print "."; }
-  if (Subway)               { PrintCarat(); print "    Down to the ", (PrintColor) Code, " subway line."; }
-  if (Storm && ~~ Subway)   { PrintCarat(); print "    Down to the storm drain."; }
-  print "^    ~,^";
+                            { PrintCarat(); print "South to "; PrintIntersection(Below, Street); print "."; }
+  if (Subway)               { PrintCarat(); print "Down to the ", (PrintColor) Code, " subway line."; }
+  if (Storm && ~~ Subway)   { PrintCarat(); print "Down to the storm drain."; }
+  print "~,^";
 
   ! Generate the directions.
-  if (Above >= First_Ave)   print "    n_to City_", Above, "_", Street, ",^";
+  if (Above >= First_Ave)   print "n_to City_", Above, "_", Street, ",^";
   if (Below <= Last_Ave || (Street == 37 && Below == 34))
-                            print "    s_to City_", Below, "_", Street, ",^";
-  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
-  if (Storm && ~~ Subway)   print "    d_to Storm_", Above, "_", Below, "_", Street, ",^";
+                            print "s_to City_", Below, "_", Street, ",^";
+  if (Subway)               print "d_to Subway_", (PrintColor) Code, "_", Above, "_", Below, "_", Street, ",^";
+  if (Storm && ~~ Subway)   print "d_to Storm_", Above, "_", Below, "_", Street, ",^";
 
   print ";^^";
 
@@ -355,24 +355,24 @@ Array Under_Table -->
   print "City_Class City_", Avenue, "_", Street, " ~";
   PrintIntersection(Avenue, Street);
   print "~^";
-  print "  with^";
+  print "with^";
 
   ! Generate the description.
-                            print "    description ~^";
-                            print "    North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
-                            print "    South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
-                            print "    West to ";  PrintHalfAvenue(Avenue, (Street - 2), Street); print ".@@94^";
-                            print "    East to ";  PrintHalfAvenue(Avenue, Street, (Street + 2)); print ".";
-  if (Subway)               print "@@94^    Down to the ", (PrintColor) Code, " subway line.";
-  print "^    ~,^";
+  print "description^~";
+  print "North to "; PrintHalfStreet(Street, (Avenue - 2), Avenue); print ".@@94^";
+  print "South to "; PrintHalfStreet(Street, Avenue, (Avenue + 2)); print ".@@94^";
+  print "West to ";  PrintHalfAvenue(Avenue, (Street - 2), Street); print ".@@94^";
+  print "East to ";  PrintHalfAvenue(Avenue, Street, (Street + 2)); print ".";
+  if (Subway)               print "@@94^Down to the ", (PrintColor) Code, " subway line.";
+  print "~,^";
 
   ! Generate the directions.
-                            print "    n_to City_", (Avenue - 2),"_", Avenue, "_", Street, ",^";
-                            print "    s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
-                            print "    w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
-                            print "    e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
-  if (Subway)               print "    d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, ",^";
-  if (Storm && ~~ Subway)   print "    d_to Storm_", Avenue, "_", Street, "_", (Street + 2), ",^";
+                            print "n_to City_", (Avenue - 2),"_", Avenue, "_", Street, ",^";
+                            print "s_to City_", Avenue, "_", (Avenue + 2), "_", Street, ",^";
+                            print "w_to City_", Avenue, "_", (Street - 2), "_", Street, ",^";
+                            print "e_to City_", Avenue, "_", Street, "_", (Street + 2), ",^";
+  if (Subway)               print "d_to Subway_", (PrintColor) Code, "_", Avenue, "_", Street, ",^";
+  if (Storm && ~~ Subway)   print "d_to Storm_", Avenue, "_", Street, "_", (Street + 2), ",^";
 
   print ";^^";
 ];
