@@ -141,7 +141,7 @@ REM Show some help text.
 :ShowHelp
     ECHO %APPNAME% Windows Build Script
     ECHO Performs build tasks for %APPNAME%.
-    ECHO Usage %THISSCRIPT% [OPTIONS] COMMAND(s)
+    ECHO Usage: %THISSCRIPT% [OPTIONS] COMMAND(s)
     ECHO.
     ECHO Commands:
     ECHO all    - Build the game and the unit tests.
@@ -177,7 +177,6 @@ REM %1 - The file to delete.
 REM       -----===== Docker Functions ======------
 
 REM Build the Docker image if it does not already exist.
-
 :DockerBuildImage
     SET HASIMAGE=no
     FOR /F %%F IN ('docker images -q %DOCKERIMAGE%') DO SET HASIMAGE=%%F
@@ -191,10 +190,10 @@ REM Build the Docker image if it does not already exist.
 
 REM Starts an interactive Docker container.
 :DockerInteractive
-    @REM IF %USEDOCKER% == no (
-    @REM     ECHO Docker is not installed or is disabled...
-    @REM     EXIT /B
-    @REM )
+    IF %USEDOCKER% == no (
+        ECHO Docker is not installed or is disabled...
+        EXIT /B
+    )
     ECHO Starting an interactive Docker container...
     CALL :DockerBuildImage
     docker run --rm -i -t -v "%CD%:/src" %DOCKERIMAGE% bash

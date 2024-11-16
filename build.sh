@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Build te Volunteer For Survival game.
 # See the README file for details.
+# This is a port of the build.bat file to Bash.
 
 # Compiler setting:
 #INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
@@ -16,6 +17,9 @@ fi
 if [[ "$INFORM_COMPILER" = "./inform6/inform" &&  ! -x "$INFORM_COMPILER" ]] ; then
     chmod +x $INFORM_COMPILER
 fi
+
+# The name of this script for help text.
+THISSCRIPT="$0"
 
 # Set the dfrotz intepreter command for running the tests.
 INTERPRETER="dfrotz"
@@ -144,10 +148,13 @@ function RunTests {
     RunInteg
 }
 
+#       -----===== Help Text ======------
+
 # Show some help text.
 function ShowHelp {
-    echo "${APPNAME} Windows Build Script"
+    echo "${APPNAME} Linux Build Script"
     echo "Performs build tasks for ${APPNAME}."
+    echo "Usage: ${THISSCRIPT} [OPTIONS] COMMANDS(s)"
     echo ""
     echo "Commands:"
     echo "all   - Build the game and the unit tests."
@@ -162,7 +169,7 @@ function ShowHelp {
     exit;
 }
 
-#       -----===== Helper functions. ======------
+#       -----===== Helper Functions ======------
 
 # Compile a file.
 function CompileFile {
@@ -205,18 +212,20 @@ fi
 
 # Figure out what we were given on the command line.
 while [[ "$#" -gt "0" ]] ; do
-    if  [[ "$1" = "all"   ]] then RunAll    ; fi
-    if  [[ "$1" = "city"  ]] then RunCity   ; fi
-    if  [[ "$1" = "build" ]] then RunBuild  ; fi
-    if  [[ "$1" = "clean" ]] then RunClean  ; fi
-    if  [[ "$1" = "debug" ]] then RunDebug  ; fi
-    if  [[ "$1" = "integ" ]] then RunInteg  ; fi
-    if  [[ "$1" = "unit"  ]] then RunUnit   ; fi
-    if  [[ "$1" = "test"  ]] then RunTests  ; fi
-    if  [[ "$1" = "tests" ]] then RunTests  ; fi
-    if  [[ "$1" = "help"  ]] then ShowHelp  ; fi
-    if  [[ "$1" = "/?"    ]] then ShowHelp  ; fi
-    if  [[ "$1" = "/h"    ]] then ShowHelp  ; fi
-    if  [[ "$1" = "-h"    ]] then ShowHelp  ; fi
+    case "$1" in
+        all)    RunAll    ;;
+        city)   RunCity   ;;
+        build)  RunBuild  ;;
+        clean)  RunClean  ;;
+        debug)  RunDebug  ;;
+        integ)  RunInteg  ;;
+        unit)   RunUnit   ;;
+        test)   RunTests  ;;
+        tests)  RunTests  ;;
+        help)   ShowHelp  ;;
+        /?)     ShowHelp  ;;
+        /h)     ShowHelp  ;;
+        -h)     ShowHelp  ;;
+    esac
     shift
 done
