@@ -34,6 +34,14 @@ INTEGOUT="integ_results.txt"
 ERRORCOUNT=0
 TESTCOUNT=0
 
+# The name of the docker image.
+DOCKERIMAGE="vts:0.0"
+
+# Is Docker being used?
+USEDOCKER="YES"
+
+#       -----===== Build Functions ======------
+
 # Build the game and tests.
 function RunAll {
     RunCity
@@ -157,15 +165,19 @@ function ShowHelp {
     echo "Usage: ${THISSCRIPT} [OPTIONS] COMMANDS(s)"
     echo ""
     echo "Commands:"
-    echo "all   - Build the game and the unit tests."
-    echo "city  - Build the city.h file."
-    echo "build - Builds the ${APPNAME} game. (Default)"
-    echo "clean - Delete all built files."
-    echo "integ - Run the integration tests."
-    echo "debug - Build the game with debug enabled."
-    echo "help  - Display this help text."
-    echo "tests - Build and run all tests for ${APPNAME}."
-    echo "unit  - Build then run the ${APPNAME} unit tests."
+    echo "all    - Build the game and the unit tests."
+    echo "build  - Builds the ${APPNAME} game. (Default)"
+    echo "city   - Build the city.h file."
+    echo "clean  - Delete all built files."
+    echo "docker - Starts an interactive Docker container."
+    echo "integ  - Run the integration tests."
+    echo "debug  - Build the game with debug enabled."
+    echo "help   - Display this help text."
+    echo "tests  - Build and run all tests for ${APPNAME}."
+    echo "unit   - Build then run the ${APPNAME} unit tests."
+    echo ""
+    echo "Options:"
+    echo "-D    - Do not use Docker, even if it is available."
     exit;
 }
 
@@ -200,6 +212,90 @@ function WriteStringNoEOL {
     echo -n "$2"
     echo -n "$2" >> $1
 }
+
+#       -----===== Docker Functions ======------
+
+# Build the Docker image if it does not already exist.
+function DockerBuildImage {
+    HASIMAGE="NO"
+
+    if [[ -z "$(docker images -q ${DOCKERIMAGE})" ]]; then
+        echo "Building the Docker Image..."
+        docker buildx build --tag ${DOCKERIMAGE} - < Dockerfile
+        echo "Complete."
+    fi
+}
+
+# Starts an interactive Docker container.
+function DockerInteractive {
+    echo "Starting an interactive Docker container..."
+    DockerBuildImage
+    docker run  --rm \
+                -t \
+                -i \
+                -v "${PWD}:/src" \
+                -w "/src/" \
+                -u $(id -u):$(id -g) \
+                ${DOCKERIMAGE} \
+                bash
+    exit
+}
+
+# Check if Docker is installed.
+function DockerCheck {
+    docker --version >> /dev/null 2>&1
+    if [[ "$?" -eq "0" ]] ; then
+        echo Docker detected...
+    else
+        USEDOCKER="NO"
+    fi
+}
+
+# Run the build in Docker.
+function DockerRun {
+    # Check if Docker is running.
+    if [[ -z "$(ps aux | grep -i docker | grep -v grep)" ]]; then
+        echo "Docker is not running. Aborting!"
+        exit 1
+    fi
+
+    DockerBuildImage
+
+    echo "Running the build in Docker..."
+    docker run  --rm \
+                -t \
+                -v "${PWD}:/src" \
+                -w "/src/" \
+                -u $(id -u):$(id -g) \
+                ${DOCKERIMAGE} \
+                bash -c -e "bash build.sh $PARAMS"
+    exit
+}
+
+#       -----===== Process Command Line ======------
+
+# Did the user disable Docker?
+if [[ "$1" = "-D" || "$1" = "/D" ]]; then
+    USEDOCKER="NO"
+    shift
+fi
+
+# Check if Docker is installed.
+if [[ "$USEDOCKER" = "YES" ]]; then
+    DockerCheck
+fi
+
+# Special case for running an interactive Docker container.
+if [[ "$1" = "docker" ]]; then
+    DockerInteractive
+fi
+
+# If using Docker then run the build there.
+if [[ "$USEDOCKER" = "YES" ]]; then
+    PARAMS="$@"
+    DockerRun
+    exit
+fi
 
 # Default to build if no options given.
 if [[ "$#" -eq "0" ]] ; then

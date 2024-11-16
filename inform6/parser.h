@@ -10,9 +10,9 @@
 !   file COPYING in the distribution archive.
 !
 !   In your game file, Include three library files in this order:
-!       Include "Parser";
-!       Include "VerbLib";
-!       Include "Grammar";
+!       Include "parser";
+!       Include "verbLib";
+!       Include "grammar";
 !
 ! ------------------------------------------------------------------------------
 !   Inclusion of "linklpa" (which defines properties and attributes)
@@ -766,8 +766,9 @@ Global dict_end;
 
 ! ----------------------------------------------------------------------------
 
-Include "language__";               ! The natural language definition, whose filename is taken from
+! Include "language__";               ! The natural language definition, whose filename is taken from
                                     ! the ICL language_name variable
+Include "english";
 
 ! ----------------------------------------------------------------------------
 
