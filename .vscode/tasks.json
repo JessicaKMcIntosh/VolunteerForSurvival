@@ -98,5 +98,21 @@
       }
     },
 
+    { // Cleanup the build artifacts using the build scripts.
+    "label": "Clean VTS Artifacts",
+    "type": "shell",
+    "command": "bash build.sh clean",
+    "windows": {
+      "command": "build.bat clean",
+    },
+    "group": {
+      "kind": "build",
+      "isDefault": false
+    },
+    "presentation": {
+      "focus": true
+    },
+  },
+
   ]
 }
