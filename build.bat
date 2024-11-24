@@ -90,8 +90,8 @@ REM Build the game.
 REM Built the tests.
 :RunBuildUnit
     ECHO Building %APPNAME% unit tests...
-    CALL :DeleteFile "Utilities\unit.z5"
-    CALL :CompileFile "Utilities\unit.inf" "Utilities\unit.z5"
+    CALL :DeleteFile "Tests\unit.z5"
+    CALL :CompileFile "++Tests" "Tests\unit.inf" "Tests\unit.z5"
     EXIT /B
 
 REM Build the City file. (Really prints an error.)
@@ -103,7 +103,7 @@ REM Cleanup build artifacts.
 :RunClean
     ECHO Cleaning %APPNAME%...
     CALL :DeleteFile "vts.z5"
-    CALL :DeleteFile "Utilities\unit.z5"
+    CALL :DeleteFile "Tests\unit.z5"
     CALL :DeleteFile "%INTEGOUT%"
     EXIT /B
 
@@ -124,7 +124,7 @@ REM Run the unit tests.
     CALL :RunBuildUnit
     ECHO.
     ECHO Running %APPNAME% unit tests...
-    ECHO. | %INTERPRETER% -h 100 -p -Z 2 Utilities\unit.z5
+    ECHO. | %INTERPRETER% -h 100 -p -Z 2 Tests\unit.z5
     ECHO.
     EXIT /B
 

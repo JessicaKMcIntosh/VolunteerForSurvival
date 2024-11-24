@@ -61,8 +61,8 @@ function RunBuild {
 # Built the tests.
 function RunBuildUnit {
     echo "Building ${APPNAME} unit tests..."
-    DeleteFile "Utilities/unit.z5"
-    CompileFile "Utilities/unit.inf" "Utilities/unit.z5"
+    DeleteFile "Tests/unit.z5"
+    CompileFile "++Tests" "Tests/unit.inf" "Tests/unit.z5"
 }
 
 # Build the city.h file.
@@ -75,6 +75,7 @@ function RunCity {
         echo "Error compiling. Aborting!"
         exit 1
     fi
+    echo ""
     echo "Generating Source/city.h..."
     DeleteFile "Source/city.h"
     $INTERPRETER -h 100000 -m -p -q -w 100 Utilities/gencity.z5 > Source/city.h
@@ -85,7 +86,7 @@ function RunCity {
 function RunClean {
     echo "Cleaning ${APPNAME}..."
     DeleteFile "vts.z5"
-    DeleteFile "Utilities/unit.z5"
+    DeleteFile "Tests/unit.z5"
     DeleteFile "${INTEGOUT}"
 }
 
@@ -145,7 +146,7 @@ function RunUnit {
     echo ""
     echo "Running ${APPNAME} unit tests..."
     # -h 100000 -m -p -q -w 100
-    echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 Utilities/unit.z5
+    echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 Tests/unit.z5
     echo ""
 }
 
