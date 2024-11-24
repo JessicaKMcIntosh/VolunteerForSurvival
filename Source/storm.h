@@ -81,7 +81,7 @@ Storm_Class Storm_Junction_30_23 "Storm Drain Junction at 30th Ave and 23rd St"
 Storm_Class Storm_Junction_30_29 "Storm Drain Junction at 30th Ave and 29th St"
   with
     description
-   "South to the Stormorm Drain below 29th St between 30thAve and 32nd Ave.^
+   "South to the Storm Drain below 29th St between 30thAve and 32nd Ave.^
     East to the Storm Drain below 30th Ave between 29th St and 31st St.",
     s_to Storm_30_32_29,
     e_to Storm_30_29_31,
@@ -91,7 +91,7 @@ Storm_Class Storm_Junction_30_37 "Storm Drain Junction at "
   with
     description
    "South to the Storm Drain below 29th St between 30thAve and 32nd St.^
-    East to Storthe Stormm Drain below 30th Ave between 29th St and 31st St.",
+    East to the Storm Drain below 30th Ave between 29th St and 31st St.",
     s_to Storm_30_32_29,
     e_to Storm_30_29_31,
 ;

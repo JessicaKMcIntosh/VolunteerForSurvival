@@ -44,7 +44,7 @@
 ! Checks if Condition is false.
 ! Unit_AssertFalse(Condition, ErrorText, Continue);
 !
-! Checkes that Object belongs to the class Expected.
+! Checks that Object belongs to the class Expected.
 ! Unit_AssertOfClass(Object, Expected, ErrorText, Continue);
 !
 ! Checks that Value is not equal to nothing.
@@ -139,7 +139,7 @@ Class Unit_Test_Class
     ],
     ! Placeholder for the actual tests to be run.
     RunTest [; ],
-    ! Initialize data so tests run in a normalish environment.
+    ! Initialize data so tests run in a normal-ish environment.
     Initialize [;
       #Ifdef LIBRARY_VERSION;
         ! Prepare the player.
@@ -213,7 +213,7 @@ Class Unit_Test_Class
   if (_Unit_Assert((StrCmp(_Unit_Expected, _Unit_Captured) == 0), ErrorText, "AssertCapture")) {
     print "[Expected (^";
     PrintString(_Unit_Expected);
-    print "^) but recieved (^";
+    print "^) but received (^";
     PrintString(_Unit_Captured);
     print "^)]^^";
     _Unit_Throw(Continue);
@@ -229,7 +229,7 @@ Class Unit_Test_Class
   Continue; ! (Optional) Continue execution after a failure.
 
   if (_Unit_Assert((Expected == Actual), ErrorText, "AssertEquals")) {
-    print "[Expected (", Expected, ") but recieved (", Actual, ")]^^";
+    print "[Expected (", Expected, ") but received (", Actual, ")]^^";
     _Unit_Throw(Continue);
   }
 ];
@@ -283,7 +283,7 @@ Class Unit_Test_Class
   if (_Unit_Assert((StrCmp(Expected, Actual) == 0), ErrorText, "AssertStrCmp")) {
     print "[Expected (^";
     PrintString(Expected);
-    print "^) but recieved (^";
+    print "^) but received (^";
     PrintString(Actual);
     print "^)]^^";
     _Unit_Throw(Continue);

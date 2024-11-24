@@ -85,7 +85,7 @@ Class Pills_Class
 #Endif;
       if (self.time_left <= 0) {
         deadflag = 1;
-       "You stumble as your vision blurrs.^
+       "You stumble as your vision blurs.^
         Pain consumes your mind as reality grows numb.^
         Laughing echos in your head as you fall to the ground.";
       }

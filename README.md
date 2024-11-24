@@ -134,7 +134,7 @@ It is recommended to install the package.
   If this is the only version available for your version of Linux then
   download the latest version and compile from source.
 
-To buld VTS:
+To build VTS:
 
 * Run the build.sh file \
   `bash ./build.sh`

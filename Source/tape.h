@@ -1,5 +1,5 @@
 ! ------------------------------------------------------------------------------
-! Casette Tape - A library for creating a cassette player and playable tapes.
+! Cassette Tape - A library for creating a cassette player and playable tapes.
 !
 ! Created by Jessica McIntosh
 ! JessicaKMcIntosh AT gmail DOT com
@@ -18,7 +18,7 @@
 ! Alternately uses description if inside_description is not provided.
 !
 ! Customize messages by changing the constants TAPE_PLAYER_NAME and
-! TAPE_CASETTE_NAME.
+! TAPE_CASSETTE_NAME.
 !
 ! After a tape is played it is given the attribute 'general'.
 ! ------------------------------------------------------------------------------
@@ -56,7 +56,7 @@
 !     description "A cassette tape containing a message.",
 !     inside_description
 !      "Static plays.^
-!       A voice asks for help from Obiwan.^
+!       A voice asks for help from Obi-Wan.^
 !       Blaster fire is heard before the static returns.";
 ! ------------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ Message "Loading the Tape library.";
 Constant TAPE_PLAYER_NAME "tape player";
 
 ! Name of a cassette tape used in messages.
-Constant TAPE_CASETTE_NAME "cassette tape";
+Constant TAPE_CASSETTE_NAME "cassette tape";
 
 ! ------------------------------------------------------------------------------
 ! Classes
@@ -128,7 +128,7 @@ Class Tape_Player_Class
 ;
 
 ! Individual cassette tapes.
-! This is class is what determins an object is a tape that can be played.
+! This is class is what determines an object is a tape that can be played.
 Class Tape_Cassette_Class
 ;
 
@@ -146,7 +146,7 @@ Class Tape_Cassette_Class
     ! Make sure the noun is a cassette tape.
     if (~~(noun ofclass Tape_Cassette_Class)) {
       "Can not play '", (name) noun, "'. ",
-      "It is not a ", (string) TAPE_CASETTE_NAME, ".";
+      "It is not a ", (string) TAPE_CASSETTE_NAME, ".";
     }
     ! Empty the tape player if it already contains a tape.
     if (children(Tape_Player) ~= 0) {
@@ -200,7 +200,7 @@ Class Tape_Cassette_Class
       (string) TAPE_PLAYER_NAME, ".^";
     move tape to player;
   } else {
-      "There is no ", (string) TAPE_CASETTE_NAME,
+      "There is no ", (string) TAPE_CASSETTE_NAME,
       " in the ", (name) Tape_Player, ".";
   }
 ];

@@ -21,7 +21,7 @@ fi
 # The name of this script for help text.
 THISSCRIPT="$0"
 
-# Set the dfrotz intepreter command for running the tests.
+# Set the dfrotz interpreter command for running the tests.
 INTERPRETER="dfrotz"
 
 # Application name for output.

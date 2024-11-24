@@ -112,7 +112,7 @@ Class Loot_Treasure_Scrap_Metal(Loot_Max_Items)
   has pluralname
 ;
 
-Class Loot_Treasure_Scrap_Toobox(Loot_Max_Items)
+Class Loot_Treasure_Scrap_Toolbox(Loot_Max_Items)
   class Loot_Treasure,
   with
     name 'toolbox' 'tools' 'box',
@@ -142,7 +142,7 @@ Class Loot_Junk_Broken_Electronics(Loot_Max_Items)
   with
     name 'broken' 'electronics',
     short_name "broken electronics",
-    description "A piece of electronics so broken it is now uselesss.",
+    description "A piece of electronics so broken it is now useless.",
     plural "crates of broken electronics",
   has pluralname
 ;
@@ -274,7 +274,7 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table-->2  = Loot_Treasure_Rations;
   Loot_Table-->3  = Loot_Treasure_Twinkies;
   Loot_Table-->4  = Loot_Treasure_Scrap_Metal;
-  Loot_Table-->5  = Loot_Treasure_Scrap_Toobox;
+  Loot_Table-->5  = Loot_Treasure_Scrap_Toolbox;
   Loot_Table-->6  = Loot_Junk_Spoiled_Canned_Food;
   Loot_Table-->7  = Loot_Junk_Broken_Electronics;
   Loot_Table-->8  = Loot_Junk_Rusty_Tools;
@@ -291,7 +291,7 @@ Class Loot_Container_Trash(Loot_Containers)
 
   ! Create the Subway loot table.
   Loot_Table_Subway-->1  = Loot_Treasure_Scrap_Metal;
-  Loot_Table_Subway-->2  = Loot_Treasure_Scrap_Toobox;
+  Loot_Table_Subway-->2  = Loot_Treasure_Scrap_Toolbox;
   Loot_Table_Subway-->3  = Loot_Junk_Rusty_Tools;
   Loot_Table_Subway-->4  = Loot_Junk_Junk;
 

@@ -46,7 +46,7 @@ Class Subway_Class
 Class Storm_Class
 ;
 
-! Object the player can posess.
+! Object the player can possess.
 Class Item_Class
 ;
 

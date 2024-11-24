@@ -77,7 +77,7 @@ Lamp_Class -> -> Camping_Lantern "camping lantern"
 Item_Class -> -> Crowbar "orange crowbar"
   with
     name 'bar' 'crow' 'crowbar' 'orange',
-    description "An odly familiar orange crowbar.",
+    description "An oddly familiar orange crowbar.",
   has scored
 ;
 

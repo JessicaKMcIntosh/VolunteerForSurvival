@@ -10,7 +10,7 @@ SET COMPILER=inform6\inform6
 REM This one expects the inform compiler to be included in the path.
 REM SET COMPILER="inform6"
 
-REM Set the dfrotz intepreter command for running the tests.
+REM Set the dfrotz interpreter command for running the tests.
 SET INTERPRETER=inform6\dfrotz
 
 REM The name of this script for help text.

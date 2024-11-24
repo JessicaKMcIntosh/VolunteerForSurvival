@@ -23,7 +23,7 @@ Include "pills";
 ! Messages for testing.
 Constant Pills_MSG_Daemon_Critical "^You feel terrible.";
 Constant Pills_MSG_Daemon_Dead
- "You stumble as your vision blurrs.^
+ "You stumble as your vision blurs.^
   Pain consumes your mind as reality grows numb.^
   Laughing echos in your head as you fall to the ground.";
 Constant Pills_MSG_Daemon_Extra "^You feel great!";
@@ -79,7 +79,7 @@ Unit_Test_Class Pill_Tests "Pills library"
 ];
 
 [ _TestPill_Daemon;
-  print "Verify the pills daemon works corectly.^";
+  print "Verify the pills daemon works correctly.^";
 
   ! Message for extra time.
   Pill_Bottle.time_left = (PILLS_DURATION * 2);
@@ -123,7 +123,7 @@ Unit_Test_Class Pill_Tests "Pills library"
 ];
 
 [ _TestPill_EatPill;
-  print "Verify eating pills works corectly.^";
+  print "Verify eating pills works correctly.^";
 
   ! Eat a pill from a full bottle.
   noun = Pill_Bottle;
@@ -201,9 +201,9 @@ Unit_Test_Class Pill_Tests "Pills library"
 ];
 
 [ _TestPill_PrintNumber;
-  print "Verify the number of pills is printed corectly.^";
+  print "Verify the number of pills is printed correctly.^";
 
-  ! The numer of pills in an empty bottle.
+  ! The number of pills in an empty bottle.
   Pill_Bottle.number = 0;
   Unit_AssertCapture(
     _TestPill_HelperPrintNumber,
@@ -211,7 +211,7 @@ Unit_Test_Class Pill_Tests "Pills library"
     "Output message from empty pill bottle is incorrect."
   );
 
-  ! The numer of pills in a bottle with one pill.
+  ! The number of pills in a bottle with one pill.
   Pill_Bottle.number = 1;
   Unit_AssertCapture(
     _TestPill_HelperPrintNumber,
@@ -219,7 +219,7 @@ Unit_Test_Class Pill_Tests "Pills library"
     "Output message from empty pill bottle is incorrect."
   );
 
-  ! The numer of pills in a bottle with the default number of pills.
+  ! The number of pills in a bottle with the default number of pills.
   Pill_Bottle.number = PILLS_DEFAULT_COUNT;
   Unit_AssertCapture(
     _TestPill_HelperPrintNumber,

@@ -45,7 +45,7 @@ Constant Help_Text_First_Steps
   TAKE ALL^
   PLAY #1^
   NORTH^";
-Constant Help_Text_Notword "That is not a valid word in this game.^";
+Constant Help_Text_Not_Word "That is not a valid word in this game.^";
 Constant Help_Text_Unknown "Help is not available on this topic.^";
 Constant Help_Text_Words
  "These are the words used in this game:^
@@ -100,7 +100,7 @@ Global Help_Topic_Word = nothing;
     ! No noun. Do we have a help topic?
     if (Help_Topic == true) {
       switch (Help_Topic_Word) {
-        0:          print (string) Help_Text_Notword;
+        0:          print (string) Help_Text_Not_Word;
         'close':    print (string) Help_Text_Word_Close;
         'eat':      print (string) Help_Text_Word_Eat;
         'examine':  print (string) Help_Text_Word_Examine;

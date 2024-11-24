@@ -13,7 +13,7 @@
 ! If a room is between streets or avenues then the locations they are between
 ! are added. See the examples.
 !
-! The edges of the map will refence Avenues and Streets that are no included
+! The edges of the map will reference Avenues and Streets that are no included
 ! in the map for consistency in naming.
 !
 ! Rooms for the City will automatically link together.
@@ -52,7 +52,7 @@ Constant Last_Street = 37;
 
 Global Code;    ! The code from Under_Table for the current location.
 Global Storm;   ! The current location has a Storm Drain.
-Global Subway;  ! The cirrent location has a Subway.
+Global Subway;  ! The current location has a Subway.
 Global Carat;   ! Print a carat. Used for getting the ^ in descriptions.
 
 ! ------------------------------------------------------------------------------
@@ -218,7 +218,7 @@ Array Under_Table -->
   print ";^^";
 ];
 
-! Generate a storm drain on a street betweeen two avenues.
+! Generate a storm drain on a street between two avenues.
 [ StormHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
@@ -269,7 +269,7 @@ Array Under_Table -->
 
 
   ! Figure out where in the Under_Table this room is.
-  ! Offset the street over to our actual loation in the table.
+  ! Offset the street over to our actual location in the table.
   LookupUnderTable(Avenue, (Left + 1));
 
   ! Generate the room code.
@@ -305,7 +305,7 @@ Array Under_Table -->
   if (Storm) StormHalfAvenue(Avenue, Left, Right);
 ];
 
-! Generate a room on a street betweeen two avenues.
+! Generate a room on a street between two avenues.
 [ CityHalfStreet
   Street  ! The street being generated.
   Above   ! The avenue above this room.
