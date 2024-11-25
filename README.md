@@ -8,9 +8,9 @@ Can you survive the alien wasteland and make it back to the shelter?
 
 VTS is a survival horror text adventure game. You are tasked with finding supplies to keep the shelter going.
 
-![Map of Vololtol city](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vfs_map.png?raw=true)
+![Map of Vololtol city](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vts_map.png?raw=true)
 
-See the map file [Map/vfs_map.png](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vfs_map.png).
+See the map file [Map/vts_map.png](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Map/vts_map.png).
 
 ## Playing Volunteer For Survival
 
