@@ -49,19 +49,27 @@ Message "Loading the Use library.";
   }
 ];
 
+[UseSub;
+  if (noun == 0)                        "Use what?";
+  if (noun == XYZZY_Token)              <<Rub noun>>;
+  if (noun ofclass Tape_Cassette_Class) <<Play noun>>;
+  "You don't know how to use ", (the) noun, ".";
+];
+
 ! ------------------------------------------------------------------------------
 ! Grammar
 ! ------------------------------------------------------------------------------
 
 ! General Use verb.
 Verb 'use'
-  *             -> Help
-  * edible      -> Eat
-  * openable    -> Open
-  * switchable  -> Turn
-  * 'crowbar'/'bar'/'crow' lockable                     -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' lockable  -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'to' 'open' lockable         -> Crowbar
-  * 'crowbar'/'bar'/'crow'                              -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' noun      -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'to' 'open' noun             -> Crowbar;
+  *                                                         -> Use
+  *                                             edible      -> Eat
+  *                                             openable    -> Open
+  *                                             switchable  -> Turn
+  * 'crowbar'/'bar'/'crow' lockable                         -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with'   lockable    -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open'          lockable    -> Crowbar
+  * 'crowbar'/'bar'/'crow'                                  -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with'   noun        -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open'          noun        -> Crowbar
+  *                                             noun        -> Use;
