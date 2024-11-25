@@ -25,14 +25,24 @@ Message "Loading the Use library.";
 ! ------------------------------------------------------------------------------
 
 [ CrowbarSub;
-  if (noun has locked) {
-    if (noun.with_key == Crowbar) {
-      give noun ~locked;
-      give noun open;
-      print "You use the Crowbar to pry open ", (the) noun, ", revealing ";
-      if (WriteListFrom(child(noun), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) "nothing.";
+  if (Crowbar notin player) {
+    "You do not currently possess a Crowbar.^";
+  }
+  if (noun == 0) {
+    "Use the Crowbar on what?";
+  }
+  if (noun has lockable) {
+    if (noun has locked) {
+      if (noun.with_key == Crowbar) {
+        give noun ~locked;
+        give noun open;
+        print "You use the Crowbar to pry open ", (the) noun, ", revealing ";
+        if (WriteListFrom(child(noun), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) "nothing.";
+      } else {
+        print "The Crowbar does not work on ", (the) noun, ".^";
+      }
     } else {
-      print "The Crowbar does not work on ", (the) noun, ".^";
+      print (The) noun, " is already unlocked.^";
     }
   } else {
     print "The Crowbar does nothing to ", (the) noun, ".^";
@@ -49,9 +59,9 @@ Verb 'use'
   * edible      -> Eat
   * openable    -> Open
   * switchable  -> Turn
-  * 'crowbar'/'bar'/'crow' noun    -> Crowbar
-  * 'crowbar'/'bar'/'crow' locked  -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' noun    -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' locked  -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'to' 'open' noun    -> Crowbar
-  * 'crowbar'/'bar'/'crow' 'to' 'open' locked  -> Crowbar;
+  * 'crowbar'/'bar'/'crow' lockable                     -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' lockable  -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open' lockable         -> Crowbar
+  * 'crowbar'/'bar'/'crow'                              -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'open'/'on'/'with' noun      -> Crowbar
+  * 'crowbar'/'bar'/'crow' 'to' 'open' noun             -> Crowbar;

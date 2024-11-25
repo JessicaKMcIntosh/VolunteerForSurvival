@@ -59,7 +59,7 @@ Door_Class -> Start_Metal_Door "Metal Door"
       Unlock:
         "The door is locked with a keypad.";
     ],
-  has locked lockable
+  has lockable locked
 ;
 
 Scenery_Class -> Start_Drop_Box "Drop Box"
@@ -123,7 +123,7 @@ Loot_Container_Mail First_Mailbox City_28_25_27
   with
     description "A worn mail drop box with an odd inscription on the back.",
     short_name "worn mail drop box",
-  has locked
+  has lockable locked
 ;
 
 Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
