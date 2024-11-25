@@ -33,7 +33,7 @@ Object XYZZY_Token "XYZZY Token"
       Rub:
         if (player notin Start_Room) {
           print "A magical spell carries you back to the starting room.^";
-          move player to Start_Room;
+          PlayerTo(Start_Room);
           rtrue;
         }
     ]
