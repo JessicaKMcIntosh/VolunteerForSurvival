@@ -88,10 +88,7 @@ Item_Class -> -> Radio "old radio"
   has scored
 ;
 
-Item_Class -> -> Notebook "small notebook"
-  with
-    name 'notebook' 'note' 'book',
-    description "Not yet implemented."
+Notebook_Class -> -> Notebook "small notebook"
   has scored
 ;
 

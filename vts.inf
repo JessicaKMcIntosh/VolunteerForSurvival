@@ -62,6 +62,7 @@ Include "xyzzy";
 ! The world.
 Include "classes";
 Include "city";
+Include "notebook";
 Include "subway";
 Include "storm";
 Include "starting";
