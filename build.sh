@@ -87,6 +87,7 @@ function RunClean {
     echo "Cleaning ${APPNAME}..."
     DeleteFile "vts.z5"
     DeleteFile "Tests/unit.z5"
+    DeleteFile "Tests/vts.z5"
     DeleteFile "${INTEGOUT}"
 }
 
@@ -99,9 +100,9 @@ function RunDebug {
 
 # Run the integration tests.
 function RunInteg {
-    DeleteFile "vts.z5"
+    DeleteFile "Tests/vts.z5"
     echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
-    CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf"
+    CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf" "Tests/vts.z5"
     echo ""
     echo "Running ${APPNAME} Integration tests..."
     DeleteFile "${INTEGOUT}"
@@ -126,9 +127,9 @@ function RunInteg {
 # Run an integration test.
 function RunIntegTest {
     TEST_FILE="${1%.rec}"
-    WriteStringNoEOL "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}... "
+    WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}... "
     TESTCOUNT=$((TESTCOUNT + 1))
-    cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -m -q vts.z5 > Tests/temp.txt 2>&1
+    cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -m -q Tests/vts.z5 > Tests/temp.txt 2>&1
     diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt > /dev/null
     if [[ "$?" -eq "0" ]] ; then
         WriteString "${INTEGOUT}" "Succeeded."
@@ -145,7 +146,6 @@ function RunUnit {
     RunBuildUnit
     echo ""
     echo "Running ${APPNAME} unit tests..."
-    # -h 100000 -m -p -q -w 100
     echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 Tests/unit.z5
     echo ""
 }
@@ -201,17 +201,7 @@ function DeleteFile {
 # %1 - The file to write the string to.
 # %2 - The string to write.
 function WriteString {
-    echo "$2"
-    echo "$2" >> $1
-}
-
-# Write a string to STDOUT and the log file. Special case.
-# No newline is output to STDOUT and a space is added to the end.
-# %1 - The file to write the string to.
-# %2 - The string to write.
-function WriteStringNoEOL {
-    echo -n "$2"
-    echo -n "$2" >> $1
+    echo "$2" | tee -a $1
 }
 
 #       -----===== Docker Functions ======------
