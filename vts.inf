@@ -131,6 +131,11 @@ Pills_Class Pill_Bottle "pill bottle"
     For more information please visit:^
     https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki^
   ";
+
+  ! When testing don't print a banner.
+  #Ifdef NO_BANNER;
+    return 2;
+  #Endif;
 ];
 
 ! ------------------------------------------------------------------------------

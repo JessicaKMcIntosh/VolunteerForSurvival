@@ -101,7 +101,7 @@ function RunDebug {
 function RunInteg {
     DeleteFile "vts.z5"
     echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
-    CompileFile '$#RANDOM_SEED=-1' "vts.inf"
+    CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf"
     echo ""
     echo "Running ${APPNAME} Integration tests..."
     DeleteFile "${INTEGOUT}"

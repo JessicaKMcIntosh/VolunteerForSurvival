@@ -1,29 +1,10 @@
+
 NOTE: Seeding the random number generator with -1.
 This game is still in Beta and will have bugs.
 Email JessicaKMcIntosh AT gmail DOT com to report issues.
 Type HELP for in game help.
 For more information please visit:
 https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki
-
-
-A survival horror text adventure game.
-By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
-
-It's been five years since the aliens invaded earth. We got an early warning
-of their approach so we were prepared. Shelters were built to house people
-during the conflict. Unfortunately, due to hubris, the world governments
-expected to defeat the aliens quickly. As a result the shelters were only
-intended to last for a decade. Thanks to overcrowding, the supplies have
-nearly run out. For the past year volunteers have been sent out to collect
-supplies. You are only the latest.
-
-Welcome to Vololtol city.
-
-Can you survive the alien wasteland and make it back to the shelter?
-
-
-
-Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
 
 You are laying in a small empty alley.
 You feel a hard object in your pocket.
