@@ -92,6 +92,20 @@ Notebook_Class -> -> Notebook "small notebook"
   has scored
 ;
 
+Notebook_Page_Class -> -> -> What_To_Get "List of items to find"
+  with
+    name 'list' 'find' 'items',
+    description "A list of items to find for the shelter.",
+    inside_description "The actual list.^Blah^Blah^Blah^",
+;
+
+Notebook_Page_Class -> -> -> Test_Notebook_Page "Test Page"
+  with
+    name 'test',
+    description "This is just a test",
+    inside_description "Testing!^",
+;
+
 ! More will be done with this later.
 Dark_Room_Class Shelter_Entrance "Entrance to the government shelter."
 ;

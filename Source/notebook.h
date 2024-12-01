@@ -37,6 +37,9 @@ Class Notebook_Class
     name 'book' 'note' 'notebook',
     description "A book of knowledge.^",
     before [;
+      Examine:
+        Notebook_List_Contents();
+        rtrue;
     ],
   has container
 ;
@@ -48,6 +51,18 @@ Class Notebook_Page_Class
 ! ------------------------------------------------------------------------------
 ! Subroutines
 ! ------------------------------------------------------------------------------
+
+! List the contents of the notebook.
+[ Notebook_List_Contents
+  page_obj
+  page_number;
+  page_number = 1;
+  print "Notebook Contents:^";
+  objectloop (page_obj in Notebook) {
+    print "Page ", page_number, " - ", (name) page_obj, "^";
+    page_number++;
+  }
+];
 
 ! Notebook interface.
 [ NotebookSub;
