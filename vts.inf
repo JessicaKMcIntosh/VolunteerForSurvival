@@ -149,3 +149,15 @@ Pills_Class Pill_Bottle "pill bottle"
   "You have been attacked by a vicious creature in the dark.^
    As you lay there bleeding out you reconsider not using the lantern.";
 ];
+
+! By default Read just does Examine.
+[ReadSub;
+  <<Examine noun>>;
+];
+
+! ------------------------------------------------------------------------------
+! Grammar
+! ------------------------------------------------------------------------------
+
+! Extend the Read verb to be more useful.
+Extend 'read' first * noun -> Read;

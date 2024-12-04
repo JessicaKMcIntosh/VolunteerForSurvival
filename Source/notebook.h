@@ -37,7 +37,7 @@ Class Notebook_Class
     name 'book' 'note' 'notebook',
     description "A book of knowledge.^",
     before [;
-      Examine:
+      Examine, Read:
         Notebook_List_Contents();
         rtrue;
     ],

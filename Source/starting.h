@@ -160,18 +160,3 @@ Object XYZZY_Inscription "Inscription" City_28_25_27
     description "The magic word is XYZZY."
   has concealed static
 ;
-
-! ------------------------------------------------------------------------------
-! Subroutines
-! ------------------------------------------------------------------------------
-
-! By default Read just does Examine.
-[ReadSub;
-  <<Examine noun>>;
-];
-
-! ------------------------------------------------------------------------------
-! Grammar
-! ------------------------------------------------------------------------------
-
-Extend 'read' first * noun -> Read;
