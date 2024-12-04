@@ -134,6 +134,10 @@ Loot_Container_Mail First_Mailbox City_28_25_27
   with
     description "A worn mail drop box with an odd inscription on the back.",
     short_name "worn mail drop box",
+    before [;
+      Read:
+        <<Examine XYZZY_Inscription>>;
+    ],
   has lockable locked
 ;
 
@@ -156,3 +160,18 @@ Object XYZZY_Inscription "Inscription" City_28_25_27
     description "The magic word is XYZZY."
   has concealed static
 ;
+
+! ------------------------------------------------------------------------------
+! Subroutines
+! ------------------------------------------------------------------------------
+
+! By default Read just does Examine.
+[ReadSub;
+  <<Examine noun>>;
+];
+
+! ------------------------------------------------------------------------------
+! Grammar
+! ------------------------------------------------------------------------------
+
+Extend 'read' first * noun -> Read;
