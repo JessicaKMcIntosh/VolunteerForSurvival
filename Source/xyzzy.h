@@ -11,6 +11,9 @@
 ! ------------------------------------------------------------------------------
 ! Include after Grammar.
 !
+! Saying "XYZZY" gives the player a token.
+! Rubbing the token teleports the player back to the starting location.
+! The token saves the location and can send them back.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -20,6 +23,12 @@
 System_file;
 
 Message "Loading the XYZZY library.";
+
+! ------------------------------------------------------------------------------
+! Globals
+! ------------------------------------------------------------------------------
+
+Global XYZZY_Previous_Location = nothing;
 
 ! ------------------------------------------------------------------------------
 ! Objects
@@ -32,8 +41,14 @@ Object XYZZY_Token "XYZZY Token"
     before [;
       Rub:
         if (player notin Start_Room) {
+          XYZZY_Previous_Location = Location;
           print "A magical spell carries you back to the starting room.^";
           PlayerTo(Start_Room);
+          rtrue;
+        } else if (XYZZY_Previous_Location ~= nothing) {
+          print "A magical spell carries you back to the starting room.^";
+          PlayerTo(XYZZY_Previous_Location);
+          XYZZY_Previous_Location = nothing;
           rtrue;
         }
     ]
