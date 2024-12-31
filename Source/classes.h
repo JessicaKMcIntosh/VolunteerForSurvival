@@ -33,10 +33,10 @@ Class Room_Class
 Class Dark_Room_Class
 ;
 
-! City streets.
+! Self describing room class.
 ! Print descriptions for the directions here so the city.h file doesn't have to
 ! contain the full description and we can dynamically change the location.
-Class City_Class
+Class Self_Describe_Room
   with
     describe [;
       if (self provides n_to) {
@@ -59,6 +59,20 @@ Class City_Class
         print "West to ",  (name) self.w_to, ".^";
       }
 
+      if (self provides u_to) {
+        if (self.u_to ofclass Storm_Class) {
+          print "Up to the storm drain.^";
+        } else if (self.u_to ofclass Subway_Blue_Class) {
+          print "Up to the Blue subway line.^";
+        } else if (self.u_to ofclass Subway_Green_Class) {
+          print "Up to the Green subway line.^";
+        } else if (self.u_to ofclass Subway_Orange_Class) {
+          print "Up to the Orange subway line.^";
+        } else {
+          print "Up to ",  (name) self.u_to, ".^";
+        }
+      }
+
       if (self provides d_to) {
         if (self.d_to ofclass Storm_Class) {
           print "Down to the storm drain.^";
@@ -76,7 +90,16 @@ Class City_Class
       if (self provides in_to) {
         print "In to ",  (name) self.in_to, ".^";
       }
+
+      if (self provides out_to) {
+        print "Out to ",  (name) self.out_to, ".^";
+      }
     ],
+;
+
+! City streets.
+Class City_Class
+  class Self_Describe_Room,
   has light
 ;
 
@@ -98,6 +121,7 @@ Class Subway_Orange_Class
 
 ! Storm drains.
 Class Storm_Class
+  class Self_Describe_Room
 ;
 
 ! Object the player can possess.
