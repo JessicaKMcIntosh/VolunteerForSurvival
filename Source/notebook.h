@@ -41,6 +41,20 @@ Class Notebook_Class
         Notebook_List_Contents();
         rtrue;
     ],
+    invent [;
+      print (a) self;
+      print " (";
+      if (children(self) == 0) {
+        print "Empty";
+      } else {
+        print children(self), " page";
+        if (children(self) > 1) {
+          print "s";
+        }
+      }
+      print ")";
+      rtrue;
+    ],
   has container
 ;
 
