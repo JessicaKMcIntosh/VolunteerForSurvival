@@ -28,7 +28,7 @@ Message "Loading the Use library.";
   if (Crowbar notin player) {
     "You do not currently possess a Crowbar.^";
   }
-  if (noun == 0) {
+  if (noun == nothing) {
     "Use the Crowbar on what?";
   }
   if (noun has lockable) {
@@ -50,7 +50,7 @@ Message "Loading the Use library.";
 ];
 
 [UseSub;
-  if (noun == 0)                        "Use what?";
+  if (noun == nothing)                  "Use what?";
   if (noun == XYZZY_Token)              <<Rub noun>>;
   if (noun ofclass Tape_Cassette_Class) <<Play noun>>;
   if (noun ofclass Notebook_Class)      <<Read noun>>;
