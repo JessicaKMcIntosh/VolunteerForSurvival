@@ -127,7 +127,7 @@ function RunInteg {
 # Run an integration test.
 function RunIntegTest {
     TEST_FILE="${1%.rec}"
-    WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}... "
+    WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
     TESTCOUNT=$((TESTCOUNT + 1))
     cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -m -q Tests/vts.z5 > Tests/temp.txt 2>&1
     diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt > /dev/null
