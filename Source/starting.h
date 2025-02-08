@@ -32,10 +32,12 @@ Room_Class Start_Room "Empty Alley Dead End"
         Next to the door, built into the wall, is a drop box.^
         To the north is more of the empty alley.",
     initial [;
-      print "^";
-      print "You are laying in a small empty alley.^";
-      print "You feel a hard object in your pocket.";
-      print "^";
+      if (self hasnt visited) {
+        print "^";
+        print "You are laying in a small empty alley.^";
+        print "You feel a hard object in your pocket.";
+        print "^";
+      }
     ],
     e_to Start_Metal_Door,
     n_to Start_Alley,
