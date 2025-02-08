@@ -50,5 +50,9 @@
         "xyzzy",
         "Zork",
         "zorkh"
+    ],
+    "cSpell.ignorePaths": [
+        "build.sh",
+        "build.bat"
     ]
 }
