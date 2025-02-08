@@ -46,7 +46,7 @@ Object XYZZY_Token "XYZZY Token"
           PlayerTo(Start_Room);
           rtrue;
         } else if (XYZZY_Previous_Location ~= nothing) {
-          print "A magical spell carries you back to the starting room.^";
+          print "A magical spell carries you back to your previous location.^";
           PlayerTo(XYZZY_Previous_Location);
           XYZZY_Previous_Location = nothing;
           rtrue;
