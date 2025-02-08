@@ -26,7 +26,7 @@
             "${workspaceFolder}"
         ],
         "pattern": {
-            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "regexp": "^\"?(.*)(?:\",\\s+line\\s+|\\()(\\d+)\\)?:\\s+(Error|Fatal error|Warning):\\s*(.*)$",
             "file": 1,
             "line": 2,
             "severity": 3,
@@ -57,7 +57,7 @@
             "${workspaceFolder}"
         ],
         "pattern": {
-            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "regexp": "^\"?(.*)(?:\",\\s+line\\s+|\\()(\\d+)\\)?:\\s+(Error|Fatal error|Warning):\\s*(.*)$",
             "file": 1,
             "line": 2,
             "severity": 3,
@@ -89,7 +89,7 @@
             "${workspaceFolder}"
         ],
         "pattern": {
-            "regexp": "^(.*)\\((\\d+)\\):\\s+(Error|Fatal error|Warning):\\s*(.*)$",
+            "regexp": "^\"?(.*)(?:\",\\s+line\\s+|\\()(\\d+)\\)?:\\s+(Error|Fatal error|Warning):\\s*(.*)$",
             "file": 1,
             "line": 2,
             "severity": 3,
