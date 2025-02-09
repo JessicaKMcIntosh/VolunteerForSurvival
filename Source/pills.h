@@ -55,7 +55,7 @@ Class Pills_Class
     invent [;
       if (inventory_stage==2) {
         print " (";
-        Pills_Print_Number(self);
+        PillsPrintNumber(self);
         print ")";
       }
     ],
@@ -73,7 +73,7 @@ Class Pills_Class
         if (noun.number == 0) {
           print "no more pills";
         } else {
-          Pills_Print_Number(self);
+          PillsPrintNumber(self);
         }
         print " left.^";
         rtrue;
@@ -101,7 +101,7 @@ Class Pills_Class
 ! ------------------------------------------------------------------------------
 
 ! Print the number of pills in the bottle.
-[ Pills_Print_Number
+[ PillsPrintNumber
   bottle;
   if (bottle.number == 0) {
     print "Empty";
