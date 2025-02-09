@@ -22,10 +22,12 @@ System_file;
 Message "Loading the Notebook library.";
 
 ! ------------------------------------------------------------------------------
-! Constants
+! Globals
 ! ------------------------------------------------------------------------------
 
-
+! The page number given to the previous page added to the notebook.
+! Pages get numbers as they are added.
+Global Notebook_Recent_Page_Num = 0;
 
 ! ------------------------------------------------------------------------------
 ! Classes
@@ -59,7 +61,9 @@ Class Notebook_Class
 ;
 
 ! Pages in the notebook.
-Class Notebook_Page_Class
+Class Notebook_Page_Class(10)
+  with
+    number 0,
 ;
 
 ! ------------------------------------------------------------------------------
@@ -68,13 +72,14 @@ Class Notebook_Page_Class
 
 ! List the contents of the notebook.
 [ Notebook_List_Contents
-  page_obj
-  page_number;
-  page_number = 1;
+  page_obj;
   print "Notebook Contents:^";
   objectloop (page_obj in Notebook) {
-    print "Page ", page_number, " - ", (name) page_obj, "^";
-    page_number++;
+    ! Make sure each page has a number.
+    if (page_obj.number == 0) {
+      page_obj.number = ++Notebook_Recent_Page_Num;
+    }
+    print "Page ", page_obj.number, " - ", (name) page_obj, "^";
   }
 ];
 
