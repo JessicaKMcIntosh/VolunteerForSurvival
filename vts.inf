@@ -116,7 +116,7 @@ Pills_Class Pill_Bottle "pill bottle"
   #Endif;
 
   ! Setup the loot.
-    SetupLoot();
+  SetupLoot();
 
   ! Give the player the microcassette player.
   move Tape_Player to player;
@@ -124,6 +124,9 @@ Pills_Class Pill_Bottle "pill bottle"
   ! Give the player the bottle of pills then start the Daemon.
   move Pill_Bottle to player;
   StartDaemon(Pill_Bottle);
+
+  ! Make sure the starting notebook pages have numbers.
+  Notebook.update();
 
   print
    "This game is still in Beta and will have bugs.^

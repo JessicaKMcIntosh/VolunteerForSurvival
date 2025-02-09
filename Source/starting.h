@@ -96,7 +96,7 @@ Notebook_Class -> -> Notebook "small notebook"
 
 Notebook_Page_Class -> -> -> What_To_Get "List of items to find"
   with
-    name 'list' 'find' 'items',
+    name 'list' 'find' 'items' 'item',
     description "A list of items to find for the shelter.",
     inside_description "The actual list.^Blah^Blah^Blah^",
 ;

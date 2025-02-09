@@ -14,11 +14,11 @@
 
 * (Game Play) Implement the backpack.
 
-* (Game Play) Implement the notebook.
-
 * (Building) Add building a Release ZIP file.
 
 ## Completed
+
+* (Game Play) Implement the notebook. 2025-02-08
 
 * (Building) Build using Docker for a more consistent build environment.
   Had to switch to Docker since the Windows dfrotz program outputs garbage.
