@@ -100,7 +100,7 @@ Class Pills_Class
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
-! Pring the number of pills in the bottle.
+! Print the number of pills in the bottle.
 [ Pills_Print_Number
   bottle;
   if (bottle.number == 0) {

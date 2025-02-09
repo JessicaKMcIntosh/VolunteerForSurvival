@@ -7,7 +7,7 @@
 ! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
 ! International License. See the file LICENSE for details.
 !
-! This is a reimplementation of infunit.h by Matt Albrecht
+! This is a re-implementation of infunit.h by Matt Albrecht
 ! with some additions of my own to simplify unit testing.
 ! https://ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/infunit.h
 ! ------------------------------------------------------------------------------
