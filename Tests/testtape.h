@@ -24,15 +24,16 @@ Include "tape";
 Constant Tape_MSG_Contents_1
  "(first putting cassette tape first into the tape player)^
   This is the contents of the cassette tape first.";
-Constant Tape_MSG_Contents_2
- "(first putting cassette tape other into the tape player)^
-  A cassette tape containing NO message.";
+Constant Tape_MSG_Contents_2 "A cassette tape containing NO message.";
 Constant Tape_MSG_Eject_Empty "There is no cassette tape in the Tape Player.";
 Constant Tape_MSG_Eject_Tape "Removed cassette tape first from the tape player.";
 Constant Tape_MSG_Empty "The Tape Player is empty.";
 Constant Tape_MSG_Inventory_Empty "a Tape Player";
 Constant Tape_MSG_Inventory_Tape "a Tape Player containing the cassette tape first";
 Constant Tape_MSG_Play_Wrong "Can not play 'Not a Tape'. It is not a cassette tape.";
+Constant Tape_MSG_Receive
+ "(first ejecting cassette tape other)^
+You put cassette tape other into the tape player.";
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -217,8 +218,21 @@ Unit_Test_Class Tape_Tests "Tape library"
     "Cassette tape should be in the tape player after being played."
   );
 
-  ! Play the other tape.
+  ! Put the other tape in the player.
   noun = Tape_2;
+  action = ##Receive;
+  Unit_AssertCapture(
+    _TestTape_HelperPlayerBefore,
+    Tape_MSG_Receive,
+    "Output message from putting the other tape in the tape player is incorrect."
+  );
+
+  Unit_AssertTrue(
+    (Tape_2 in Tape_Player),
+    "Cassette should be moved to the tape player when Received."
+  );
+
+  ! Play the other tape.
   Unit_AssertCapture(
     PlaySub,
     Tape_MSG_Contents_2,

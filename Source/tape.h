@@ -107,9 +107,8 @@ Class Tape_Player_Class
           print "(first ejecting ", (name) noun, ")^";
         }
         move noun to self;
-        print "You put ", (name) noun, " into the ",
+        "You put ", (name) noun, " into the ",
         (string) TAPE_PLAYER_NAME, ".^";
-        rtrue;
       ! Handle removing a tape from the tape player.
       Empty, Remove:
         if (children(self) ~= 0) {
@@ -142,7 +141,7 @@ Class Tape_Cassette_Class
 [ PlaySub;
   if (Tape_Player notin player)
     "You do not have a ", (string) TAPE_PLAYER_NAME, ".";
-  if (noun ~= nothing && noun ~= Tape_Player) {
+  if (noun ~= nothing && noun ~= Tape_Player && noun notin Tape_Player) {
     ! Make sure the noun is a cassette tape.
     if (~~(noun ofclass Tape_Cassette_Class)) {
       "Can not play '", (name) noun, "'. ",
