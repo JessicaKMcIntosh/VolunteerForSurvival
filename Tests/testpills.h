@@ -243,5 +243,5 @@ Unit_Test_Class Pill_Tests "Pills library"
 ];
 
 [ _TestPill_HelperPrintNumber;
-  Pills_Print_Number(Pill_Bottle);
+  PillsPrintNumber(Pill_Bottle);
 ];
