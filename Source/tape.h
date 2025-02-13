@@ -123,7 +123,7 @@ Class Tape_Player_Class
         PlayTapeSub();
         rtrue;
     ]
-  has container switchable
+  has container switchable open
 ;
 
 ! Individual cassette tapes.
