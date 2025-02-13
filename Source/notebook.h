@@ -11,6 +11,16 @@
 ! ------------------------------------------------------------------------------
 ! Include after Grammar.
 !
+! Create a Notebook and Notebook Page objects.
+! The tape Notebook object must be named 'Notebook'.
+!
+! To update the page number for all notebook pages call:
+! Notebook.update();
+! This is useful when putting pages in the notebook before the game starts.
+!
+! To add new pages to the notebook call:
+! Notebook.add(NEW_PAGE);
+! This automatically gives the page the next number in line.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -103,6 +113,7 @@ Class Notebook_Page_Class
   num
   word;
 
+  ! Get the word to lookup, and check if the word is really a number.
   wn = consult_from;
   consult_from = 0;
   num = TryNumber(wn);
@@ -181,14 +192,6 @@ Class Notebook_Page_Class
 ! ------------------------------------------------------------------------------
 
 ! Notebook verbs.
-Verb 'book'
-  *       -> Notebook
-  * topic -> Notebook;
-
-Verb 'note'
-  *       -> Notebook
-  * topic -> Notebook;
-
-Verb 'notebook'
+Verb 'book' 'note' 'notebook'
   *       -> Notebook
   * topic -> Notebook;
