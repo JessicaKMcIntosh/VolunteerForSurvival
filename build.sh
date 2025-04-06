@@ -110,8 +110,8 @@ function RunInteg {
     echo "" >> ${INTEGOUT}
 
     # Loop over the tests and run each one.
-    for file in $(ls Tests/*.rec); do
-        RunIntegTest $(basename $file)
+    for file in Tests/*.rec; do
+        RunIntegTest "$(basename "$file")"
     done
 
     # Check if there were errors.
@@ -186,14 +186,14 @@ function ShowHelp {
 
 # Compile a file.
 function CompileFile {
-    ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S $@
+    ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S "$@"
 }
 
 # Delete a file if it exists.
 # %1 - The file to delete.
 function DeleteFile {
-    if [[ -f $1 ]] ; then
-        rm -f $1
+    if [[ -f "$1" ]] ; then
+        rm -f "$1"
     fi
 }
 
@@ -201,15 +201,13 @@ function DeleteFile {
 # %1 - The file to write the string to.
 # %2 - The string to write.
 function WriteString {
-    echo "$2" | tee -a $1
+    echo "$2" | tee -a "$1"
 }
 
 #       -----===== Docker Functions ======------
 
 # Build the Docker image if it does not already exist.
 function DockerBuildImage {
-    HASIMAGE="NO"
-
     if [[ -z "$(docker images -q ${DOCKERIMAGE})" ]]; then
         echo "Building the Docker Image..."
         docker buildx build --tag ${DOCKERIMAGE} - < Dockerfile
@@ -226,7 +224,7 @@ function DockerInteractive {
                 -i \
                 -v "${PWD}:/src" \
                 -w "/src/" \
-                -u $(id -u):$(id -g) \
+                -u "$(id -u):$(id -g)" \
                 ${DOCKERIMAGE} \
                 bash
     exit
@@ -245,7 +243,7 @@ function DockerCheck {
 # Run the build in Docker.
 function DockerRun {
     # Check if Docker is running.
-    if [[ -z "$(ps aux | grep -i docker | grep -v grep)" ]]; then
+    if ps aux | grep -i docker | grep -q -v grep; then
         echo "Docker is not running. Aborting!"
         exit 1
     fi
@@ -257,7 +255,7 @@ function DockerRun {
                 -t \
                 -v "${PWD}:/src" \
                 -w "/src/" \
-                -u $(id -u):$(id -g) \
+                -u "$(id -u):$(id -g)" \
                 ${DOCKERIMAGE} \
                 bash -c -e "bash build.sh $PARAMS"
     exit
@@ -283,9 +281,8 @@ fi
 
 # If using Docker then run the build there.
 if [[ "$USEDOCKER" = "YES" ]]; then
-    PARAMS="$@"
+    PARAMS="$*"
     DockerRun
-    exit
 fi
 
 # Default to build if no options given.
@@ -310,7 +307,7 @@ while [[ "$#" -gt "0" ]] ; do
         test)   RunTests  ;;
         tests)  RunTests  ;;
         help)   ShowHelp  ;;
-        /?)     ShowHelp  ;;
+        /\?)    ShowHelp  ;;
         /h)     ShowHelp  ;;
         -h)     ShowHelp  ;;
     esac
