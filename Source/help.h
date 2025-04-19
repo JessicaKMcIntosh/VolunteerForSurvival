@@ -44,12 +44,13 @@ Constant Help_Text_First_Steps
   ^
   TAKE ALL^
   PLAY #1^
-  NORTH^";
+  NORTH^
+  NOTE^";
 Constant Help_Text_Not_Word "That is not a valid word in this game.^";
 Constant Help_Text_Unknown "Help is not available on this topic.^";
 Constant Help_Text_Words
  "These are the words used in this game:^
-  EAT EXAMINE GO INVENTORY OPEN LOOK PLAY SCORE TAKE TURN UNLOCK USE^
+  EAT EXAMINE GO INVENTORY OPEN LOOK NOTE PLAY SCORE TAKE TURN UNLOCK USE^
   Directions: NORTH SOUTH EAST WEST UP DOWN^";
 
 ! Help text for specific words.
@@ -62,6 +63,15 @@ Constant Help_Text_Word_Open "OPEN a container to interact with the contents.^";
 Constant Help_Text_Word_Look
  "LOOK will give information on the current room.^
   You can also LOOK AT and object or LOOK IN a container.^";
+Constant Help_Text_Word_Note
+ "NOTE interfaces with the notebook.^
+  Without a topic will list the contents of the notebook.^
+  If given a page # or topic will lookup said page or topic.^
+  ^
+  NOTE PAGE 1^
+  NOTE 1
+  NOTE LIST
+ ";
 Constant Help_Text_Word_Play
  "PLAY the tape currently in the tape player.^
   PLAY TAPE to put a tape into the tape player and play it.^";
@@ -101,6 +111,7 @@ Global Help_Topic_Word = nothing;
     if (Help_Topic == true) {
       switch (Help_Topic_Word) {
         0:          print (string) Help_Text_Not_Word;
+        'book':     print (string) Help_Text_Word_Note;
         'close':    print (string) Help_Text_Word_Close;
         'eat':      print (string) Help_Text_Word_Eat;
         'examine':  print (string) Help_Text_Word_Examine;
@@ -108,6 +119,8 @@ Global Help_Topic_Word = nothing;
         'go':       print (string) Help_Text_Word_Go;
         'inventory':print (string) Help_Text_Word_Inventory;
         'look':     print (string) Help_Text_Word_Look;
+        'note':     print (string) Help_Text_Word_Note;
+        'notebook': print (string) Help_Text_Word_Note;
         'open':     print (string) Help_Text_Word_Open;
         'play':     print (string) Help_Text_Word_Play;
         'take':     print (string) Help_Text_Word_Take;
@@ -141,6 +154,7 @@ Global Help_Topic_Word = nothing;
 ! ------------------------------------------------------------------------------
 
 Verb meta "help"
-  *           -> Help
-  * noun      -> Help
-  * HelpTopic -> Help;
+  *                           -> Help
+  * 'book'/'note'/'notebook'  -> Help
+  * noun                      -> Help
+  * HelpTopic                 -> Help;
