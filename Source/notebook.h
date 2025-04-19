@@ -119,6 +119,12 @@ Class Notebook_Page_Class
   num = TryNumber(wn);
   word = NextWord();
 
+  ! If the word is 'page' then get the next word.
+  if (word == 'page') {
+    num = TryNumber(wn);
+    word = NextWord();
+  }
+
   if (num > 0) {
     ! Find the page by number.
     objectloop (page in Notebook) {
@@ -194,4 +200,11 @@ Class Notebook_Page_Class
 ! Notebook verbs.
 Verb 'book' 'note' 'notebook'
   *       -> Notebook
-  * topic -> Notebook;
+  * topic -> Notebook
+  * 'page' topic -> Notebook;
+
+Extend 'read'
+  * 'book'/'note'/'notebook' topic -> Notebook
+  * 'book'/'note'/'notebook' 'page' topic -> Notebook
+  * 'note' 'book' topic -> Notebook
+  * 'note' 'book' 'page' topic -> Notebook;
