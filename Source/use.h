@@ -73,4 +73,8 @@ Verb 'use'
   * 'crowbar'/'bar'/'crow'                                  -> Crowbar
   * 'crowbar'/'bar'/'crow' 'open'/'on'/'with'   noun        -> Crowbar
   * 'crowbar'/'bar'/'crow' 'to' 'open'          noun        -> Crowbar
+  * 'book'/'note'/'notebook'                    topic       -> Notebook
+  * 'book'/'note'/'notebook' 'page'             topic       -> Notebook
+  * 'note' 'book'                               topic       -> Notebook
+  * 'note' 'book' 'page'                        topic       -> Notebook
   *                                             noun        -> Use;
