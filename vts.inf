@@ -172,11 +172,6 @@ Notebook_Page_Class Notebook_Tape_1 "Cassette tape #1"
    As you lay there bleeding out you reconsider not using the lantern.";
 ];
 
-! By default Read just does Examine.
-[ReadSub;
-  <<Examine noun>>;
-];
-
 ! ------------------------------------------------------------------------------
 ! Grammar
 ! ------------------------------------------------------------------------------
