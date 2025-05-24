@@ -94,7 +94,7 @@ Notebook_Class -> -> Notebook "small notebook"
   has scored
 ;
 
-Notebook_Page_Class -> -> -> What_To_Get "List of items to find"
+Notebook_Page_Class -> -> -> Notebook_Items_To_Get "List of items to find"
   with
     name 'list' 'find' 'items' 'item',
     description "A list of items to find for the shelter.",
@@ -109,9 +109,9 @@ Notebook_Page_Class -> -> -> What_To_Get "List of items to find"
       Being back enough stuff and you will be allowed to return to the shelter.",
 ;
 
-Notebook_Page_Class -> -> -> Test_Notebook_Page "Agalsirodine Pamphlet"
+Notebook_Page_Class -> -> -> Notebook_Agalsirodine_Pamphlet "Agalsirodine Pamphlet"
   with
-    name 'agalsirodine',
+    name 'agalsirodine' 'pills',
     description "Agalsirodine Pamphlet",
     inside_description
      "NEW! From the makers of AdderFocusAll comes...^
