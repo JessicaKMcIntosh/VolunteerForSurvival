@@ -207,7 +207,7 @@ Class Unit_Test_Class
   Routine();
   _Unit_CaptureStop();
 
-  ! Convert ErrorText to an array string.
+  ! Convert Expected to an array string.
   WriteString(_Unit_Expected, Expected);
 
   if (_Unit_Assert((StrCmp(_Unit_Expected, _Unit_Captured) == 0), ErrorText, "AssertCapture")) {
@@ -345,7 +345,7 @@ Class Unit_Test_Class
 
 ! Only if the istring library is included.
 #Ifdef ISTRING_LIBRARY;
-! Start capturing output to the array PrintedString.
+! Start capturing output.
 [ _Unit_CaptureStart;
   @output_stream 3 _Unit_Captured;
 ];
