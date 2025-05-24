@@ -98,14 +98,35 @@ Notebook_Page_Class -> -> -> What_To_Get "List of items to find"
   with
     name 'list' 'find' 'items' 'item',
     description "A list of items to find for the shelter.",
-    inside_description "The actual list.^Blah^Blah^Blah^",
+    inside_description
+     "We need food above all.^
+      Canned food, sealed rations, anything preserved and edible.^
+      Working electronics like laptops, tablets, phones and similar.^
+      Tools are in short supply as well.^
+      Anything else useful you might find go ahead and bring back.^
+      ^
+      Place items in the box where you woke up for rewards.^
+      Being back enough stuff and you will be allowed to return to the shelter.",
 ;
 
-Notebook_Page_Class -> -> -> Test_Notebook_Page "Test Page"
+Notebook_Page_Class -> -> -> Test_Notebook_Page "Agalsirodine Pamphlet"
   with
-    name 'test',
-    description "This is just a test",
-    inside_description "Testing!^",
+    name 'agalsirodine',
+    description "Agalsirodine Pamphlet",
+    inside_description
+     "NEW! From the makers of AdderFocusAll comes...^
+      Agalsirodine!^
+      Keep your mind in order with Agalsirodine!^
+      ^
+      Warning:^
+      Will cause memory loss and hallucinations.^
+      May cause brain damage.^
+      Not certified, or recommended, for human consumption.^
+      Do not take Agalsirodine if you are still breathing.^
+      Consult a psychiatrist for delusions and psychosis.^
+      ^
+      The little green men really are out to get YOU!^
+      Keep them at bay with Agalsirodine.",
 ;
 
 ! More will be done with this later.
@@ -128,6 +149,10 @@ Tape_Cassette_Class -> Tape_1 "tape #1"
     name 'cassette' 'tape' '#1' 'tape_1' 'tape_#1',
     description "A microcassette tape containing a message from another volunteer.",
     inside_description "Send help. There are aliens out here who can read.... <STATIC>",
+  after [;
+    ! Move the notebook page representing this tape into the notebook.
+    Notebook.add(Notebook_Tape_1);
+  ],
   has scored
 ;
 
