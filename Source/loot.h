@@ -235,7 +235,7 @@ Class Loot_Container_Trash(Loot_Containers)
     rfalse;
   }
 
-  ! Create the loot. Specal case for the Subway and trash cans.
+  ! Create the loot. Special case for the Subway and trash cans.
   if (Container ofclass Subway_Class) {
     RandomNumber = random(Loot_Number_Subway);
     RandomClass = Loot_Table_Subway-->RandomNumber;
