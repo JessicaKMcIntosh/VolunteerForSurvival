@@ -88,13 +88,14 @@ Unit_Test_Class Tape_Tests "Tape library"
 
   Unit_AssertNotNothing(
     Tape_Player,
-    "The tape player was not created.");
+    "The tape player was not created."
+  );
 
-    Unit_AssertOfClass(
-      Tape_Player,
-      Tape_Player_Class,
-      "Tape player not created with the tape player class."
-    );
+  Unit_AssertOfClass(
+    Tape_Player,
+    Tape_Player_Class,
+    "Tape player not created with the tape player class."
+  );
 
   print "Success...^^";
 ];
@@ -104,13 +105,14 @@ Unit_Test_Class Tape_Tests "Tape library"
 
   Unit_AssertNotNothing(
     Tape_1,
-    "The cassette tape was not created.");
+    "The cassette tape was not created."
+  );
 
-    Unit_AssertOfClass(
-      Tape_1,
-      Tape_Cassette_Class,
-      "Cassette tape not created with the tape cassette class."
-    );
+  Unit_AssertOfClass(
+    Tape_1,
+    Tape_Cassette_Class,
+    "Cassette tape not created with the tape cassette class."
+  );
 
   print "Success...^^";
 ];
