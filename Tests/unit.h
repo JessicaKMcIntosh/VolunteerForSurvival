@@ -10,15 +10,16 @@
 ! This is a re-implementation of infunit.h by Matt Albrecht
 ! with some additions of my own to simplify unit testing.
 ! https://ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/infunit.h
+!
+! String functions based on the IString library by L. Ross Raszewski
+! https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/istring.h
 ! ------------------------------------------------------------------------------
 ! USAGE
 ! ------------------------------------------------------------------------------
-! Include after Grammar.
+! Include after Grammar, if using the standard library.
 !
-! If the istring.h library is included adds extra functionality.
-! It is recommended to increase MAX_STR_LEN or tests might fail.
-!
-! Main testing interface:
+! ------------------------------------------------------------------------------
+! Test functions:
 !
 ! Run a test. Executes the provided routine.
 ! Unit_RunTest(RoutineName);
@@ -27,7 +28,9 @@
 ! run, failed and successful.
 ! Unit_Report();
 !
+! ------------------------------------------------------------------------------
 ! Assertions:
+!
 ! For all assertions setting Continue to true will continue execution if the
 ! assertion fails. By default the test stops at the first failed assertion.
 !
@@ -36,7 +39,6 @@
 !
 ! Executes a routine and captures any output that is printed.
 ! The output is compared to the string Expected.
-! Requires the library istring.h to be loaded.
 ! Unit_AssertCapture(Routine, Expected, ErrorText, Continue);
 !
 ! Checks that ActualValue matches Expected.
@@ -52,7 +54,6 @@
 ! Unit_AssertNotNothing(Value, ErrorText, Continue);
 !
 ! Compares the strings Expected and Actual using the StrCmp routine.
-! Requires the library istring.h to be loaded.
 ! Unit_AssertStrCmp(Expected, Actual, ErrorText, Continue);
 !
 ! Checks if Condition is true.
@@ -61,8 +62,8 @@
 ! Always fails.
 ! Unit_Fail(ErrorText, Continue);
 ! ------------------------------------------------------------------------------
-! USAGE - Object
-! ------------------------------------------------------------------------------
+! Object Interface:
+!
 ! An object interface is provided to make creating and running tests easier.
 ! All objects created from the class Unit_Test_Class will be run.
 !
@@ -100,11 +101,10 @@ GLobal Unit_FailCount = 0;
 ! For throwing and catching.
 Global _Unit_Exception;
 
-! Only if the istring library is included.
-#Ifdef ISTRING_LIBRARY;
-Array _Unit_Captured->MAX_STR_LEN;
-Array _Unit_Expected->MAX_STR_LEN;
-#Endif;
+! For string comparison. Used by Unit_AssertCapture and Unit_AssertStrCmp.
+Constant _Unit_Max_String_Length 200;
+Array _Unit_Captured->_Unit_Max_String_Length;
+Array _Unit_Expected->_Unit_Max_String_Length;
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -127,7 +127,8 @@ Class Unit_Class
     ],
     Report [;
       Unit_Report();
-    ];
+    ]
+;
 
 ! Class to create a unit test.
 Class Unit_Test_Class
@@ -165,8 +166,8 @@ Class Unit_Test_Class
         lookmode = 2;
         turns = 0;
       #Endif;
-
-    ];
+    ]
+;
 
 ! ------------------------------------------------------------------------------
 ! Interface Subroutines
@@ -194,8 +195,6 @@ Class Unit_Test_Class
 ! Assertion Subroutines
 ! ------------------------------------------------------------------------------
 
-! Only if the istring library is included.
-#Ifdef ISTRING_LIBRARY;
 ! Execute a routine and compare the captured output to the expected string.
 [ Unit_AssertCapture
   Routine   ! (Required) The routine to capture output for.
@@ -209,22 +208,21 @@ Class Unit_Test_Class
   _Unit_CaptureStop();
 
   ! Remove any stray carriage returns from the end of the captured string.
-  _Unit_Chomp(_Unit_Captured);
+  _Unit_String_Chomp(_Unit_Captured);
 
   ! Convert Expected to an array string.
-  WriteString(_Unit_Expected, Expected);
+  Expected.print_to_array(_Unit_Expected);
 
   ! Compare the strings.
-  if (_Unit_Assert(_Unit_StrCmp(), ErrorText, "AssertCapture")) {
+  if (_Unit_Assert(_Unit_String_Compare(), ErrorText, "AssertCapture")) {
     print "[Expected (^";
-    PrintString(_Unit_Expected);
+    _Unit_String_Print(_Unit_Expected);
     print "^) but received (^";
-    PrintString(_Unit_Captured);
+    _Unit_String_Print(_Unit_Captured);
     print "^)]^^";
     _Unit_Throw(Continue);
   }
 ];
-#Endif;
 
 ! Check if the expected value matches the actual value.
 [ Unit_AssertEquals
@@ -276,8 +274,6 @@ Class Unit_Test_Class
   }
 ];
 
-! Only if the istring library is included.
-#Ifdef ISTRING_LIBRARY;
 ! Check if the expected value matches the actual value using StrCmp.
 [ Unit_AssertStrCmp
   Expected  ! (Required) The expected value.
@@ -285,16 +281,15 @@ Class Unit_Test_Class
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
-  if (_Unit_Assert(_Unit_StrCmp(), ErrorText, "AssertStrCmp")) {
+  if (_Unit_Assert(_Unit_String_Compare(), ErrorText, "AssertStrCmp")) {
     print "[Expected (^";
-    PrintString(Expected);
+    _Unit_String_Print(Expected);
     print "^) but received (^";
-    PrintString(Actual);
+    _Unit_String_Print(Actual);
     print "^)]^^";
     _Unit_Throw(Continue);
   }
 ];
-#Endif;
 
 ! Check if the condition is true.
 [ Unit_AssertTrue
@@ -339,17 +334,6 @@ Class Unit_Test_Class
   rfalse;
 ];
 
-! Performs a throw if Continue is false.
-[_Unit_Throw
-  Continue; ! (Required) Continue execution after a failure.
-
-  if (Continue ~= true) {
-    @throw "Assertion failed!" _Unit_Exception;
-  }
-];
-
-! Only if the istring library is included.
-#Ifdef ISTRING_LIBRARY;
 ! Start capturing output.
 [ _Unit_CaptureStart;
   @output_stream 3 _Unit_Captured;
@@ -360,21 +344,46 @@ Class Unit_Test_Class
   @output_stream -3;
 ];
 
-! Chomp carriage return from the end of a string.
-[ _Unit_Chomp
-  ChompString;
-  while (ChompString->(ChompString-->0 + 1) == 13) {
-    ChompString-->0 = ChompString-->0 - 1;
+! Performs a throw if Continue is false.
+[_Unit_Throw
+  Continue; ! (Required) Continue execution after a failure.
+
+  if (Continue ~= true) {
+    @throw "Assertion failed!" _Unit_Exception;
+  }
+];
+
+! Chomp carriage returns from the end of a string.
+! (I'm a Perl developer...)
+[ _Unit_String_Chomp
+  String;
+  while (String->(String-->0 + 1) == 13) {
+    String-->0 = String-->0 - 1;
   }
 ];
 
 ! Compare the _Unit_Expected and _Unit_Captured strings.
 ! Check the length first, then compare the strings.
-[_Unit_StrCmp;
+[_Unit_String_Compare
+  Position;
   if (_Unit_Expected-->0 ~= _Unit_Captured-->0) {
-    return 0;
+    rfalse;
   }
 
-  return (StrCmp(_Unit_Expected, _Unit_Captured) == 0);
+  for (Position = 1: Position <= _Unit_Expected-->0: Position++) {
+    if (_Unit_Expected->(Position + 1) ~= _Unit_Captured->(Position + 1)) {
+      print ">>", Position, "<<^";
+      rfalse;
+    }
+  }
+  rtrue;
 ];
-#Endif;
+
+! Print a string.
+[ _Unit_String_Print
+  String
+  Position;
+  for (Position = 2: Position <= String-->0 + 1: Position++) {
+    print (char) String->(Position);
+  }
+];

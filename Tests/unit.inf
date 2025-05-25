@@ -26,8 +26,7 @@ Include "parser";
 Include "verblib";
 Include "grammar";
 
-! Libraries used for testing.
-Include "istring";
+! Unit test library.
 Include "unit";
 
 ! Game specific testing libraries.
