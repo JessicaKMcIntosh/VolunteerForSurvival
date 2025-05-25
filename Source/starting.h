@@ -111,7 +111,7 @@ Notebook_Page_Class -> -> -> Notebook_Items_To_Get "List of items to find"
 
 Notebook_Page_Class -> -> -> Notebook_Agalsirodine_Pamphlet "Agalsirodine Pamphlet"
   with
-    name 'agalsirodine' 'pills',
+    name 'agalsirodine' 'pills' 'pill',
     description "Agalsirodine Pamphlet",
     inside_description
      "NEW! From the makers of AdderFocusAll comes...^
