@@ -12,11 +12,30 @@
 ! Include after Grammar.
 !
 ! Create a Notebook and Notebook Page objects.
-! The tape Notebook object must be named 'Notebook'.
+! The main Notebook object must be named 'Notebook'.
+!
+! Notebook_Class Notebook "Notebook";
+! Notebook_Page_Class -> Notebook_Page_1 "Notebook Page 1"
+!   with
+!     description "A notebook page containing a message.",
+!     inside_description "This is the contents of the notebook page.";
+!
+!
+! If the contents of the notebook page actually live in a different object
+! then use the found_in property.
+!
+! Notebook_Page_Class -> Fake_Notebook_Page "Fake Page"
+!   with
+!     description "The contents of this page live in a different object.",
+!     found_in Real_Page_Object;
+! Object Real_Page_Object "The actual page for the entry"
+!   with
+!     inside_description "This is the contents of the notebook page.";
 !
 ! To update the page number for all notebook pages call:
 ! Notebook.update();
 ! This is useful when putting pages in the notebook before the game starts.
+! Once you call this use Notebook.add(NEW_PAGE) to add more pages.
 !
 ! To add new pages to the notebook call:
 ! Notebook.add(NEW_PAGE);
