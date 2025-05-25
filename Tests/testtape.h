@@ -33,7 +33,7 @@ Constant Tape_MSG_Inventory_Tape "a Tape Player containing the cassette tape fir
 Constant Tape_MSG_Play_Wrong "Can not play 'Not a Tape'. It is not a cassette tape.";
 Constant Tape_MSG_Receive
  "(first ejecting cassette tape other)^
-You put cassette tape other into the tape player.";
+  You put cassette tape other into the tape player.";
 
 ! ------------------------------------------------------------------------------
 ! Test Objects

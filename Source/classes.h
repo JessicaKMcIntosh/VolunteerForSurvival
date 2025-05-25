@@ -1,5 +1,5 @@
 ! ------------------------------------------------------------------------------
-! classes - All of the classes used by the world that are not part of a libary.
+! classes - All of the classes used by the world that are not part of a library.
 !
 ! Created by Jessica McIntosh
 ! JessicaKMcIntosh AT gmail DOT com

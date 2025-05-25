@@ -281,7 +281,7 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table-->9  = Loot_Junk_Ruined_Office_Supplies;
   Loot_Table-->10 = Loot_Junk_Junk;
 
-  ! Create the loot table.
+  ! Create the trash table.
   Loot_Table_Trash-->1  = Loot_Treasure_Scrap_Metal;
   Loot_Table_Trash-->2  = Loot_Junk_Spoiled_Canned_Food;
   Loot_Table_Trash-->3  = Loot_Junk_Broken_Electronics;
@@ -348,7 +348,7 @@ Class Loot_Container_Trash(Loot_Containers)
   #Ifdef DEBUG;
     print "DEBUG: Loot generation complete.^";
 
-    print (name) Loot_Container_Mail, " has remaining ", Loot_Container_Mail.remaining(),"^";
+    print (name) Loot_Container_Mail,  " has remaining ", Loot_Container_Mail.remaining(),"^";
     print (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
 
     ! The number of objects that can be created for each loot class.

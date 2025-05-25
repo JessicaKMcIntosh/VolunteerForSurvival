@@ -31,7 +31,7 @@
 ! For all assertions setting Continue to true will continue execution if the
 ! assertion fails. By default the test stops at the first failed assertion.
 !
-! If an assertion fails ErrorText is printed along with the text name and
+! If an assertion fails ErrorText is printed along with the test name and
 ! the expected and actual values.
 !
 ! Executes a routine and captures any output that is printed.
@@ -215,7 +215,7 @@ Class Unit_Test_Class
   WriteString(_Unit_Expected, Expected);
 
   ! Compare the strings.
-  if (_Unit_Assert(_Unit_Compare_Strings(), ErrorText, "AssertCapture")) {
+  if (_Unit_Assert(_Unit_StrCmp(), ErrorText, "AssertCapture")) {
     print "[Expected (^";
     PrintString(_Unit_Expected);
     print "^) but received (^";
@@ -285,7 +285,7 @@ Class Unit_Test_Class
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
-  if (_Unit_Assert(_Unit_Compare_Strings(), ErrorText, "AssertStrCmp")) {
+  if (_Unit_Assert(_Unit_StrCmp(), ErrorText, "AssertStrCmp")) {
     print "[Expected (^";
     PrintString(Expected);
     print "^) but received (^";
@@ -370,7 +370,7 @@ Class Unit_Test_Class
 
 ! Compare the _Unit_Expected and _Unit_Captured strings.
 ! Check the length first, then compare the strings.
-[_Unit_Compare_Strings;
+[_Unit_StrCmp;
   if (_Unit_Expected-->0 ~= _Unit_Captured-->0) {
     return 0;
   }

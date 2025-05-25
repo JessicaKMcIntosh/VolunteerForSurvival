@@ -1,10 +1,5 @@
 
 NOTE: Seeding the random number generator with -1.
-This game is still in Beta and will have bugs.
-Email JessicaKMcIntosh AT gmail DOT com to report issues.
-Type HELP for in game help.
-For more information please visit:
-https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki
 
 You are laying in a small empty alley.
 You feel a hard object in your pocket.

@@ -28,9 +28,11 @@ Message "Loading the Use library.";
   if (Crowbar notin player) {
     "You do not currently possess a Crowbar.^";
   }
+
   if (noun == nothing) {
     "Use the Crowbar on what?";
   }
+
   if (noun has lockable) {
     if (noun has locked) {
       if (noun.with_key == Crowbar) {

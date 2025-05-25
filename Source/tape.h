@@ -120,7 +120,7 @@ Class Tape_Player_Class
       ! When turned or switched on play the tape.
       SwitchOn, Turn:
         give self ~on;
-        PlayTapeSub();
+        PlayTape();
         rtrue;
     ]
   has container switchable open
@@ -156,7 +156,7 @@ Class Tape_Cassette_Class
     (string) TAPE_PLAYER_NAME, ")^";
     move noun to Tape_Player;
   }
-  PlayTapeSub();
+  PlayTape();
 ];
 
 ! Play tape in the tape player.
@@ -164,7 +164,7 @@ Class Tape_Cassette_Class
 ! Gives the tape general after it is played.
 ! Will execute before and after actions on the tape played.
 ! If the tape is scored but not moved then score the tape.
-[ PlayTapeSub
+[ PlayTape
   tape;
   if (children(Tape_Player) == 0) {
     "The ", (name) Tape_Player, " is empty.";

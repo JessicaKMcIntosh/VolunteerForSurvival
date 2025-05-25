@@ -147,17 +147,18 @@ Notebook_Page_Class Notebook_Tape_1 "Cassette tape #1"
   ! Make sure the starting notebook pages have numbers.
   Notebook.update();
 
-  print
-   "This game is still in Beta and will have bugs.^
-    Email JessicaKMcIntosh AT gmail DOT com to report issues.^
-    Type HELP for in game help.^
-    For more information please visit:^
-    https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki^
-  ";
 
   ! When testing don't print a banner.
   #Ifdef NO_BANNER;
     return 2;
+  #Ifnot
+    print
+    "This game is still in Beta and will have bugs.^
+      Email JessicaKMcIntosh AT gmail DOT com to report issues.^
+      Type HELP for in game help.^
+      For more information please visit:^
+      https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki^
+    ";
   #Endif;
 ];
 
