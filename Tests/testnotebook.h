@@ -7,6 +7,14 @@
 ! This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
 ! International License. See the file LICENSE for details.
 ! ------------------------------------------------------------------------------
+! USAGE
+! ------------------------------------------------------------------------------
+! Include after unit.h.
+!
+! Requires the following libraries:
+! * unit.h by Jessica McIntosh
+! * notebook.h by Jessica McIntosh
+! ------------------------------------------------------------------------------
 
 Message "Loading the Notebook Test library.";
 
