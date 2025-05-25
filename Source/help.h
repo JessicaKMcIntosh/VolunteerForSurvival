@@ -71,9 +71,8 @@ Constant Help_Text_Word_Note
   If given a page # or topic will lookup said page or topic.^
   ^
   NOTE PAGE 1^
-  NOTE 1
-  NOTE LIST
- ";
+  NOTE 1^
+  NOTE LIST";
 Constant Help_Text_Word_Play
  "PLAY the tape currently in the tape player.^
   PLAY TAPE to put a tape into the tape player and play it.^";
@@ -90,66 +89,63 @@ Constant Help_Text_Word_Use "USE attempts to do the right thing for an item. Try
 ! Globals
 ! ------------------------------------------------------------------------------
 
-Global Help_Topic = false;
-Global Help_Topic_Word = nothing;
+Global Help_Topic_Text = nothing;
 
 ! ------------------------------------------------------------------------------
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
-! Set the global Help_Topic_Word to the word.
-! This is an ugly hack, but it works.
+! Check for a help topic that we want to print help for.
 [ HelpTopic
   word;
+
+  ! See if the word is a help topic.
   word = NextWord();
-  Help_Topic_word = word;
-  Help_Topic = true;
+  Help_Topic_Text = nothing;
+  switch (word) {
+    'book':       Help_Topic_Text = Help_Text_Word_Note;
+    'close':      Help_Topic_Text = Help_Text_Word_Close;
+    'eat':        Help_Topic_Text = Help_Text_Word_Eat;
+    'examine':    Help_Topic_Text = Help_Text_Word_Examine;
+    'first':      Help_Topic_Text = Help_Text_First_Steps;
+    'go':         Help_Topic_Text = Help_Text_Word_Go;
+    'inventory':  Help_Topic_Text = Help_Text_Word_Inventory;
+    'look':       Help_Topic_Text = Help_Text_Word_Look;
+    'note':       Help_Topic_Text = Help_Text_Word_Note;
+    'notebook':   Help_Topic_Text = Help_Text_Word_Note;
+    'open':       Help_Topic_Text = Help_Text_Word_Open;
+    'play':       Help_Topic_Text = Help_Text_Word_Play;
+    'take':       Help_Topic_Text = Help_Text_Word_Take;
+    'turn':       Help_Topic_Text = Help_Text_Word_Turn;
+    'score':      Help_Topic_Text = Help_Text_Word_Score;
+    'switch':     Help_Topic_Text = Help_Text_Word_Switch;
+    'unlock':     Help_Topic_Text = Help_Text_Word_Unlock;
+    'use':        Help_Topic_Text = Help_Text_Word_Use;
+    'words':      Help_Topic_Text = Help_Text_Words;
+  }
+
+  ! Was a help topic found?
+  if (Help_Topic_Text ~= nothing) {
+    return GPR_PREPOSITION;
+  }
+
+  ! Nothing found.
+  return GPR_FAIL;
 ];
 
 ! Print help text for the user.
 [ HelpSub;
-  ! Do we have a noun?
-  if (noun == nothing) {
-    ! No noun. Do we have a help topic?
-    if (Help_Topic == true) {
-      switch (Help_Topic_Word) {
-        0:          print (string) Help_Text_Not_Word;
-        'book':     print (string) Help_Text_Word_Note;
-        'close':    print (string) Help_Text_Word_Close;
-        'eat':      print (string) Help_Text_Word_Eat;
-        'examine':  print (string) Help_Text_Word_Examine;
-        'first':    print (string) Help_Text_First_Steps;
-        'go':       print (string) Help_Text_Word_Go;
-        'inventory':print (string) Help_Text_Word_Inventory;
-        'look':     print (string) Help_Text_Word_Look;
-        'note':     print (string) Help_Text_Word_Note;
-        'notebook': print (string) Help_Text_Word_Note;
-        'open':     print (string) Help_Text_Word_Open;
-        'play':     print (string) Help_Text_Word_Play;
-        'take':     print (string) Help_Text_Word_Take;
-        'turn':     print (string) Help_Text_Word_Turn;
-        'score':    print (string) Help_Text_Word_Score;
-        'switch':   print (string) Help_Text_Word_Switch;
-        'unlock':   print (string) Help_Text_Word_Unlock;
-        'use':      print (string) Help_Text_Word_Use;
-        'words':    print (string) Help_Text_Words;
-        default:    print (string) Help_Text_Unknown;
-      }
-      Help_Topic = false;
-      Help_Topic_Word = nothing;
-    } else {
+
+  ! Is there help text to print already?
+  if (Help_Topic_Text ~= nothing) {
+    print (string) Help_Topic_Text;
+    Help_Topic_Text = nothing;
+  } else if (noun ~= nothing) {
+    <<Examine noun>>;
+  } else {
       ! Print default help text.
       print "Welcome to ", (string) Story, "!^";
       print (string) Help_Text_General;
-    }
-  } else {
-    ! Try to print something useful about the object.
-    ! if (noun provides help_text) {
-      ! print noun.help_text();
-    ! } else {
-      noun.description();
-    ! }
-    rtrue;
   }
 ];
 
@@ -159,6 +155,5 @@ Global Help_Topic_Word = nothing;
 
 Verb meta "help"
   *                           -> Help
-  * 'book'/'note'/'notebook'  -> Help
-  * noun                      -> Help
-  * HelpTopic                 -> Help;
+  * HelpTopic                 -> Help
+  * noun                      -> Help;
