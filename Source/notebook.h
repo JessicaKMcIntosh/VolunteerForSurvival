@@ -80,8 +80,8 @@ Class Notebook_Class
 ! Pages in the notebook.
 Class Notebook_Page_Class
   with
-    number 0,           ! The page number.
-    real_page nothing,  ! The object that actually contains the text to print.
+    number 0,         ! The page number.
+    found_in nothing, ! The object that actually contains the text to print.
 ;
 
 ! ------------------------------------------------------------------------------
@@ -166,8 +166,8 @@ Class Notebook_Page_Class
 [ NotebookReadPage
   page;
   print "Page ", page.number, " - ", (name) page, "^";
-  if (page.real_page ~= nothing) {
-    page = page.real_page;
+  if (page.found_in ~= nothing) {
+    page = page.found_in;
   }
   if (page provides inside_description) {
     print (string) page.inside_description;

@@ -66,7 +66,7 @@ Notebook_Page_Class Notebook_Page_3 "Notebook page pointer"
   with
     name '#3',
     description "A Notebook page pointing to a different object.",
-    real_page Notebook_Page_3_Real,
+    found_in Notebook_Page_3_Real,
 ;
 
 Object Notebook_Page_3_Real
