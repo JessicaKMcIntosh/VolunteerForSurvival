@@ -27,10 +27,16 @@ Constant Notebook_MSG_Contents_1
 Constant Notebook_MSG_Contents_2
  "Notebook Contents:^
   Page 1 - Notebook Page 1^
-  Page 2 - notebook page other";
+  Page 2 - Notebook page other";
 Constant Notebook_MSG_Page_1
  "Page 1 - Notebook Page 1^
   This is the contents of the notebook page.";
+Constant Notebook_MSG_Page_2
+ "Page 2 - Notebook page other^
+  A Notebook page containing NO message.";
+Constant Notebook_MSG_Page_3
+ "Page 3 - Notebook page pointer^
+  This is the real object for Page 3.";
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -41,7 +47,7 @@ Notebook_Class Notebook "Notebook"
 ;
 
 ! A page to test the notebook with.
-Notebook_Page_Class -> Page_1 "Notebook Page 1"
+Notebook_Page_Class -> Notebook_Page_1 "Notebook Page 1"
   with
     name 'page' '#1',
     description "A notebook page containing a message.",
@@ -49,29 +55,44 @@ Notebook_Page_Class -> Page_1 "Notebook Page 1"
 ;
 
 ! A different page to test the notebook with.
-Notebook_Page_Class Page_2 "notebook page other"
+Notebook_Page_Class Notebook_Page_2 "Notebook page other"
   with
     name '#2',
     description "A Notebook page containing NO message.",
-  has scored
 ;
 
-! An object that is not a tape.
+! A  page that points to a different object.
+Notebook_Page_Class Notebook_Page_3 "Notebook page pointer"
+  with
+    name '#3',
+    description "A Notebook page pointing to a different object.",
+    real_page Notebook_Page_3_Real,
+;
+
+Object Notebook_Page_3_Real
+  with
+    name 'real',
+    description "The real object for Page 3.",
+    inside_description "This is the real object for Page 3."
+;
+
+! An object that is not a notebook.
 Object Notebook_Not_Note "Not a Note"
 ;
 
 ! Object to run the tests.
-Unit_Test_Class Note_Tests "Notebook library"
+Unit_Test_Class Notebook_Tests "Notebook library"
   with
     RunTest [;
       ! Prepare test objects.
       move Notebook to player;
-      NotebookUpdateNumbers();
+      Notebook.update();
 
       ! Run the tests.
       Unit_RunTest(_TestNotebook_Created);
       Unit_RunTest(_TestNotebook_AddPage);
       Unit_RunTest(_TestNotebook_Read);
+      Unit_RunTest(_TestNotebook_RealPage);
     ],
 ;
 
@@ -95,12 +116,12 @@ Unit_Test_Class Note_Tests "Notebook library"
 
   Unit_AssertEquals(
     1,
-    Page_1.number,
+    Notebook_Page_1.number,
     "Notebook Page 1 not correctly numbered."
   );
 
   Unit_AssertCapture(
-    NotebookListContents,
+    _TestNotebook_Helper_Contents,
     Notebook_MSG_Contents_1,
     "Contents of the notebook with only Page 1 are not correct."
   );
@@ -111,15 +132,16 @@ Unit_Test_Class Note_Tests "Notebook library"
 [ _TestNotebook_AddPage;
   print "Verify a new page can be added to the notebook.^";
 
-  Notebook.add(Page_2);
+  Notebook.add(Notebook_Page_2);
 
   Unit_AssertTrue(
-    (Page_2 in Notebook),
+    (Notebook_Page_2 in Notebook),
     "Page 2 should be in the notebook after being added."
   );
 
+  action = ##Examine;
   Unit_AssertCapture(
-    NotebookListContents,
+    _TestNotebook_Helper_Before,
     Notebook_MSG_Contents_2,
     "Contents of the notebook with Pages 1 & 2 are not correct."
   );
@@ -131,8 +153,28 @@ Unit_Test_Class Note_Tests "Notebook library"
   print "Verify a page can be read.^";
 
   Unit_AssertCapture(
-    _TestNotebook_ReadPage,
+    _TestNotebook_Helper_ReadPage_1,
     Notebook_MSG_Page_1,
+    "Contents of Page 1 are incorrect."
+  );
+
+  Unit_AssertCapture(
+    _TestNotebook_Helper_ReadPage_2,
+    Notebook_MSG_Page_2,
+    "Contents of Page 2 are incorrect."
+  );
+
+  print "Success...^^";
+];
+
+[ _TestNotebook_RealPage;
+  print "Verify a 'Real' page can be read.^";
+
+  Notebook.add(Notebook_Page_3);
+
+  Unit_AssertCapture(
+    _TestNotebook_Helper_ReadPage_3,
+    Notebook_MSG_Page_3,
     "Contents of Page 1 are incorrect."
   );
 
@@ -143,6 +185,22 @@ Unit_Test_Class Note_Tests "Notebook library"
 ! Test Helpers
 ! ------------------------------------------------------------------------------
 
-[ _TestNotebook_ReadPage;
-  NotebookReadPage(Page_1);
+[ _TestNotebook_Helper_Before;
+  Notebook.before();
+];
+
+[ _TestNotebook_Helper_Contents;
+  Notebook.contents();
+];
+
+[ _TestNotebook_Helper_ReadPage_1;
+  NotebookReadPage(Notebook_Page_1);
+];
+
+[ _TestNotebook_Helper_ReadPage_2;
+  NotebookReadPage(Notebook_Page_2);
+];
+
+[ _TestNotebook_Helper_ReadPage_3;
+  NotebookReadPage(Notebook_Page_3);
 ];
