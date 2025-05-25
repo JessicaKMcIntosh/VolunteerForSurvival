@@ -28,6 +28,11 @@
 ! run, failed and successful.
 ! Unit_Report();
 !
+! [TestRoutine;
+!   print "Really bad test.^";
+!   Unit_AssertTrue(true, "True should always be true.");
+! ];
+!
 ! ------------------------------------------------------------------------------
 ! Assertions:
 !
@@ -74,11 +79,11 @@
 ! Create a unit object to run the tests with.
 ! Unit_Class Unit "Unit testing object";
 !
-! Create a unit test object with the property RunTest created to run the tests.
+! Create unit test objects with the property RunTest created to run the tests.
 ! Unit_Test_Class Unit_Test "Unit Test"
 !   with
 !     RunTest [;
-!       Unit_AssertTrue(true, "True should always be true.");
+!       Unit_RunTest(TestRoutine);
 !     ];
 !
 ! Run the tests then generate a report.
@@ -86,6 +91,7 @@
 ! Unit.Report();
 !
 ! There is also a builtin self test for the internal functions.
+! If the self tests fail the library will quit.
 ! Unit.SelfTest();
 ! ------------------------------------------------------------------------------
 
@@ -149,7 +155,7 @@ Class Unit_Class
       Unit_Report();
     ],
     SelfTest [;
-      print "Running Unit library sef tests";
+      print "Running Unit library self tests";
       if (_Unit_Self_Test()) {
         print " Success!^";
       } else {
@@ -203,13 +209,14 @@ Class Unit_Test_Class
 ! ------------------------------------------------------------------------------
 
 ! Execute the test routine.
+! Returns true for success, false for a failure.
 [ Unit_RunTest
   TestRoutine;  ! The routine to test.
 
   ++Unit_TestCount;
   @catch -> _Unit_Exception;
   TestRoutine();
-  rfalse;
+  rtrue;
 ];
 
 ! Print a summary report of test results.
@@ -378,7 +385,7 @@ Class Unit_Test_Class
   Continue; ! (Required) Continue execution after a failure.
 
   if (Continue ~= true) {
-    @throw "Assertion failed!" _Unit_Exception;
+    @throw false _Unit_Exception;
   }
 ];
 
