@@ -20,6 +20,9 @@ Volunteer For Survival has been uploaded to <https://borogove.io/>.
 It is currently private, but will be made public when the game is playable.\
 <https://3srgd2vv.play.borogove.io/>
 
+See the Wiki on GitHub for useful information.\
+<https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki>
+
 Playing VTS on Unix:
 
 * It is likely your Linux/Unix distribution already has a Z-Machine interpreter available.
