@@ -1,0 +1,143 @@
+
+NOTE: Seeding the random number generator with -1.
+This game is still in Beta and will have bugs.
+Email JessicaKMcIntosh AT gmail DOT com to report issues.
+Type HELP for in game help.
+For more information please visit:
+https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki
+
+You are laying in a small empty alley.
+You feel a hard object in your pocket.
+
+
+To the east is a large metal door leading back to the shelter.
+Next to the door, built into the wall, is a drop box.
+To the north is more of the empty alley.
+
+>
+
+Welcome to Volunteer For Survival!
+This is a text adventure game along the lines of Adventure and Zork.
+To interact with the game use one command per line.
+Examples are LOOK, EXAMINE, OPEN, TAKE and so on.
+
+To get help on a topic or object type 'HELP TOPIC'.
+To get a list of words used in the game type 'HELP WORDS'.
+If you are completely lost type 'HELP FIRST'.
+
+>
+
+NOTE interfaces with the notebook.
+Without a topic will list the contents of the notebook.
+If given a page # or topic will lookup said page or topic.
+
+NOTE PAGE 1
+NOTE 1
+NOTE LIST
+>
+
+CLOSE a container.
+>
+
+Use 'EAT PILL' to consume a pill from the bottle.
+
+>
+
+EXAMINE an object or direction to get detailed information.
+
+>
+
+There are the first steps to start your exploration.
+
+PLAY
+INVENTORY
+OPEN BOX
+TAKE ALL
+NORTH
+
+TAKE ALL
+PLAY #1
+NORTH
+NOTE
+
+>
+
+GO in a specific direction. NORTH, SOUTH, EAST, WEST, UP, DOWN
+
+>
+
+INVENTORY shows what the player is currently carrying.
+
+>
+
+LOOK will give information on the current room.
+You can also LOOK AT and object or LOOK IN a container.
+
+>
+
+NOTE interfaces with the notebook.
+Without a topic will list the contents of the notebook.
+If given a page # or topic will lookup said page or topic.
+
+NOTE PAGE 1
+NOTE 1
+NOTE LIST
+>
+
+NOTE interfaces with the notebook.
+Without a topic will list the contents of the notebook.
+If given a page # or topic will lookup said page or topic.
+
+NOTE PAGE 1
+NOTE 1
+NOTE LIST
+>
+
+OPEN a container to interact with the contents.
+
+>
+
+PLAY the tape currently in the tape player.
+PLAY TAPE to put a tape into the tape player and play it.
+
+>
+
+TAKE takes an object from the ground.
+TAKE ALL takes all available objects on ground or from open containers.
+
+>
+
+TURN an object on or off.
+
+>
+
+SCORE shows your current score out of the maximum score.
+
+>
+
+SWITCH an object ON or OFF, toggling the state.
+
+>
+
+UNLOCK CONTAINER WITH ITEM to unlock a container with a key (crowbar).
+
+>
+
+USE attempts to do the right thing for an item. Try it.
+
+>
+
+These are the words used in this game:
+EAT EXAMINE GO INVENTORY OPEN LOOK NOTE PLAY SCORE SWITCH TAKE TURN UNLOCK USE
+Directions: NORTH SOUTH EAST WEST UP DOWN
+
+>
+
+A drop box used to exchange items with the Shelter.
+
+>
+
+You can't see any such thing.
+
+>
+EOT

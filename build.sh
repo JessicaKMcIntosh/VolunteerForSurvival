@@ -107,7 +107,7 @@ function RunInteg {
     echo "Running ${APPNAME} Integration tests..."
     DeleteFile "${INTEGOUT}"
     echo "${APPNAME} Integration Test Results" >> ${INTEGOUT}
-    echo "" >> ${INTEGOUT}
+    echo "" >> "${INTEGOUT}"
 
     # Loop over the tests and run each one.
     for file in Tests/*.rec; do
@@ -118,6 +118,8 @@ function RunInteg {
     echo ""
     if [[ ${ERRORCOUNT} -eq "0" ]] ; then
         echo "All tests were successful!"
+        rm -f "${INTEGOUT}"
+
     else
         echo "Tests have failed: ${ERRORCOUNT} out of ${TESTCOUNT} tests"
         echo "See the file '${INTEGOUT}' for more information."
@@ -127,18 +129,21 @@ function RunInteg {
 # Run an integration test.
 function RunIntegTest {
     TEST_FILE="${1%.rec}"
+    REC_FILE="Tests/${TEST_FILE}.rec"
+    OUT_FILE="Tests/${TEST_FILE}.out"
+    TXT_FILE="Tests/${TEST_FILE}.txt"
     WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
     TESTCOUNT=$((TESTCOUNT + 1))
-    cat "Tests/${TEST_FILE}.rec" | ${INTERPRETER} -m -q Tests/vts.z5 > Tests/temp.txt 2>&1
-    diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt > /dev/null
+    cat "${REC_FILE}" | ${INTERPRETER} -m -q Tests/vts.z5 > "${OUT_FILE}" 2>&1
+    diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null
     if [[ "$?" -eq "0" ]] ; then
         WriteString "${INTEGOUT}" "Succeeded."
+        rm -f "${OUT_FILE}"
     else
-        WriteString "${INTEGOUT}" "Failed!"
-        diff -w "Tests/${TEST_FILE}.txt" Tests/temp.txt >> "${INTEGOUT}"
+        WriteString "${INTEGOUT}" "Failed! See the file '${OUT_FILE}' for test output."
+        diff -w "${TXT_FILE}" "${OUT_FILE}" >> "${INTEGOUT}"
         ERRORCOUNT=$((ERRORCOUNT + 1))
     fi
-    rm -f Tests/temp.txt
 }
 
 # Run the unit tests.
