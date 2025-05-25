@@ -52,7 +52,10 @@ Unit_Class Unit "Unit testing object";
 
 ! Main function for running the tests.
 [ Main;
-  print "Running tests for VTS.^^";
+  ! Run the unit library self test.
+  Unit.SelfTest();
+
+  print "^Running tests for VTS.^^";
 
   ! Run all of the created unit tests.
   Unit.Run();

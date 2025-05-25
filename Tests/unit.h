@@ -12,7 +12,7 @@
 ! https://ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/infunit.h
 !
 ! String functions based on the IString library by L. Ross Raszewski
-! https://www.ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/istring.h
+! https://ifarchive.org/if-archive/infocom/compilers/inform6/library/contributions/istring.h
 ! ------------------------------------------------------------------------------
 ! USAGE
 ! ------------------------------------------------------------------------------
@@ -80,6 +80,13 @@
 !     RunTest [;
 !       Unit_AssertTrue(true, "True should always be true.");
 !     ];
+!
+! Run the tests then generate a report.
+! Unit.Run();
+! Unit.Report();
+!
+! There is also a builtin self test for the internal functions.
+! Unit.SelfTest();
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -89,6 +96,20 @@
 System_file;
 
 Message "Loading the Unit library.";
+
+! ------------------------------------------------------------------------------
+! Constants
+! ------------------------------------------------------------------------------
+
+! Maximum string length for Unit_AssertCapture and Unit_AssertStrCmp.
+! Increase this number if your test strings get too long.
+Constant _Unit_Max_String_Length 200;
+
+! Strings for the self test.
+Constant _Unit_Self_Test_String_Empty "";
+Constant _Unit_Self_Test_String_A "A string of text for the self test.";
+Constant _Unit_Self_Test_String_B "A different string of text for the self test.";
+Constant _Unit_Self_Test_String_C "A different string of text for the self test.^^";
 
 ! ------------------------------------------------------------------------------
 ! Globals
@@ -102,7 +123,6 @@ GLobal Unit_FailCount = 0;
 Global _Unit_Exception;
 
 ! For string comparison. Used by Unit_AssertCapture and Unit_AssertStrCmp.
-Constant _Unit_Max_String_Length 200;
 Array _Unit_Captured->_Unit_Max_String_Length;
 Array _Unit_Expected->_Unit_Max_String_Length;
 
@@ -127,6 +147,15 @@ Class Unit_Class
     ],
     Report [;
       Unit_Report();
+    ],
+    SelfTest [;
+      print "Running Unit library sef tests";
+      if (_Unit_Self_Test()) {
+        print " Success!^";
+      } else {
+        print "Self test failed! Aborting!^";
+        quit;
+      }
     ]
 ;
 
@@ -170,7 +199,7 @@ Class Unit_Test_Class
 ;
 
 ! ------------------------------------------------------------------------------
-! Interface Subroutines
+! Test Interface Subroutines
 ! ------------------------------------------------------------------------------
 
 ! Execute the test routine.
@@ -370,9 +399,8 @@ Class Unit_Test_Class
     rfalse;
   }
 
-  for (Position = 1: Position <= _Unit_Expected-->0: Position++) {
-    if (_Unit_Expected->(Position + 1) ~= _Unit_Captured->(Position + 1)) {
-      print ">>", Position, "<<^";
+  for (Position = 2: Position <= _Unit_Expected-->0 + 1: Position++) {
+    if (_Unit_Expected->(Position) ~= _Unit_Captured->(Position)) {
       rfalse;
     }
   }
@@ -385,5 +413,90 @@ Class Unit_Test_Class
   Position;
   for (Position = 2: Position <= String-->0 + 1: Position++) {
     print (char) String->(Position);
+  }
+];
+
+! ------------------------------------------------------------------------------
+! Self Test
+! ------------------------------------------------------------------------------
+
+! Run a self test of the Unit test internals.
+[ _Unit_Self_Test;
+  ! Two strings that should match.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
+  if (_Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Comparing the same string failed.^";
+    rfalse;
+  }
+
+  ! Two strings that should not match.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_B.print_to_array(_Unit_Expected);
+  if (~~ _Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Comparing different strings failed.^";
+    rfalse;
+  }
+
+  ! Compare a string to an empty string.
+  ! This was a problem with an earlier version.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_Empty.print_to_array(_Unit_Expected);
+  if (~~ _Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Comparing a string to an empty string failed.^";
+    rfalse;
+  }
+
+  ! Chomp carriage returns from the end of a string.
+  _Unit_Self_Test_String_B.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_C.print_to_array(_Unit_Expected);
+  _Unit_String_Chomp(_Unit_Expected);
+  if (_Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Chomping carriage returns from the end of a string failed.^";
+    rfalse;
+  }
+
+  ! Chomp a string with no carriage returns at the end.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
+  _Unit_String_Chomp(_Unit_Expected);
+  if (_Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Chomping a string with no carriage returns failed.^";
+    rfalse;
+  }
+
+  ! Check capturing output.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
+  _Unit_CaptureStart();
+  print (string) _Unit_Self_Test_String_A;
+  _Unit_CaptureStop();
+  _Unit_String_Chomp(_Unit_Captured);
+  if (_Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Capturing printed text failed.^";
+    rfalse;
+  }
+
+  ! Check that _Unit_String_Print accurately reproduces strings.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
+  _Unit_CaptureStart();
+  _Unit_String_Print(_Unit_Expected);
+  _Unit_CaptureStop();
+  if (_Unit_String_Compare()) {
+    print ".";
+  } else {
+    print "^Printing a string failed.^";
+    rfalse;
   }
 ];
