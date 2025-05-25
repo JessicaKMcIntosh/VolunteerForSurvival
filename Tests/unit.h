@@ -58,7 +58,8 @@
 ! Checks that Value is not equal to nothing.
 ! Unit_AssertNotNothing(Value, ErrorText, Continue);
 !
-! Compares the strings Expected and Actual using the StrCmp routine.
+! Compares the strings Expected and Actual strings.
+! The strings can be actual strings or string arrays.
 ! Unit_AssertStrCmp(Expected, Actual, ErrorText, Continue);
 !
 ! Checks if Condition is true.
@@ -129,7 +130,7 @@ GLobal Unit_FailCount = 0;
 Global _Unit_Exception;
 
 ! For string comparison. Used by Unit_AssertCapture and Unit_AssertStrCmp.
-Array _Unit_Captured->_Unit_Max_String_Length;
+Array _Unit_Actual->_Unit_Max_String_Length;
 Array _Unit_Expected->_Unit_Max_String_Length;
 
 ! ------------------------------------------------------------------------------
@@ -155,13 +156,15 @@ Class Unit_Class
       Unit_Report();
     ],
     SelfTest [;
-      print "Running Unit library self tests";
-      if (_Unit_Self_Test()) {
-        print " Success!^";
+      print "Running Unit library self tests...^";
+      if (Unit_RunTest(_Unit_Self_Test)) {
+        print "Success!^";
       } else {
         print "Self test failed! Aborting!^";
         quit;
       }
+      Unit_TestCount = 0;
+      Unit_FailCount = 0;
     ]
 ;
 
@@ -244,7 +247,7 @@ Class Unit_Test_Class
   _Unit_CaptureStop();
 
   ! Remove any stray carriage returns from the end of the captured string.
-  _Unit_String_Chomp(_Unit_Captured);
+  _Unit_String_Chomp(_Unit_Actual);
 
   ! Convert Expected to an array string.
   Expected.print_to_array(_Unit_Expected);
@@ -254,7 +257,7 @@ Class Unit_Test_Class
     print "[Expected (^";
     _Unit_String_Print(_Unit_Expected);
     print "^) but received (^";
-    _Unit_String_Print(_Unit_Captured);
+    _Unit_String_Print(_Unit_Actual);
     print "^)]^^";
     _Unit_Throw(Continue);
   }
@@ -310,18 +313,30 @@ Class Unit_Test_Class
   }
 ];
 
-! Check if the expected value matches the actual value using StrCmp.
+! Check if the expected value matches the actual value.
 [ Unit_AssertStrCmp
   Expected  ! (Required) The expected value.
   Actual    ! (Required) The actual value.
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
+  ! Convert or copy the strings.
+  if (Expected ofclass string) {
+    Expected.print_to_array(_Unit_Expected);
+  } else {
+    _Unit_String_Copy(Expected, _Unit_Expected);
+  }
+  if (Actual ofclass string) {
+    Actual.print_to_array(_Unit_Actual);
+  } else {
+    _Unit_String_Copy(Actual, _Unit_Actual);
+  }
+
   if (_Unit_Assert(_Unit_String_Compare(), ErrorText, "AssertStrCmp")) {
     print "[Expected (^";
-    _Unit_String_Print(Expected);
+    _Unit_String_Print(_Unit_Expected);
     print "^) but received (^";
-    _Unit_String_Print(Actual);
+    _Unit_String_Print(_Unit_Actual);
     print "^)]^^";
     _Unit_Throw(Continue);
   }
@@ -372,7 +387,7 @@ Class Unit_Test_Class
 
 ! Start capturing output.
 [ _Unit_CaptureStart;
-  @output_stream 3 _Unit_Captured;
+  @output_stream 3 _Unit_Actual;
 ];
 
 ! Stop capturing output.
@@ -398,20 +413,35 @@ Class Unit_Test_Class
   }
 ];
 
-! Compare the _Unit_Expected and _Unit_Captured strings.
+! Compare the _Unit_Expected and _Unit_Actual strings.
 ! Check the length first, then compare the strings.
 [_Unit_String_Compare
   Position;
-  if (_Unit_Expected-->0 ~= _Unit_Captured-->0) {
+
+  ! Check the length first.
+  ! This caused issues with empty strings with the istring library.
+  if (_Unit_Expected-->0 ~= _Unit_Actual-->0) {
     rfalse;
   }
 
+  ! Then check the contents.
   for (Position = 2: Position <= _Unit_Expected-->0 + 1: Position++) {
-    if (_Unit_Expected->(Position) ~= _Unit_Captured->(Position)) {
+    if (_Unit_Expected->(Position) ~= _Unit_Actual->(Position)) {
       rfalse;
     }
   }
   rtrue;
+];
+
+! Copy a string array.
+[ _Unit_String_Copy
+  Source
+  Destination
+  position;
+  Destination-->0 = Source-->0;
+  for (Position = 2: Position <= Source-->0 + 1: Position++) {
+    Destination->(Position) = Source->(Position);
+  }
 ];
 
 ! Print a string.
@@ -430,80 +460,96 @@ Class Unit_Test_Class
 ! Run a self test of the Unit test internals.
 [ _Unit_Self_Test;
   ! Two strings that should match.
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
-  if (_Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Comparing the same string failed.^";
-    rfalse;
-  }
+  Unit_AssertStrCmp(
+    _Unit_Self_Test_String_A,
+    _Unit_Self_Test_String_A,
+    "Comparing the same string failed."
+  );
 
+  ! Copy a string.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
+  _Unit_String_Copy(_Unit_Expected, _Unit_Actual);
+  Unit_AssertTrue(
+    _Unit_String_Compare(),
+    "Copying strings failed."
+  );
   ! Two strings that should not match.
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Actual);
   _Unit_Self_Test_String_B.print_to_array(_Unit_Expected);
-  if (~~ _Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Comparing different strings failed.^";
-    rfalse;
-  }
+  Unit_AssertFalse(
+    _Unit_String_Compare(),
+    "Comparing different strings failed."
+  );
 
   ! Compare a string to an empty string.
   ! This was a problem with an earlier version.
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Actual);
   _Unit_Self_Test_String_Empty.print_to_array(_Unit_Expected);
-  if (~~ _Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Comparing a string to an empty string failed.^";
-    rfalse;
-  }
+  Unit_AssertFalse(
+    _Unit_String_Compare(),
+    "Comparing a string to an empty string failed."
+  );
 
   ! Chomp carriage returns from the end of a string.
-  _Unit_Self_Test_String_B.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_B.print_to_array(_Unit_Actual);
   _Unit_Self_Test_String_C.print_to_array(_Unit_Expected);
   _Unit_String_Chomp(_Unit_Expected);
-  if (_Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Chomping carriage returns from the end of a string failed.^";
-    rfalse;
-  }
+  Unit_AssertTrue(
+    _Unit_String_Compare(),
+    "Chomping carriage returns from the end of a string failed."
+  );
 
   ! Chomp a string with no carriage returns at the end.
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Captured);
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Actual);
   _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
   _Unit_String_Chomp(_Unit_Expected);
-  if (_Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Chomping a string with no carriage returns failed.^";
-    rfalse;
-  }
+  Unit_AssertTrue(
+    _Unit_String_Compare(),
+    "Chomping a string with no carriage returns failed."
+  );
 
   ! Check capturing output.
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
-  _Unit_CaptureStart();
-  print (string) _Unit_Self_Test_String_A;
-  _Unit_CaptureStop();
-  _Unit_String_Chomp(_Unit_Captured);
-  if (_Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Capturing printed text failed.^";
-    rfalse;
-  }
+  Unit_AssertCapture(
+    _Unit_Self_Test_Helper_Capture,
+    _Unit_Self_Test_String_A,
+    "Capturing printed text failed."
+  );
 
   ! Check that _Unit_String_Print accurately reproduces strings.
+  Unit_AssertCapture(
+    _Unit_Self_Test_Helper_Print,
+    _Unit_Self_Test_String_A,
+    "Printing a string failed."
+  );
+
+  ! Test Unit_AssertEquals.
+  Unit_AssertEquals(
+    42,
+    42,
+    "Unit_AssertEquals failed."
+  );
+
+  ! Test Unit_AssertOfClass.
+  Unit_AssertOfClass(
+    "This is a string",
+    String,
+    "Unit_AssertOfClass failed."
+  );
+
+  ! Test Unit_AssertNotNothing.
+  Unit_AssertNotNothing(
+    "This is something.",
+    "Unit_AssertNotNothing failed."
+  );
+];
+
+! Prints String A for a capture test.
+[ _Unit_Self_Test_Helper_Capture;
+  print (string) _Unit_Self_Test_String_A;
+];
+
+! Prints String A converted to an array for a capture test.
+[ _Unit_Self_Test_Helper_Print;
   _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
-  _Unit_CaptureStart();
   _Unit_String_Print(_Unit_Expected);
-  _Unit_CaptureStop();
-  if (_Unit_String_Compare()) {
-    print ".";
-  } else {
-    print "^Printing a string failed.^";
-    rfalse;
-  }
 ];
