@@ -15,7 +15,8 @@
 ! ------------------------------------------------------------------------------
 ! Include after Grammar.
 !
-! IF the istring.h library is included adds extra functionality.
+! If the istring.h library is included adds extra functionality.
+! It is recommended to increase MAX_STR_LEN or tests might fail.
 !
 ! Main testing interface:
 !
@@ -34,12 +35,12 @@
 ! the expected and actual values.
 !
 ! Executes a routine and captures any output that is printed.
-! The output is compared to a string.
+! The output is compared to the string Expected.
 ! Requires the library istring.h to be loaded.
-! Unit_AssertCapture(RoutineName, ExpectedOutput, ErrorText, Continue);
+! Unit_AssertCapture(Routine, Expected, ErrorText, Continue);
 !
-! Checks that ActualValue matches ExpectedValue.
-! Unit_AssertEquals(ExpectedValue, ActualValue, ErrorText, Continue);
+! Checks that ActualValue matches Expected.
+! Unit_AssertEquals(Expected, Actual, ErrorText, Continue);
 !
 ! Checks if Condition is false.
 ! Unit_AssertFalse(Condition, ErrorText, Continue);
@@ -207,10 +208,14 @@ Class Unit_Test_Class
   Routine();
   _Unit_CaptureStop();
 
+  ! Remove any stray carriage returns from the end of the captured string.
+  _Unit_Chomp(_Unit_Captured);
+
   ! Convert Expected to an array string.
   WriteString(_Unit_Expected, Expected);
 
-  if (_Unit_Assert((StrCmp(_Unit_Expected, _Unit_Captured) == 0), ErrorText, "AssertCapture")) {
+  ! Compare the strings.
+  if (_Unit_Assert(_Unit_Compare_Strings(), ErrorText, "AssertCapture")) {
     print "[Expected (^";
     PrintString(_Unit_Expected);
     print "^) but received (^";
@@ -280,7 +285,7 @@ Class Unit_Test_Class
   ErrorText ! (Required) Error text to print on failure.
   Continue; ! (Optional) Continue execution after a failure.
 
-  if (_Unit_Assert((StrCmp(Expected, Actual) == 0), ErrorText, "AssertStrCmp")) {
+  if (_Unit_Assert(_Unit_Compare_Strings(), ErrorText, "AssertStrCmp")) {
     print "[Expected (^";
     PrintString(Expected);
     print "^) but received (^";
@@ -353,5 +358,23 @@ Class Unit_Test_Class
 ! Stop capturing output.
 [ _Unit_CaptureStop;
   @output_stream -3;
+];
+
+! Chomp carriage return from the end of a string.
+[ _Unit_Chomp
+  ChompString;
+  while (ChompString->(ChompString-->0 + 1) == 13) {
+    ChompString-->0 = ChompString-->0 - 1;
+  }
+];
+
+! Compare the _Unit_Expected and _Unit_Captured strings.
+! Check the length first, then compare the strings.
+[_Unit_Compare_Strings;
+  if (_Unit_Expected-->0 ~= _Unit_Captured-->0) {
+    return 0;
+  }
+
+  return (StrCmp(_Unit_Expected, _Unit_Captured) == 0);
 ];
 #Endif;
