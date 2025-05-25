@@ -151,7 +151,7 @@ Notebook_Page_Class Notebook_Tape_1 "Cassette tape #1"
   ! When testing don't print a banner.
   #Ifdef NO_BANNER;
     return 2;
-  #Ifnot
+  #Ifnot;
     print
     "This game is still in Beta and will have bugs.^
       Email JessicaKMcIntosh AT gmail DOT com to report issues.^
