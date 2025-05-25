@@ -40,7 +40,14 @@ VTS is written in the Inform 6 language created by Graham Nelson.
 The inspiration for VTS came from a video about PSX/PS1 era horror games.\
 <https://youtu.be/z4vtcXVPhbQ?si=ldy6Ie5yHbjiqfTm>
 
-VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/) on Windows.
+VTS is being developed with [Visual Studio Code](https://code.visualstudio.com/) on Windows and Linux.
+
+Docker is required to run the tests and to generate the file `Source/city.h`. This is due to inconsistent output of the Windows dfrotz binary.
+
+### Debug Build
+
+Building with the command `debug` will generate a DEBUG build.
+This build will output extra messages useful for debugging parts of the game.
 
 ### Coding style
 
@@ -59,11 +66,13 @@ The following deviations are made:
 * [Source/city.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/city.h) - The main city map. Generated from `Utilities/gencity.inf`.
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
 * [Source/loot.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/loot.h) - Implementation of loot and loot containing containers.
+* [Source/notebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/notebook.h) - Implementation of a notebook.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
 * [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - Storm drain junctions.
 * [Source/subway.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - The subway stations and junctions.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
 * [Source/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testlamp.h) - Unit tests for the lamp library.
+* [Source/testnotebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testnotebook.h) - Unit tests for the notebook library.
 * [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
 * [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
 * [Source/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzunitzy.h) - A unit testing library.
@@ -83,10 +92,13 @@ The following deviations are made:
   The guide to using the Inform 6 language. Often referred to as the 'DM4'.\
   <https://inform-fiction.org/manual/html/contents.html>
 
+* A remix of the Inform Designer's Manual to make it nicer to use.\
+  <https://radiogoddess.github.io/inform6-dm4-remix/index.html>
+
 * Documentation at [The Interactive Fiction Archive](https://www.ifarchive.org/).\
   <https://www.ifarchive.org/indexes/if-archive/infocom/compilers/inform6/manuals/>
 
-  * The DM4 is also available from the archive.\
+  * The DM4 is also available from the archive.
   * HTML - <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/designers_manual_4.zip>
   * PDF - <https://www.ifarchive.org/if-archive/infocom/compilers/inform6/manuals/designers_manual_4.pdf>
 
@@ -112,8 +124,6 @@ The build script will create a new image `vts:0.0`.
 This image uses Debian stable and installs the packages `frotz` `inform6-compiler`.
 Using Docker greatly simplifies the process and is the recommended method.
 
-Compiling outside of Docker will be depreciated once I test it under Linux.
-
 ### Compiling under Windows
 
 The files required are included in the subdirectory `inform6`.
@@ -138,6 +148,10 @@ To build VTS:
 
 * Run the build.sh file \
   `bash ./build.sh`
+* The build script has builtin help.\
+  `bash ./build.sh help`
+* Tests can be run using the `test` parameter.\
+  `bash ./build.sh tests`
 
 There is a version of the inform compiler for Linux included.
 To use this version edit the file `build.sh` and see the variable `INFORM_COMPILER`.
