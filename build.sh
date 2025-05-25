@@ -254,7 +254,7 @@ function DockerCheck {
 # Run the build in Docker.
 function DockerRun {
     # Check if Docker is running.
-    if ! ps aux | grep -v grep | grep -i docker; then
+    if ! pgrep docker > /dev/null; then
         echo "Docker is not running. Aborting!"
         exit 1
     fi
