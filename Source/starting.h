@@ -177,6 +177,10 @@ Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
       I found those things you wanted so you better pay me back.^
       Some day you need to tell me what the hell a Zork even is.^
       Ungrateful piece of ...",
+  after [;
+    ! Move the notebook page representing this tape into the notebook.
+    Notebook.add(Notebook_Tape_2);
+  ],
   has scored
 ;
 

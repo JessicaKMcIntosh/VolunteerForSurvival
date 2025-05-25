@@ -110,14 +110,21 @@ Notebook_Page_Class Notebook_Tape_0 "Cassette tape #0"
 with
     description "A microcassette tape containing a message from yourself.",
     name 'cassette' 'tape' '#0' 'tape_0' 'tape_#0',
-    real_page Tape_0,
+    with_key Tape_0,
 ;
 
 Notebook_Page_Class Notebook_Tape_1 "Cassette tape #1"
   with
     name 'cassette' 'tape' '#1' 'tape_1' 'tape_#1',
     description "A microcassette tape containing a message from another volunteer.",
-    real_page Tape_1,
+    with_key Tape_1,
+;
+
+Notebook_Page_Class Notebook_Tape_2 "Cassette tape #2"
+  with
+    name 'cassette' 'tape' '#2' 'tape_2' 'tape_#2',
+    description "A microcassette tape containing a message from another volunteer.",
+    with_key Tape_2,
 ;
 
 ! ------------------------------------------------------------------------------

@@ -20,14 +20,13 @@
 !     description "A notebook page containing a message.",
 !     inside_description "This is the contents of the notebook page.";
 !
-!
 ! If the contents of the notebook page actually live in a different object
-! then use the found_in property.
+! then use the with_key property.
 !
 ! Notebook_Page_Class -> Fake_Notebook_Page "Fake Page"
 !   with
 !     description "The contents of this page live in a different object.",
-!     found_in Real_Page_Object;
+!     with_key Real_Page_Object;
 ! Object Real_Page_Object "The actual page for the entry"
 !   with
 !     inside_description "This is the contents of the notebook page.";
@@ -99,8 +98,8 @@ Class Notebook_Class
 ! Pages in the notebook.
 Class Notebook_Page_Class
   with
-    number 0,           ! The page number.
-    real_page nothing,  ! The object that actually contains the text to print.
+    number 0,         ! The page number.
+    with_key nothing, ! The object that actually contains the text to print.
 ;
 
 ! ------------------------------------------------------------------------------
@@ -185,8 +184,8 @@ Class Notebook_Page_Class
 [ NotebookReadPage
   page;
   print "Page ", page.number, " - ", (name) page, "^";
-  if (page.real_page ~= nothing) {
-    page = page.real_page;
+  if (page.with_key ~= nothing) {
+    page = page.with_key;
   }
   if (page provides inside_description) {
     print (string) page.inside_description;
