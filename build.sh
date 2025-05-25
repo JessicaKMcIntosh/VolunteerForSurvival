@@ -42,13 +42,15 @@ USEDOCKER="YES"
 
 #       -----===== Build Functions ======------
 
-# Build the game and tests.
+# Build the city.h file, the game and run the unit and integ tests.
 function RunAll {
     RunCity
     echo ""
     RunBuild
     echo ""
-    RunBuildUnit
+    RunUnit
+    echo ""
+    RunInteg
 }
 
 # Build the game.
@@ -58,24 +60,15 @@ function RunBuild {
     CompileFile "vts.inf"
 }
 
-# Built the tests.
-function RunBuildUnit {
-    echo "Building ${APPNAME} unit tests..."
-    DeleteFile "Tests/unit.z5"
-    CompileFile "++Tests" "Tests/unit.inf" "Tests/unit.z5"
-}
-
 # Build the city.h file.
 function RunCity {
-    echo "Building ${APPNAME} city.h..."
+    echo "Building ${APPNAME} Source/city.h..."
     echo "Compiling Utilities/gencity.inf..."
     DeleteFile "Utilities/gencity.z5"
-    CompileFile "Utilities/gencity.inf" "Utilities/gencity.z5"
-    if [[ "$?" -ne "0" ]] ; then
+    if ! CompileFile "Utilities/gencity.inf" "Utilities/gencity.z5" ; then
         echo "Error compiling. Aborting!"
         exit 1
     fi
-    echo ""
     echo "Generating Source/city.h..."
     DeleteFile "Source/city.h"
     $INTERPRETER -h 100000 -m -p -q -w 100 Utilities/gencity.z5 > Source/city.h
@@ -89,6 +82,9 @@ function RunClean {
     DeleteFile "Tests/unit.z5"
     DeleteFile "Tests/vts.z5"
     DeleteFile "${INTEGOUT}"
+    for file in Tests/*.out; do
+        DeleteFile "${file}"
+    done
 }
 
 # Build the game with debug enabled.
@@ -102,7 +98,10 @@ function RunDebug {
 function RunInteg {
     DeleteFile "Tests/vts.z5"
     echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
-    CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf" "Tests/vts.z5"
+    if ! CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf" "Tests/vts.z5" ; then
+        echo "Error compiling. Aborting!"
+        exit 1
+    fi
     echo ""
     echo "Running ${APPNAME} Integration tests..."
     DeleteFile "${INTEGOUT}"
@@ -111,34 +110,33 @@ function RunInteg {
 
     # Loop over the tests and run each one.
     for file in Tests/*.rec; do
-        RunIntegTest "$(basename "$file")"
+        RunIntegTest "${file}"
     done
 
     # Check if there were errors.
     echo ""
     if [[ ${ERRORCOUNT} -eq "0" ]] ; then
         echo "All tests were successful!"
-        rm -f "${INTEGOUT}"
-
+        DeleteFile "${INTEGOUT}"
     else
         echo "Tests have failed: ${ERRORCOUNT} out of ${TESTCOUNT} tests"
         echo "See the file '${INTEGOUT}' for more information."
     fi
+    DeleteFile "Tests/vts.z5"
 }
 
 # Run an integration test.
 function RunIntegTest {
     TEST_FILE="${1%.rec}"
-    REC_FILE="Tests/${TEST_FILE}.rec"
-    OUT_FILE="Tests/${TEST_FILE}.out"
-    TXT_FILE="Tests/${TEST_FILE}.txt"
+    REC_FILE="${TEST_FILE}.rec"
+    OUT_FILE="${TEST_FILE}.out"
+    TXT_FILE="${TEST_FILE}.txt"
     WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
     TESTCOUNT=$((TESTCOUNT + 1))
-    cat "${REC_FILE}" | ${INTERPRETER} -m -q Tests/vts.z5 > "${OUT_FILE}" 2>&1
-    diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null
-    if [[ "$?" -eq "0" ]] ; then
+    ${INTERPRETER} -m -q Tests/vts.z5 < "${REC_FILE}" > "${OUT_FILE}" 2>&1
+    if diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null ; then
         WriteString "${INTEGOUT}" "Succeeded."
-        rm -f "${OUT_FILE}"
+        DeleteFile "${OUT_FILE}"
     else
         WriteString "${INTEGOUT}" "Failed! See the file '${OUT_FILE}' for test output."
         diff -w "${TXT_FILE}" "${OUT_FILE}" >> "${INTEGOUT}"
@@ -148,11 +146,17 @@ function RunIntegTest {
 
 # Run the unit tests.
 function RunUnit {
-    RunBuildUnit
+    echo "Building ${APPNAME} unit tests..."
+    DeleteFile "Tests/unit.z5"
+    if ! CompileFile "++Tests" "Tests/unit.inf" "Tests/unit.z5" ; then
+        echo "Error compiling. Aborting!"
+        exit 1
+    fi
     echo ""
     echo "Running ${APPNAME} unit tests..."
-    echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 Tests/unit.z5
+    echo "" | ${INTERPRETER} -h 100000 -m -p -q -w 100 -Z 2 "Tests/unit.z5"
     echo ""
+    DeleteFile "Tests/unit.z5"
 }
 
 # Run the tests.
@@ -171,7 +175,7 @@ function ShowHelp {
     echo "Usage: ${THISSCRIPT} [OPTIONS] COMMANDS(s)"
     echo ""
     echo "Commands:"
-    echo "all    - Build the game and the unit tests."
+    echo "all    - Build the city.h file, the game and run the tests."
     echo "build  - Builds the ${APPNAME} game. (Default)"
     echo "city   - Build the city.h file."
     echo "clean  - Delete all built files."
@@ -191,20 +195,23 @@ function ShowHelp {
 
 # Compile a file.
 function CompileFile {
-    ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S "$@"
+    if ! ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S "$@" ; then
+        echo "Error compiling. Aborting!"
+        exit 1
+    fi
 }
 
 # Delete a file if it exists.
-# %1 - The file to delete.
+# $1 - The file to delete.
 function DeleteFile {
     if [[ -f "$1" ]] ; then
         rm -f "$1"
     fi
 }
 
-# Write a string to STDOUT and the log file.
-# %1 - The file to write the string to.
-# %2 - The string to write.
+# Write a string to STDOUT and append to a file.
+# $1 - The file to write the string to.
+# $2 - The string to write.
 function WriteString {
     echo "$2" | tee -a "$1"
 }
@@ -237,8 +244,7 @@ function DockerInteractive {
 
 # Check if Docker is installed.
 function DockerCheck {
-    docker --version >> /dev/null 2>&1
-    if [[ "$?" -eq "0" ]] ; then
+    if docker --version >> /dev/null 2>&1 ; then
         echo Docker detected...
     else
         USEDOCKER="NO"
