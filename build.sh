@@ -55,6 +55,7 @@ function RunAll {
 
 # Build the game.
 function RunBuild {
+    CheckCompiler
     echo "Building ${APPNAME}..."
     DeleteFile "vts.z5"
     CompileFile "vts.inf"
@@ -62,6 +63,8 @@ function RunBuild {
 
 # Build the city.h file.
 function RunCity {
+    CheckCompiler
+    CheckInterpreter
     echo "Building ${APPNAME} Source/city.h..."
     echo "Compiling Utilities/gencity.inf..."
     DeleteFile "Utilities/gencity.z5"
@@ -89,6 +92,7 @@ function RunClean {
 
 # Build the game with debug enabled.
 function RunDebug {
+    CheckCompiler
     echo "Building ${APPNAME}..."
     DeleteFile "vts.z5"
     CompileFile "-D" "vts.inf"
@@ -96,6 +100,8 @@ function RunDebug {
 
 # Run the integration tests.
 function RunInteg {
+    CheckCompiler
+    CheckInterpreter
     DeleteFile "Tests/vts.z5"
     echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
     if ! CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf" "Tests/vts.z5" ; then
@@ -146,6 +152,8 @@ function RunIntegTest {
 
 # Run the unit tests.
 function RunUnit {
+    CheckCompiler
+    CheckInterpreter
     echo "Building ${APPNAME} unit tests..."
     DeleteFile "Tests/unit.z5"
     if ! CompileFile "++Tests" "Tests/unit.inf" "Tests/unit.z5" ; then
@@ -161,6 +169,8 @@ function RunUnit {
 
 # Run the tests.
 function RunTests {
+    CheckCompiler
+    CheckInterpreter
     echo "Running ${APPNAME} tests..."
     RunUnit
     RunInteg
@@ -192,6 +202,24 @@ function ShowHelp {
 }
 
 #       -----===== Helper Functions ======------
+
+# Check if the compiler is installed.
+function CheckCompiler {
+    if ! which "$INFORM_COMPILER" > /dev/null ; then
+        echo "The compiler '$INFORM_COMPILER' is not installed."
+        echo "Aborting!!"
+        exit 1
+    fi
+}
+
+# Check if the interpreter is installed.
+function CheckInterpreter {
+    if ! which "$INTERPRETER" > /dev/null ; then
+        echo "The interpreter '$INTERPRETER' is not installed."
+        echo "Aborting!!"
+        exit 1
+    fi
+}
 
 # Compile a file.
 function CompileFile {
