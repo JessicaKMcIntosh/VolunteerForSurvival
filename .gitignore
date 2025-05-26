@@ -1,3 +1,4 @@
 *.out
+*.swp
 *.z5
 integ_results.txt
