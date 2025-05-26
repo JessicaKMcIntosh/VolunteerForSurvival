@@ -302,6 +302,7 @@ if [[ "$#" -eq "0" ]] ; then
     echo "See '$0 help' for more information."
     echo ""
     RunBuild
+    echo "Complete."
     exit
 fi
 
@@ -324,3 +325,4 @@ while [[ "$#" -gt "0" ]] ; do
     esac
     shift
 done
+echo "Complete."
