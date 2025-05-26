@@ -154,7 +154,6 @@ Notebook_Page_Class Notebook_Tape_2 "Cassette tape #2"
   ! Make sure the starting notebook pages have numbers.
   Notebook.update();
 
-
   ! When testing don't print a banner.
   #Ifdef NO_BANNER;
     return 2;
@@ -180,9 +179,36 @@ Notebook_Page_Class Notebook_Tape_2 "Cassette tape #2"
    As you lay there bleeding out you reconsider not using the lantern.";
 ];
 
+! Gives the player all the items they can collect.
+[ AllSub
+  item;
+  ! Give key items.
+  move Camping_Lantern to player;
+  move Crowbar to player;
+  move Notebook to player;
+  move Pill_Bottle to player;
+  move Radio to player;
+  move Tape_Player to player;
+  move XYZZY_Token to player;
+
+  ! Give all of the notebook pages.
+  objectloop (item ofclass Notebook_Page_Class) {
+    if (item notin Notebook) {
+      Notebook.add(item);
+    }
+  }
+
+  ! Give all of the cassette tapes.
+  objectloop (item ofclass Tape_Cassette_Class) {
+    if (item notin player or Tape_Player) {
+      move item to player;
+    }
+  }
+];
+
 ! ------------------------------------------------------------------------------
 ! Grammar
 ! ------------------------------------------------------------------------------
 
-! Extend the Read verb to be more useful.
-Extend 'read' first * noun -> Read;
+! For debugging, give the player all items.
+Verb 'all' * -> All;

@@ -230,6 +230,9 @@ Verb 'book' 'note' 'notebook'
   * topic -> Notebook
   * 'page' topic -> Notebook;
 
+! Extend the Read verb to be more useful.
+Extend 'read' first * noun -> Read;
+
 Extend 'read'
   * 'book'/'note'/'notebook' topic -> Notebook
   * 'book'/'note'/'notebook' 'page' topic -> Notebook
