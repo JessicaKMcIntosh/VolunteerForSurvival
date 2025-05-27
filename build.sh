@@ -40,6 +40,12 @@ DOCKERIMAGE="vts:0.0"
 # Is Docker being used?
 USEDOCKER="YES"
 
+# Any compile options to add.
+COMPILEOPTIONS=()
+
+# Actions passed on the command line.
+ACTIONS=()
+
 #       -----===== Build Functions ======------
 
 # Build the city.h file, the game and run the unit and integ tests.
@@ -198,6 +204,9 @@ function ShowHelp {
     echo ""
     echo "Options:"
     echo "-D    - Do not use Docker, even if it is available."
+    echo "-h    - Display this help text."
+    echo ""
+    echo "Other options are passed to the compiler."
     exit;
 }
 
@@ -223,7 +232,7 @@ function CheckInterpreter {
 
 # Compile a file.
 function CompileFile {
-    if ! ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S "$@" ; then
+    if ! ${INFORM_COMPILER} +inform6 ++Extensions ++Source -S "${COMPILEOPTIONS[@]}" "$@" ; then
         echo "Error compiling. Aborting!"
         exit 1
     fi
@@ -302,6 +311,24 @@ function DockerRun {
 
 #       -----===== Process Command Line ======------
 
+# Check for standard type command line switches.
+# Anything looking like an option is just passed on to the compiler.
+# Everything else is saved as an action for later.
+while [[ "$#" -gt "0" ]] ; do
+    case "$1" in
+        help)   ShowHelp;;
+        -\?)    ShowHelp;;
+        /\?)    ShowHelp;;
+        /h)     ShowHelp;;
+        -h)     ShowHelp;;
+        -D)     USEDOCKER="NO";;
+        /D)     USEDOCKER="NO";;
+        -*)     COMPILEOPTIONS+=("$1");;
+        *)      ACTIONS+=("$1");;
+    esac
+    shift
+done
+
 # Did the user disable Docker?
 if [[ "$1" = "-D" || "$1" = "/D" ]]; then
     USEDOCKER="NO"
@@ -320,14 +347,14 @@ fi
 
 # If using Docker then run the build there.
 if [[ "$USEDOCKER" = "YES" ]]; then
-    PARAMS="$*"
+    PARAMS="${COMPILEOPTIONS[*]} ${ACTIONS[*]}"
     DockerRun
 fi
 
 # Default to build if no options given.
-if [[ "$#" -eq "0" ]] ; then
+if [[ "${#ACTIONS[@]}" -eq "0" ]] ; then
     echo "No option provided, defaulting to 'build'."
-    echo "See '$0 help' for more information."
+    echo "See '$THISSCRIPT help' for more information."
     echo ""
     RunBuild
     echo "Complete."
@@ -335,6 +362,7 @@ if [[ "$#" -eq "0" ]] ; then
 fi
 
 # Figure out what we were given on the command line.
+set -- "${ACTIONS[@]}"
 while [[ "$#" -gt "0" ]] ; do
     case "$1" in
         all)    RunAll    ;;
@@ -346,10 +374,6 @@ while [[ "$#" -gt "0" ]] ; do
         unit)   RunUnit   ;;
         test)   RunTests  ;;
         tests)  RunTests  ;;
-        help)   ShowHelp  ;;
-        /\?)    ShowHelp  ;;
-        /h)     ShowHelp  ;;
-        -h)     ShowHelp  ;;
     esac
     shift
 done
