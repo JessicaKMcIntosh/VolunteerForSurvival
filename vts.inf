@@ -127,6 +127,18 @@ Notebook_Page_Class Notebook_Tape_2 "Cassette tape #2"
     with_key Tape_2,
 ;
 
+Notebook_Page_Class Notebook_XYZZY_Token "XYZZY Token"
+  with
+    name 'xyzzy' 'token',
+    description "A token given to those that say the magic word.",
+    inside_description
+     "A token given to those that say the magic word.^
+      Nothing happens when speaking the word.^
+      But in honor of doing so you are given this lovely token.^
+      ^
+      It might even do something useful. (Probably not.)",
+;
+
 ! ------------------------------------------------------------------------------
 ! Initialize the game
 ! ------------------------------------------------------------------------------

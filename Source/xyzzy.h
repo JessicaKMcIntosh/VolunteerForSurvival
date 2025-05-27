@@ -66,6 +66,7 @@ Object XYZZY_Token "XYZZY Token"
     Nothing happens.^";
     if (XYZZY_Token in nothing) {
       move XYZZY_Token to player;
+      Notebook.add(Notebook_XYZZY_Token);
       print "^You have received a special token.";
     }
 ];
