@@ -29,7 +29,13 @@
 !   City_18_20_21         On 21st St between 18th Ave and 20th Ave.
 !   Subway_LINE_20_22_21  Subway station on 21st St between 20th Ave and 22nd Ave.
 !   Storm_30_32_27        Storm drain on 27th St between 20th Ave and 32nd Ave.
-
+!
+! Each location is translated into a single number that points into Under_Table.
+! This number is then saved for each location in the rooms number property.
+! The following code will decode this number into the Avenue and Street.
+! Street = (number % 19) + 20; ! Even streets are on Avenues between streets.
+! Avenue = (number / 19) + 19; ! Odd Avenues are on streets between avenues.
+! Thus an odd Avenue and an even Street ni not a valid location.
 ! ------------------------------------------------------------------------------
 ! Meta Data
 ! ------------------------------------------------------------------------------
@@ -51,6 +57,7 @@ Constant Last_Street = 37;
 ! ------------------------------------------------------------------------------
 
 Global Code;    ! The code from Under_Table for the current location.
+Global Pointer; ! Pointer into the Under_Table array.
 Global Storm;   ! The current location has a Storm Drain.
 Global Subway;  ! The current location has a Subway.
 ! Global Carat;   ! Print a carat. Used for getting the ^ in descriptions.
@@ -88,8 +95,7 @@ Array Under_Table -->
 ! Lookup the current location in Under_Table then set globals.
 [ LookupUnderTable
   Avenue    ! Avenue to lookup.
-  Street    ! Street to lookup.
-  Pointer;  ! Pointer into the Under_Table array.
+  Street;   ! Street to lookup.
 
   ! Get the code for the current location.
   Pointer = ((Avenue - 19) * 19) + (Street - 20);
@@ -190,6 +196,7 @@ Array Under_Table -->
   PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
   print "with^";
+  print "number ", Pointer, ",^";
 
   ! Generate the description.
   ! print "description^~";
@@ -230,6 +237,7 @@ Array Under_Table -->
   PrintHalfStreet(Street, Above, Below);
   print "~^";
   print "with^";
+  print "number ", Pointer, ",^";
 
   ! Generate the description.
   ! print "description^~";
@@ -277,6 +285,7 @@ Array Under_Table -->
   PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
   print "with^";
+  print "number ", Pointer, ",^";
 
   ! Generate the description.
   ! print "description^~";
@@ -320,6 +329,7 @@ Array Under_Table -->
   PrintHalfStreet(Street, Above, Below);
   print "~^";
   print "with^";
+  print "number ", Pointer, ",^";
 
   ! Generate the description.
   ! print "description^~";
@@ -356,6 +366,7 @@ Array Under_Table -->
   PrintIntersection(Avenue, Street);
   print "~^";
   print "with^";
+  print "number ", Pointer, ",^";
 
   ! Generate the description.
   ! print "description^~";
