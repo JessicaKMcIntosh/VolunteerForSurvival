@@ -210,10 +210,12 @@ Class Tape_Cassette_Class
 
 ! Play a tape.
 Verb 'play'
-  *       -> Play
-  * noun  -> Play;
+  *                         -> Play
+  * 'cassette'/'tape' noun  -> Play
+  * 'cassette' 'tape' noun  -> Play
+  * noun                    -> Play;
 
 ! Eject a tape.
 Verb 'eject'
-  *       -> Eject
-  * noun  -> Eject;
+  *               -> Eject
+  * noun          -> Eject;
