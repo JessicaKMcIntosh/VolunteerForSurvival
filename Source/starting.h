@@ -146,7 +146,7 @@ Room_Class Start_Alley "Empty Alley"
 
 Tape_Cassette_Class -> Tape_1 "tape #1"
   with
-    name 'cassette' 'tape' '#1' 'tape_1' 'tape_#1',
+    name 'cassette' 'tape' '#1' "1",
     description "A microcassette tape containing a message from another volunteer.",
     inside_description "Send help. There are aliens out here who can read.... <STATIC>",
   after [;
@@ -170,7 +170,7 @@ Loot_Container_Mail First_Mailbox City_28_25_27
 
 Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
   with
-    name 'cassette' 'tape' '#2' 'tape_2' 'tape_#2',
+    name 'cassette' 'tape' '#2' "2",
     description "A microcassette tape containing a message from another volunteer.",
     inside_description
      "Jones, make sure you leave some food for me.^
