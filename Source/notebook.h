@@ -128,20 +128,24 @@ Class Notebook_Page_Class
 
 ! Consult the notebook for a page or topic.
 [ NotebookConsult
-  page
-  num
-  word;
+  page    ! Notebook page that has been found.
+  num     ! For looking up a page by the number.
+  word    ! Word to search for.
+  word2   ! Second word to search for.
+  found;  ! For checking if multiple pages match.
 
   ! Get the word to lookup, and check if the word is really a number.
   wn = consult_from;
   consult_from = 0;
   num = TryNumber(wn);
   word = NextWord();
+  word2 = NextWord();
 
   ! If the word is 'page' then get the next word.
   if (word == 'page') {
     num = TryNumber(wn);
-    word = NextWord();
+    word = word2;
+    word2 = NextWord();
   }
 
   if (num > 0) {
@@ -157,16 +161,49 @@ Class Notebook_Page_Class
     ! Not a valid dictionary word.
     print "That topic is not listed in ", (the) Notebook, ".";
   } else {
-    ! Find the page by word/name.
+    ! Find the page by word, and if present word2.
+    ! Do a little dance with temporary variable in case multiple pages match.
+    num = 0;
+    found = nothing;
     objectloop (page in Notebook) {
-      for (num = 0: num < (page.#name / 2): num++) {
-        if (page.&name-->num == word) {
-          NotebookReadPage(page);
-          rtrue;
+      if (WordInProperty(word, page, name)) {
+        ! If there is a second word, and it doesn't match, continue.
+        if ((word2 ~= nothing) && ~~ WordInProperty(word2, page, name)) {
+          continue;
         }
+        ! If a page was already found then deal with multiple pages.
+        if (found ~= nothing) {
+          if (num == 1) {
+            ! First time through.
+            ! Print the message multiple pages matched and the already found page.
+            print "Multiple pages found:^";
+            print "Page ", found.number, " - ", (name) found, "^";
+          }
+          print "Page ", page.number, " - ", (name) page, "^";
+        }
+
+        ! Increase the count and save the page for later.
+        num++;
+        found = page;
       }
     }
-    print "Unable to find the topic '", (address) word, "' in ", (the) Notebook, ".";
+
+    ! A single page matched?
+    if (num == 1) {
+        NotebookReadPage(found);
+    }
+
+    ! Something matched so exit here.
+    if (num > 0) {
+      rtrue;
+    }
+
+    ! Unable to find the page.
+    print "Unable to find the topic '", (address) word;
+    if (word2 ~= nothing) {
+      print " ", (address) word2;
+    }
+    print "' in ", (the) Notebook, ".";
   }
 ];
 
