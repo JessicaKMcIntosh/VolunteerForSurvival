@@ -66,6 +66,7 @@ Include "notebook";
 Include "subway";
 Include "storm";
 Include "starting";
+Include "stuff";
 
 ! ------------------------------------------------------------------------------
 ! Items - Items that don't have any particular home.
