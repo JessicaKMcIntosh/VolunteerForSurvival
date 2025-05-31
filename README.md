@@ -14,7 +14,11 @@ See the map file [Map/vts_map.png](https://github.com/JessicaKMcIntosh/Volunteer
 
 ## Playing Volunteer For Survival
 
-Playing VTS Online:
+Currently the best way to play VTS is from [Borogove.io](https://3srgd2vv.play.borogove.io/).
+
+For Unix and Windows the game must be compiled first.
+
+### Playing VTS Online
 
 Volunteer For Survival has been uploaded to <https://borogove.io/>.
 It is currently private, but will be made public when the game is playable.\
@@ -23,18 +27,26 @@ It is currently private, but will be made public when the game is playable.\
 See the Wiki on GitHub for useful information.\
 <https://github.com/JessicaKMcIntosh/VolunteerForSurvival/wiki>
 
-Playing VTS on Unix:
+### Playing VTS on Unix
 
 * It is likely your Linux/Unix distribution already has a Z-Machine interpreter available.
 * See the following URL for Unix Z-Machine interpreters.\
   <https://www.inform-fiction.org/zmachine/unix.html>
 
-Playing VTS on Windows:
+### Playing VTS on Windows
 
 * See the following URL for Windows Z-Machine interpreters.\
   <https://www.inform-fiction.org/zmachine/windows.html>
 * Frotz is a very good interpreter.\
   <https://ifarchive.org/if-archive/infocom/interpreters/frotz/WindowsFrotzInstaller.exe>
+
+### First Steps
+
+VTS is a text adventure game written using the Inform 6 language. While the parser is powerful, it does not understand normal English.
+
+Each line can have only one action. TAKE ALL, PLAY, NORTH, EAST, EXAMINE. You can navigate and play the game using two word commands, occasionally three words. Extra words like THE are not required.
+
+Type `HELP WORDS` to get a list of words this game uses. Help is available on each word.
 
 ## Development
 
@@ -60,6 +72,7 @@ The following deviations are made:
 
 * Two spaces for indention.
 * Routine variables on a separate line. Or separate lines as required.
+* I prefer readability over brevity. We have large displays now. This results in lots of comments along with longer variable and subroutine names.
 
 ### Source Files
 
