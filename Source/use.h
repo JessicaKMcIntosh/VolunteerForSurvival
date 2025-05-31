@@ -24,33 +24,6 @@ Message "Loading the Use library.";
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
-[ CrowbarSub;
-  if (Crowbar notin player) {
-    "You do not currently possess a Crowbar.^";
-  }
-
-  if (noun == nothing) {
-    "Use the Crowbar on what?";
-  }
-
-  if (noun has lockable) {
-    if (noun has locked) {
-      if (noun.with_key == Crowbar) {
-        give noun ~locked;
-        give noun open;
-        print "You use the Crowbar to pry open ", (the) noun, ", revealing ";
-        if (WriteListFrom(child(noun), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) "nothing.";
-      } else {
-        print "The Crowbar does not work on ", (the) noun, ".^";
-      }
-    } else {
-      print (The) noun, " is already unlocked.^";
-    }
-  } else {
-    print "The Crowbar does nothing to ", (the) noun, ".^";
-  }
-];
-
 [UseSub;
   if (noun == nothing)                  "Use what?";
   if (noun == XYZZY_Token)              <<Rub noun>>;

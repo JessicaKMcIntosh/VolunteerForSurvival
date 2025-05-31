@@ -25,6 +25,34 @@ Message "Loading the Stuff library.";
 ! Subroutines
 ! ------------------------------------------------------------------------------
 
+! Silly Half Life reference.
+[ CrowbarSub;
+  if (Crowbar notin player) {
+    "You do not currently possess a Crowbar.^";
+  }
+
+  if (noun == nothing) {
+    "Use the Crowbar on what?";
+  }
+
+  if (noun has lockable) {
+    if (noun has locked) {
+      if (noun.with_key == Crowbar) {
+        give noun ~locked;
+        give noun open;
+        print "You use the Crowbar to pry open ", (the) noun, ", revealing ";
+        if (WriteListFrom(child(noun), ENGLISH_BIT+TERSE_BIT+CONCEAL_BIT) == 0) "nothing.";
+      } else {
+        print "The Crowbar does not work on ", (the) noun, ".^";
+      }
+    } else {
+      print (The) noun, " is already unlocked.^";
+    }
+  } else {
+    print "The Crowbar does nothing to ", (the) noun, ".^";
+  }
+];
+
 ! Test that City_Find_Room_Direction returns expected results.
 [ Test_City_Find_Room;
   print "^Testing FindCityRoom()...^";
@@ -98,6 +126,7 @@ Message "Loading the Stuff library.";
   street = (room.number % 19) + 20;
 
   #Ifdef DEBUG;
+  print "DEBUG: City_Find_Room_Direction:^";
   position = ((avenue - 19) * 19) + (street - 20);
   print "DEBUG >>", (address) direction, " => ", avenue, " Ave ", street, " St  = ", position, "^";
   #Endif;
@@ -138,7 +167,7 @@ Message "Loading the Stuff library.";
       }
   }
 
-  ! Recreate the code for the corresponding city location.
+  ! Recreate the number for the corresponding city location.
   position = ((avenue - 19) * 19) + (street - 20);
 
   #Ifdef DEBUG;
