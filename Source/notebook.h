@@ -165,6 +165,10 @@ Class Notebook_Page_Class
     ! Do a little dance with temporary variable in case multiple pages match.
     num = 0;
     found = nothing;
+    ! If the words is 'in' then it was part of the look up command.
+    if (word2 == 'in') {
+      word2 = nothing;
+    }
     objectloop (page in Notebook) {
       if (WordInProperty(word, page, name)) {
         ! If there is a second word, and it doesn't match, continue.
