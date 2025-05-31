@@ -137,7 +137,7 @@ Message "Loading the Stuff library.";
       if ((street % 2) == 1) {            ! On a street.
         if (avenue == 19) return nothing; ! Top of the map.
         avenue = avenue - 1;
-      } else {                            ! Between two streets.
+      } else {                            ! On an Avenue between two streets.
         if (avenue == 20) return nothing; ! Top of the map.
         avenue = avenue - 2;
       }
@@ -145,7 +145,7 @@ Message "Loading the Stuff library.";
       if ((street % 2) == 1) {            ! On a street.
         if (avenue == 33) return nothing; ! Bottom of the map.
         avenue = avenue + 1;
-      } else {                            ! Between two streets.
+      } else {                            ! On an Avenue between two streets.
         if (avenue == 32) return nothing; ! Bottom of the map.
         avenue = avenue + 2;
       }
@@ -153,7 +153,7 @@ Message "Loading the Stuff library.";
       if ((avenue % 2) == 0) {            ! On an avenue.
         if (street == 38) return nothing; ! Right edge of the map.
         street = street + 1;
-      } else {                            ! Between two avenues.
+      } else {                            ! On a street between two avenues.
         if (street == 37) return nothing; ! Right edge of the map.
         street = street + 2;
       }
@@ -161,10 +161,11 @@ Message "Loading the Stuff library.";
       if ((avenue % 2) == 0) {            ! On an avenue.
         if (street == 20) return nothing; ! Left edge of the map.
         street = street - 1;
-      } else {                            ! Between two avenues.
+      } else {                            ! On a street between two avenues.
         if (street == 21) return nothing; ! Left edge of the map.
         street = street - 2;
       }
+    default:              return nothing; ! Not a valid direction.
   }
 
   ! Recreate the number for the corresponding city location.
