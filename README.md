@@ -71,8 +71,9 @@ The following deviations are made:
 * [Source/loot.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/loot.h) - Implementation of loot and loot containing containers.
 * [Source/notebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/notebook.h) - Implementation of a notebook.
 * [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
-* [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - Storm drain junctions.
-* [Source/subway.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/.h) - The subway stations and junctions.
+* [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/storm.h) - Storm drain junctions.
+* [Source/stuff.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/stuff.h) - Random stuff that doesn't really fit anywhere else.
+* [Source/subway.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/subway.h) - The subway stations and junctions.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
 * [Source/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testlamp.h) - Unit tests for the lamp library.
 * [Source/testnotebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testnotebook.h) - Unit tests for the notebook library.
