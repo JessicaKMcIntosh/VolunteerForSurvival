@@ -145,7 +145,7 @@ function RunIntegTest {
     TXT_FILE="${TEST_FILE}.txt"
     WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
     TESTCOUNT=$((TESTCOUNT + 1))
-    ${INTERPRETER} -m -q Tests/vts.z5 < "${REC_FILE}" > "${OUT_FILE}" 2>&1
+    grep -v '^#' "${REC_FILE}" | ${INTERPRETER} -m -q Tests/vts.z5 > "${OUT_FILE}" 2>&1
     if diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null ; then
         WriteString "${INTEGOUT}" "Succeeded."
         DeleteFile "${OUT_FILE}"

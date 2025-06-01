@@ -1,5 +1,7 @@
+# Traverse the Blue subway line.
 all
 use lamp
+# Teleport to the subway junction at 20th Ave
 tell token about 1101
 down
 north

@@ -1,5 +1,7 @@
+# Traverse the Orange subway line.
 all
 use lamp
+# Teleport to the subway junction at 37th St
 tell token about 1100
 down
 east
