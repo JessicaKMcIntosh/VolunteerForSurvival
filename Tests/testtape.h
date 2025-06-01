@@ -93,7 +93,7 @@ Unit_Test_Class Tape_Tests "Tape library"
 ! ------------------------------------------------------------------------------
 
 [ _TestTape_PlayerCreated;
-  print "Verify the tape player was created successfully.^";
+  self.msg("Verify the tape player was created successfully.^");
 
   Unit_AssertNotNothing(
     Tape_Player,
@@ -106,11 +106,11 @@ Unit_Test_Class Tape_Tests "Tape library"
     "Tape player not created with the tape player class."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestTape_CassetteCreated;
-  print "Verify the tape cassette was created successfully.^";
+  self.msg("Verify the tape cassette was created successfully.^");
 
   Unit_AssertNotNothing(
     Tape_1,
@@ -123,11 +123,11 @@ Unit_Test_Class Tape_Tests "Tape library"
     "Cassette tape not created with the tape cassette class."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestTape_CassetteEject;
-  print "Verify ejecting a cassette tape works.^";
+  self.msg("Verify ejecting a cassette tape works.^");
 
   ! Eject an empty tape player.
   Unit_AssertCapture(
@@ -163,11 +163,11 @@ Unit_Test_Class Tape_Tests "Tape library"
     "Cassette tape should be in the player inventory after being emptied."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestTape_CassetteInventory;
-  print "Verify tape player inventory works.^";
+  self.msg("Verify tape player inventory works.^");
 
   ! Inventory of an empty tape player.
   Unit_AssertCapture(
@@ -185,11 +185,11 @@ Unit_Test_Class Tape_Tests "Tape library"
   );
   move Tape_1 to player;
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestTape_CassettePlayed;
-  print "Verify playing a tape works.^";
+  self.msg("Verify playing a tape works.^");
 
   ! Play with the tape player empty.
   Unit_AssertCapture(
@@ -269,7 +269,7 @@ Unit_Test_Class Tape_Tests "Tape library"
   ! Put the tape back in the player inventory.
   move Tape_2 to player;
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 ! ------------------------------------------------------------------------------

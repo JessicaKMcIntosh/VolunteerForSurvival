@@ -109,7 +109,7 @@ Unit_Test_Class Notebook_Tests "Notebook library"
 ! ------------------------------------------------------------------------------
 
 [ _TestNotebook_Created;
-  print "Verify the notebook was created successfully.^";
+  self.msg("Verify the notebook was created successfully.^");
 
   Unit_AssertNotNothing(
     Notebook,
@@ -134,11 +134,11 @@ Unit_Test_Class Notebook_Tests "Notebook library"
     "Contents of the notebook with only Page 1 are not correct."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestNotebook_AddPage;
-  print "Verify a new page can be added to the notebook.^";
+  self.msg("Verify a new page can be added to the notebook.^");
 
   Notebook.add(Notebook_Page_2);
 
@@ -154,11 +154,11 @@ Unit_Test_Class Notebook_Tests "Notebook library"
     "Contents of the notebook with Pages 1 & 2 are not correct."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestNotebook_Read;
-  print "Verify a page can be read.^";
+  self.msg("Verify a page can be read.^");
 
   Unit_AssertCapture(
     _TestNotebook_Helper_ReadPage_1,
@@ -172,11 +172,11 @@ Unit_Test_Class Notebook_Tests "Notebook library"
     "Contents of Page 2 are incorrect."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestNotebook_RealPage;
-  print "Verify a 'Real' page can be read.^";
+  self.msg("Verify a 'Real' page can be read.^");
 
   Notebook.add(Notebook_Page_3);
 
@@ -186,7 +186,7 @@ Unit_Test_Class Notebook_Tests "Notebook library"
     "Contents of Page 1 are incorrect."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 ! ------------------------------------------------------------------------------

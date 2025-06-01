@@ -57,7 +57,7 @@ Unit_Test_Class Lamp_Tests "Lamp library"
 ! ------------------------------------------------------------------------------
 
 [ _TestLamp_LampCreated;
-  print "Verify the lamp was created successfully.^";
+  self.msg("Verify the lamp was created successfully.^");
 
   Unit_AssertNotNothing(
     Lamp,
@@ -69,11 +69,11 @@ Unit_Test_Class Lamp_Tests "Lamp library"
     "Lamp not created with the lamp class."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestLamp_LampSwitch;
-  print "Verify the lamp can be switched successfully.^";
+  self.msg("Verify the lamp can be switched successfully.^");
 
   Unit_AssertTrue(
     (Lamp hasnt light),
@@ -137,7 +137,7 @@ Unit_Test_Class Lamp_Tests "Lamp library"
     "Output message for turning lamp off is incorrect."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 ! ------------------------------------------------------------------------------

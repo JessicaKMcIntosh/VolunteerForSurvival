@@ -61,7 +61,12 @@ Endif;
 
   ! Uncomment for more verbosity.
   ! Useful if there is an error "somewhere"...
-  ! give Unit general;
+  ! Unit.Verbose(true);
+
+  ! This overrides the verbose setting.
+  #ifdef UNIT_VERBOSE;
+    Unit.Verbose(true);
+  #Endif;
 
   ! Run all of the created unit tests.
   Unit.Run();

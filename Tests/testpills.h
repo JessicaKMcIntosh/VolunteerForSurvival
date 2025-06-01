@@ -68,7 +68,7 @@ Unit_Test_Class Pill_Tests "Pills library"
 ! ------------------------------------------------------------------------------
 
 [ _TestPill_PillsCreated;
-  print "Verify the pill bottle was created successfully.^";
+  self.msg("Verify the pill bottle was created successfully.^");
 
   Unit_AssertNotNothing(
     Pill_Bottle,
@@ -80,11 +80,11 @@ Unit_Test_Class Pill_Tests "Pills library"
     "Pill bottle not created with the pills class."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestPill_Daemon;
-  print "Verify the pills daemon works correctly.^";
+  self.msg("Verify the pills daemon works correctly.^");
 
   ! Message for extra time.
   Pill_Bottle.time_left = (PILLS_DURATION * 2);
@@ -124,11 +124,11 @@ Unit_Test_Class Pill_Tests "Pills library"
     "Deadflag should be set when the player dies."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestPill_EatPill;
-  print "Verify eating pills works correctly.^";
+  self.msg("Verify eating pills works correctly.^");
 
   ! Eat a pill from a full bottle.
   noun = Pill_Bottle;
@@ -202,11 +202,11 @@ Unit_Test_Class Pill_Tests "Pills library"
   Pill_Bottle.number = PILLS_DEFAULT_COUNT;
   Pill_Bottle.time_left = PILLS_DURATION;
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 [ _TestPill_PrintNumber;
-  print "Verify the number of pills is printed correctly.^";
+  self.msg("Verify the number of pills is printed correctly.^");
 
   ! The number of pills in an empty bottle.
   Pill_Bottle.number = 0;
@@ -232,7 +232,7 @@ Unit_Test_Class Pill_Tests "Pills library"
     "Output message from empty pill bottle is incorrect."
   );
 
-  print "Success...^^";
+  self.msg("Success...^");
 ];
 
 ! ------------------------------------------------------------------------------
