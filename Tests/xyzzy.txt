@@ -58,4 +58,23 @@ To the south is a dead end.
 You can see a tape #1 here.
 
 >
+
+<Whooshing teleporting noises!>
+
+
+East to 20th Ave between 19th St and 21st St.
+Down to Subway junction at 20th Ave.
+
+>
+
+That location doesn't exist.
+
+
+It is pitch dark, and you can't see a thing.
+
+>
+
+What?
+
+>
 EOT
