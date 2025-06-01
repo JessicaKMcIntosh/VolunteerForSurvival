@@ -48,12 +48,12 @@ City_Class City_20_19 "20th Ave and 19th St"
 Subway_Class Junction_37 "Subway junction at 37th St"
   with
     description
-     "East to the Orange line at 35th St between 32ndAve and 34th Ave.^
+     "West to the Orange line at 35th St between 32ndAve and 34th Ave.^
       North to the Blue line at 32nd Ave between 35th St and 37th St.^
       Up to 34th Ave and 37th St.^
       Down to the storm drain.",
     number 1106,
-    e_to Subway_Orange_32_34_35,
+    w_to Subway_Orange_32_34_35,
     n_to Subway_Blue_32_35_37,
     u_to City_34_37,
     d_to Storm_Junction_34_37,
@@ -189,9 +189,11 @@ Subway_Green_Class Subway_Green_22_19_21 "Green line at 22nd Ave between 19th St
   with
     description
    "North to the Subway junction at 20th Ave.^
+    South to the Green line at 24th Ave between 19th St and 21st St.
     Up to 22nd Ave between 19th St and 21st St.",
     number 1140,
     n_to Junction_20,
+    s_to Subway_Green_24_19_21,
     u_to City_22_19_21,
 ;
 
@@ -263,7 +265,7 @@ Subway_Green_Class Subway_Green_32_21_23 "Green line at 32nd Ave between 21st St
     Up to 32nd Ave between 21st St and 23rd St.",
     number 1146,
     n_to Subway_Green_30_21_23,
-    s_to Subway_Class Subway_Green_32_34_23 "Green line at 23rd St between 32ndAve and 34th Ave",
+    s_to Subway_Green_32_34_23,
     u_to City_32_21_23,
 ;
 
@@ -472,11 +474,11 @@ Subway_Orange_Class Subway_Orange_32_33_35 "Orange line at 32nd Ave between 33rd
   with
     description
    "East to the Orange line at 35th St between 32ndAve and 34th Ave.^
-    West to the Orange line at 30th Ave and 33rd St.^
+    North to the Orange line at 30th Ave and 33rd St.^
     Up to 32nd Ave between 33rd St and 35th St.",
     number 1175,
-    e_to Subway_Orange_32_33_35,
-    w_to Subway_Orange_30_33,
+    e_to Subway_Orange_32_34_35,
+    n_to Subway_Orange_30_33,
     u_to City_32_33_35,
 ;
 
