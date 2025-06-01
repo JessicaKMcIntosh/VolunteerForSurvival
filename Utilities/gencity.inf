@@ -196,7 +196,7 @@ Array Under_Table -->
   PrintHalfAvenue(Avenue, Left, Right);
   print "~^";
   print "with^";
-  print "number ", Pointer, ",^";
+  print "number ", (Pointer + 500), ",^";
 
   ! Generate the description.
   ! print "description^~";
@@ -237,7 +237,7 @@ Array Under_Table -->
   PrintHalfStreet(Street, Above, Below);
   print "~^";
   print "with^";
-  print "number ", Pointer, ",^";
+  print "number ", (Pointer + 500), ",^";
 
   ! Generate the description.
   ! print "description^~";

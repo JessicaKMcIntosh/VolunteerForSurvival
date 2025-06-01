@@ -39,6 +39,7 @@ Room_Class Start_Room "Empty Alley Dead End"
         print "^";
       }
     ],
+    number 1000,
     e_to Start_Metal_Door,
     n_to Start_Alley,
     in_to Start_Metal_Door
@@ -130,7 +131,10 @@ Notebook_Page_Class -> -> -> Notebook_Agalsirodine_Pamphlet "Agalsirodine Pamphl
 ;
 
 ! More will be done with this later.
-Dark_Room_Class Shelter_Entrance "Entrance to the government shelter."
+Room_Class Shelter_Entrance "Entrance to the government shelter."
+  with
+    number 1001,
+  has ~light
 ;
 
 ! Second room of the starting area.
@@ -140,6 +144,7 @@ Room_Class Start_Alley "Empty Alley"
      "An empty alley.^
       To the north is an intersection.^
       To the south is a dead end.",
+    number 1002,
     s_to Start_Room,
     n_to City_28_25_27,
 ;

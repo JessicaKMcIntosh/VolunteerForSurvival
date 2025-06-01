@@ -29,14 +29,11 @@ Class Room_Class
   has light
 ;
 
-! A dark room.
-Class Dark_Room_Class
-;
-
 ! Self describing room class.
 ! Print descriptions for the directions here so the city.h file doesn't have to
 ! contain the full description and we can dynamically change the location.
 Class Self_Describe_Room
+  class Room_Class,
   with
     describe [;
       if (self provides n_to) {
@@ -99,12 +96,13 @@ Class Self_Describe_Room
 
 ! City streets.
 Class City_Class
-  class Self_Describe_Room,
-  has light
+  class Self_Describe_Room
 ;
 
 ! Subways.
 Class Subway_Class
+  class Room_Class,
+  has ~light
 ;
 
 Class Subway_Blue_Class
@@ -121,7 +119,8 @@ Class Subway_Orange_Class
 
 ! Storm drains.
 Class Storm_Class
-  class Self_Describe_Room
+  class Self_Describe_Room,
+  has ~light
 ;
 
 ! Object the player can possess.
