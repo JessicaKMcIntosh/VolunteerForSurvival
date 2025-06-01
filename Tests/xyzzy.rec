@@ -1,0 +1,10 @@
+# Exercise the XYZZY token.
+say xyzzy
+inv
+help token
+north
+rub token
+rub token
+tell token about 1100
+consult token about 999
+tell the token about pills

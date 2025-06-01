@@ -1,0 +1,61 @@
+
+NOTE: Seeding the random number generator with -1.
+
+You are laying in a small empty alley.
+You feel a hard object in your pocket.
+
+
+To the east is a large metal door leading back to the shelter.
+Next to the door, built into the wall, is a drop box.
+To the north is more of the empty alley.
+
+>
+
+You say 'XYZZY'.
+You wait expectantly...
+
+Nothing happens.
+
+You have received a special token.
+[The score has just gone up by one point.]
+
+>
+
+You're carrying:
+  a XYZZY Token
+  a pill bottle (25 pills)
+  a tape player containing the tape #0
+
+>
+
+A token given to those that say the magic word.
+
+>
+
+
+To the north is an intersection.
+To the south is a dead end.
+
+You can see a tape #1 here.
+
+>
+
+A magical spell carries you back to the starting room.
+
+
+To the east is a large metal door leading back to the shelter.
+Next to the door, built into the wall, is a drop box.
+To the north is more of the empty alley.
+
+>
+
+A magical spell carries you back to your previous location.
+
+
+To the north is an intersection.
+To the south is a dead end.
+
+You can see a tape #1 here.
+
+>
+EOT
