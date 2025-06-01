@@ -28,8 +28,8 @@ Down to Subway junction at 37th St.
 >
 
 
-West to the Orange line at 35th St between 32ndAve and 34th Ave.
 North to the Blue line at 32nd Ave between 35th St and 37th St.
+West to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 34th Ave and 37th St.
 Down to the storm drain.
 
@@ -159,8 +159,8 @@ Up to 32nd Ave between 35th St and 37th St.
 >
 
 
-West to the Orange line at 35th St between 32ndAve and 34th Ave.
 North to the Blue line at 32nd Ave between 35th St and 37th St.
+West to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 34th Ave and 37th St.
 Down to the storm drain.
 

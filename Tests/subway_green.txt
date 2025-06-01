@@ -28,8 +28,8 @@ Down to Subway junction at 20th Ave.
 >
 
 
-East to the Orange line under 20th Ave between 19th St and 21st St.
 South to the Green line under 22nd Ave between 19th St and 21st St.
+East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 
@@ -37,8 +37,8 @@ Down to the storm drain.
 
 
 North to the Subway junction at 20th Ave.
-South to the Green line at 24th Ave between 19th St and 21st St. Up to 22nd Ave
-between 19th St and 21st St.
+South to the Green line at 24th Ave between 19th St and 21st St.
+Up to 22nd Ave between 19th St and 21st St.
 
 >
 
@@ -135,14 +135,14 @@ Up to 24th Ave between 19th St and 21st St.
 
 
 North to the Subway junction at 20th Ave.
-South to the Green line at 24th Ave between 19th St and 21st St. Up to 22nd Ave
-between 19th St and 21st St.
+South to the Green line at 24th Ave between 19th St and 21st St.
+Up to 22nd Ave between 19th St and 21st St.
 
 >
 
 
-East to the Orange line under 20th Ave between 19th St and 21st St.
 South to the Green line under 22nd Ave between 19th St and 21st St.
+East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 

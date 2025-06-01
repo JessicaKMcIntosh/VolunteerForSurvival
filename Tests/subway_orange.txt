@@ -28,8 +28,8 @@ Down to Subway junction at 20th Ave.
 >
 
 
-East to the Orange line under 20th Ave between 19th St and 21st St.
 South to the Green line under 22nd Ave between 19th St and 21st St.
+East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 
@@ -108,8 +108,8 @@ Up to 26th Ave between 31st St and 33rd St.
 >
 
 
-South to Orange line at 33rd St between 28th Ave and 30th Ave.
 North to the Orange line at 26th Ave between 31st St and 33rd St.
+South to Orange line at 33rd St between 28th Ave and 30th Ave.
 Up to 33rd St between 26th Ave and 28th Ave.
 
 >
@@ -144,8 +144,8 @@ Up to 33rd St between 28th Ave and 30th Ave.
 >
 
 
-East to the Orange line at 35th St between 32ndAve and 34th Ave.
 North to the Orange line at 30th Ave and 33rd St.
+East to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 32nd Ave between 33rd St and 35th St.
 
 >
@@ -158,8 +158,8 @@ Up to 35th St between 32ndAve and 34th Ave.
 >
 
 
-West to the Orange line at 35th St between 32ndAve and 34th Ave.
 North to the Blue line at 32nd Ave between 35th St and 37th St.
+West to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 34th Ave and 37th St.
 Down to the storm drain.
 
@@ -173,8 +173,8 @@ Up to 35th St between 32ndAve and 34th Ave.
 >
 
 
-East to the Orange line at 35th St between 32ndAve and 34th Ave.
 North to the Orange line at 30th Ave and 33rd St.
+East to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 32nd Ave between 33rd St and 35th St.
 
 >
@@ -209,8 +209,8 @@ Up to 33rd St between 28th Ave and 30th Ave.
 >
 
 
-South to Orange line at 33rd St between 28th Ave and 30th Ave.
 North to the Orange line at 26th Ave between 31st St and 33rd St.
+South to Orange line at 33rd St between 28th Ave and 30th Ave.
 Up to 33rd St between 26th Ave and 28th Ave.
 
 >
@@ -288,8 +288,8 @@ Up to 20th Ave between 19th St and 21st St.
 >
 
 
-East to the Orange line under 20th Ave between 19th St and 21st St.
 South to the Green line under 22nd Ave between 19th St and 21st St.
+East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 
