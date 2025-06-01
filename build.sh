@@ -40,6 +40,9 @@ DOCKERIMAGE="vts:0.0"
 # Is Docker being used?
 USEDOCKER="YES"
 
+# Verbose output?
+VERBOSE="NO"
+
 # Any compile options to add.
 COMPILEOPTIONS=()
 
@@ -162,6 +165,10 @@ function RunUnit {
     CheckInterpreter
     echo "Building ${APPNAME} unit tests..."
     DeleteFile "Tests/unit.z5"
+    # Verbose mode requested?
+    if [[ "$VERBOSE" = "YES" ]]; then
+        COMPILEOPTIONS+=('$#UNIT_VERBOSE=1')
+    fi
     if ! CompileFile "++Tests" "Tests/unit.inf" "Tests/unit.z5" ; then
         echo "Error compiling. Aborting!"
         exit 1
@@ -205,6 +212,7 @@ function ShowHelp {
     echo "Options:"
     echo "-D    - Do not use Docker, even if it is available."
     echo "-h    - Display this help text."
+    echo "-v    - Verbos output. Only applies in a few places."
     echo ""
     echo "Other options are passed to the compiler."
     exit;
@@ -323,6 +331,8 @@ while [[ "$#" -gt "0" ]] ; do
         -h)     ShowHelp;;
         -D)     USEDOCKER="NO";;
         /D)     USEDOCKER="NO";;
+        -v)     VERBOSE="YES";;
+        /v)     VERBOSE="YES";;
         -*)     COMPILEOPTIONS+=("$1");;
         *)      ACTIONS+=("$1");;
     esac
