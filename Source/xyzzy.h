@@ -51,13 +51,50 @@ Object XYZZY_Token "XYZZY Token"
           XYZZY_Previous_Location = nothing;
           rtrue;
         }
-    ]
-  has scored
+      Consult:
+        XYZZY_Consult();
+        rtrue;
+    ],
+  life [;
+    Tell:
+        XYZZY_Consult();
+        rtrue;
+  ],
+  has animate scored
 ;
 
 ! ------------------------------------------------------------------------------
 ! Subroutines
 ! ------------------------------------------------------------------------------
+
+! Hidden debugging commands.
+[ XYZZY_Consult
+  word
+  num
+  room;
+
+  ! Gather some details.
+  wn = consult_from;
+  consult_from = 0;
+  num = TryNumber(wn);
+  word = NextWord();
+
+  ! Try to figure out what to do.
+  if (num > 0) {
+    ! Teleport the player to the given room number.
+    ! This only applies to City rooms that have a number.
+    room = Find_Room_Number(num);
+    if (room == nothing) {
+      print "That location doesn't exist.^";
+      PlayerTo(thedark);
+    } else {
+      print "<Whooshing teleporting noises!>^";
+      PlayerTo(room);
+    }
+  } else {
+    print "What?^";
+  }
+];
 
 [ XYZZYSub;
   print

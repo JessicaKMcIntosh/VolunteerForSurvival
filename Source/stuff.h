@@ -54,7 +54,7 @@ Message "Loading the Stuff library.";
 ];
 
 ! Test that City_Find_Room_Direction returns expected results.
-[ Test_City_Find_Room;
+[ Test_Find_City_Room;
   print "^Testing FindCityRoom()...^";
   Test_City_Find_Room_Check(City_20_23,    'north', City_18_20_23);
   Test_City_Find_Room_Check(City_22_23_25, 'north', City_20_23_25);
@@ -77,7 +77,7 @@ Message "Loading the Stuff library.";
   print "Complete.^";
 ];
 
-! Check City_Find_Room_Direction on a specific room has the desired results.
+! Check Find_City_Room_Direction on a specific room has the desired results.
 [ Test_City_Find_Room_Check
   room
   direction
@@ -85,7 +85,7 @@ Message "Loading the Stuff library.";
   actual;
 
   print "Checking ", (address) direction, " from ", (name) room, "...^";
-  actual = City_Find_Room_Direction(room, direction);
+  actual = Find_City_Room_Direction(room, direction);
   print "Found: ";
   if (actual == nothing) {
     print "nothing...";
@@ -100,7 +100,19 @@ Message "Loading the Stuff library.";
 ];
 
 ! Find the matching city location given the room number.
-[ City_Find_Room_Number
+[ Find_Room_Number
+  num
+  room;
+  objectloop(room ofclass Room_Class) {
+    if (room.number == num) {
+      return room;
+    }
+  }
+  return nothing;
+];
+
+! Find the matching city location given the room number.
+[ Find_City_Room_Number
   position
   room;
   objectloop(room ofclass City_Class) {
@@ -114,7 +126,7 @@ Message "Loading the Stuff library.";
 ! Find the matching city location in the specified direction.
 ! Returns nothing if there is no room in the given direction.
 ! This is only for rooms on the map grid and excludes the two subway junctions.
-[ City_Find_Room_Direction
+[ Find_City_Room_Direction
   room      ! The room to start from.
   direction ! The direction to search in. 'north', 'south', 'east', 'west'
   avenue    ! Decoded then adjusted avenue.
@@ -177,5 +189,5 @@ Message "Loading the Stuff library.";
 
   ! Try to find the room with the matching number.
   ! This should return something if everything worked correctly.
-  return City_Find_Room_Number(position);
+  return Find_City_Room_Number(position);
 ];
