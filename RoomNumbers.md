@@ -15,17 +15,17 @@ Storm drains have the same number as the city room above them, plus 500.
 Number = ((Avenue - 19) * 19) + (Street - 20);
 ```
 
-## 1000 Serries
+## 10xx Serries
 
-This serries is reserved for the starting area and any special locations.
+1000 through 1099 are reserved for the starting area and any special locations.
 
 * 1001 - `Start_Room` - The starting room.
 * 1002 - `Shelter_Entrance` - The shelter entrance room behind the code locked door.
 * 1003 - `Start_Alley` - The second alley in the starting area. This alley links the starting room to the city.
 
-## 1100 Serries
+## 11xx Serries
 
-This serries is reserved for the subway and storm drain systems.
+1100 through 1199 are reserved for the subway and storm drain systems.
 Starting with the added city rooms that link the subway junctions to the city.
 
 * 1100 - `City_20_19` - 20th Ave and 19th St
