@@ -47,8 +47,10 @@ Unit_Class Unit "Unit testing object";
 ! ------------------------------------------------------------------------------
 
 ! Make the standard library happy.
-[ Initialise;
-];
+#Ifdef LIBRARY_VERSION;
+  [ Initialise;
+  ];
+Endif;
 
 ! Main function for running the tests.
 [ Main;
@@ -56,6 +58,10 @@ Unit_Class Unit "Unit testing object";
   Unit.SelfTest();
 
   print "^Running tests for VTS.^^";
+
+  ! Uncomment for more verbosity.
+  ! Useful if there is an error "somewhere"...
+  ! give Unit general;
 
   ! Run all of the created unit tests.
   Unit.Run();

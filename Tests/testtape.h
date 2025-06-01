@@ -74,10 +74,11 @@ Object Tape_Not_Tape "Not a Tape"
 ! Object to run the tests.
 Unit_Test_Class Tape_Tests "Tape library"
   with
-    RunTest [;
-      ! Prepare test objects.
+    before [;
+      ! The tape player must be in the players inventory.
       move Tape_Player to player;
-
+    ],
+    describe [;
       ! Run the tests.
       Unit_RunTest(_TestTape_PlayerCreated);
       Unit_RunTest(_TestTape_CassetteCreated);

@@ -54,10 +54,7 @@ Pills_Class Pill_Bottle "pill bottle"
 ! Object to run the tests.
 Unit_Test_Class Pill_Tests "Pills library"
   with
-    RunTest [;
-      ! Prepare test objects.
-      move Pill_Bottle to player;
-
+    describe [;
       ! Run the tests.
       Unit_RunTest(_TestPill_PillsCreated);
       Unit_RunTest(_TestPill_Daemon);
@@ -139,7 +136,7 @@ Unit_Test_Class Pill_Tests "Pills library"
   Pill_Bottle.number = PILLS_DEFAULT_COUNT;
   Pill_Bottle.time_left = 0;
   Unit_AssertCapture(
-    _TestPill_HelperEatPill,
+    _TestPill_HelperBefore,
     Pills_MSG_Eat_Full,
     "Output message eating a pill is incorrect."
   );
@@ -162,7 +159,7 @@ Unit_Test_Class Pill_Tests "Pills library"
   Pill_Bottle.number = 1;
   Pill_Bottle.time_left = 0;
   Unit_AssertCapture(
-    _TestPill_HelperEatPill,
+    _TestPill_HelperBefore,
     Pills_MSG_Eat_One,
     "Output message eating a pill is incorrect, one pill."
   );
@@ -185,7 +182,7 @@ Unit_Test_Class Pill_Tests "Pills library"
   Pill_Bottle.number = 0;
   Pill_Bottle.time_left = 0;
   Unit_AssertCapture(
-    _TestPill_HelperEatPill,
+    _TestPill_HelperBefore,
     Pills_MSG_Eat_Empty,
     "Output message eating a pill is incorrect."
   );
@@ -246,7 +243,7 @@ Unit_Test_Class Pill_Tests "Pills library"
   Pill_Bottle.daemon();
 ];
 
-[ _TestPill_HelperEatPill;
+[ _TestPill_HelperBefore;
   Pill_Bottle.before();
 ];
 

@@ -91,11 +91,11 @@ Object Notebook_Not_Note "Not a Note"
 ! Object to run the tests.
 Unit_Test_Class Notebook_Tests "Notebook library"
   with
-    RunTest [;
-      ! Prepare test objects.
-      move Notebook to player;
+    before [;
+      ! Update the page numbers in the notebook.
       Notebook.update();
-
+    ],
+    describe [;
       ! Run the tests.
       Unit_RunTest(_TestNotebook_Created);
       Unit_RunTest(_TestNotebook_AddPage);

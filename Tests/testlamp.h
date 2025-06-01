@@ -45,10 +45,7 @@ Lamp_Class Lamp "Lamp"
 ! Object to run the tests.
 Unit_Test_Class Lamp_Tests "Lamp library"
   with
-    RunTest [;
-      ! Prepare test objects.
-      move Lamp to player;
-
+    describe [;
       ! Run the tests.
       Unit_RunTest(_TestLamp_LampCreated);
       Unit_RunTest(_TestLamp_LampSwitch);

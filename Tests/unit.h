@@ -25,7 +25,7 @@
 ! Unit_RunTest(RoutineName);
 !
 ! After running at least one test the report will print the number of tests
-! run, failed and successful.
+! run, failed and succeeded.
 ! Unit_Report();
 !
 ! [TestRoutine;
@@ -68,6 +68,7 @@
 !
 ! Always fails.
 ! Unit_Fail(ErrorText, Continue);
+!
 ! ------------------------------------------------------------------------------
 ! Object Interface:
 !
@@ -76,17 +77,23 @@
 !
 ! If the Inform standard library is included various globals are set before
 ! each Unit_Test_Class object is run. Including creating a fake player object.
-! See Unit_Test_Class.Initialize() for details.
+! See _Unit_Initialize_Globals() for details.
 !
 ! Create a unit object to run the tests with.
 ! Unit_Class Unit "Unit testing object";
 !
-! Create unit test objects with the property RunTest created to run the tests.
+! Create unit test objects with the property describe created to run the tests.
 ! Unit_Test_Class Unit_Test "Unit Test"
 !   with
-!     RunTest [;
+!     describe [;
 !       Unit_RunTest(TestRoutine);
 !     ];
+!
+! Tests can provide before() and after() methods that are executed before and
+! and after RunTest(), respectively.
+! Why use before(), after() and describe()?
+! Because they are already built into the standard library and are additive.
+! And if you want to use inheritance on your tests you can.
 !
 ! Run the tests then generate a report.
 ! Unit.Run();
@@ -95,6 +102,14 @@
 ! There is also a builtin self test for the internal functions.
 ! If the self tests fail the library will quit.
 ! Unit.SelfTest();
+!
+! ------------------------------------------------------------------------------
+! A note on strings:
+!
+! Internally arrays as strings are used for the assertions
+! Unit_AssertCapture() and Unit_AssertStrCmp().
+! If your test strings are longer than 200 characters then
+! you will need to increase _Unit_Max_String_Length.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -105,13 +120,27 @@ System_file;
 
 Message "Loading the Unit library.";
 
+! Is the standard library loaded?
+#Ifdef LIBRARY_VERSION;
+  ! Player class to make the standard library happy.
+  Class Unit_Player(1)
+    class SelfClass;
+#Ifnot;
+  ! These are needed for testing if the standard library is not loaded.
+  Attribute general;
+  Property additive after    $ffff;
+  Property additive before   $ffff;
+  Property additive describe $ffff;
+Endif;
+
 ! ------------------------------------------------------------------------------
 ! Constants
 ! ------------------------------------------------------------------------------
 
-! Maximum string length for Unit_AssertCapture and Unit_AssertStrCmp.
+! Maximum string length for string routines.
 ! Increase this number if your test strings get too long.
-Constant _Unit_Max_String_Length 200;
+! A value of 202 allows strings up to 200 characters.
+Constant _Unit_Max_String_Length 202;
 
 ! Strings for the self test.
 Constant _Unit_Self_Test_String_Empty "";
@@ -139,19 +168,34 @@ Array _Unit_Scratch->_Unit_Max_String_Length;
 ! Test Objects
 ! ------------------------------------------------------------------------------
 
-! Player class to make the standard library happy.
-#Ifdef LIBRARY_VERSION;
-Class Unit_Player(1)
-  class SelfClass;
-Endif;
-
 ! Class to run the unit tests.
 Class Unit_Class
   with
     Run [
       Test;
       objectloop (Test ofclass Unit_Test_Class) {
-        Test.Run();
+        if (self has general) {
+          give Test general;
+        }
+        if (self has general) print "Preparing for ", (name) Test, " tests...^";
+        #Ifdef LIBRARY_VERSION;
+          _Unit_Initialize_Globals();
+        #Endif;
+
+        if (Test provides before) {
+          if (self has general) print "Running before() for ", (name) Test, "...^";
+          Test.before();
+        }
+
+        if (self has general) print "Running tests for ", (name) Test, "...^";
+        Test.describe();
+
+        if (Test provides after) {
+          if (self has general) print "Running after() for ", (name) Test, "...^";
+          Test.after();
+        }
+
+        if (self has general) print "Completed testing for ", (name) Test, "...^";
       }
     ],
     Report [;
@@ -159,7 +203,7 @@ Class Unit_Class
     ],
     SelfTest [;
       print "Running Unit library self tests...^";
-      if (Unit_RunTest(_Unit_Self_Test) && ~~ Unit_RunTest(_Unit_Self_Test_Helper_Throw)) {
+      if (_Unit_Self_Test()) {
         print "Success!^";
       } else {
         print "Self test failed!^Aborting!^";
@@ -167,46 +211,13 @@ Class Unit_Class
       }
       Unit_TestCount = 0;
       Unit_FailCount = 0;
-    ]
+    ],
+  has ~general
 ;
 
 ! Class to create a unit test.
 Class Unit_Test_Class
-  with
-    ! Run this test object.
-    Run [;
-      print "Running Tests for ", (name) self, "...^";
-      self.Initialize();
-      self.RunTest();
-    ],
-    ! Placeholder for the actual tests to be run.
-    RunTest [; ],
-    ! Initialize data so tests run in a normal-ish environment.
-    Initialize [;
-      #Ifdef LIBRARY_VERSION;
-        ! Prepare the player.
-        if (player ~= nothing) Unit_Player.destroy(player);
-        player = Unit_Player.create();
-        deadflag = 0;
-
-        ! Prepare action processing.
-        action = nothing;
-        inp1 = nothing;
-        inp2 = nothing;
-        noun = nothing;
-        second = nothing;
-
-        ! Prepare the scoring variables.
-        score = 0;
-        last_score = 0;
-        places_score = 0;
-        things_score = 0;
-
-        ! Other random variables.
-        lookmode = 2;
-        turns = 0;
-      #Endif;
-    ]
+  has ~general
 ;
 
 ! ------------------------------------------------------------------------------
@@ -214,7 +225,7 @@ Class Unit_Test_Class
 ! ------------------------------------------------------------------------------
 
 ! Execute the test routine.
-! Returns true for success, false for a failure.
+! Returns false if an exception is thrown.
 [ Unit_RunTest
   TestRoutine;  ! The routine to test.
 
@@ -244,9 +255,9 @@ Class Unit_Test_Class
   Continue; ! (Optional) Continue execution after a failure.
 
   ! Execute the routine, capturing the output.
-  _Unit_CaptureStart();
+  _Unit_Capture_Start();
   Routine();
-  _Unit_CaptureStop();
+  _Unit_Capture_Stop();
 
   ! Remove any stray carriage returns from the end of the captured string.
   _Unit_String_Chomp(_Unit_Actual);
@@ -388,14 +399,42 @@ Class Unit_Test_Class
 ];
 
 ! Start capturing output.
-[ _Unit_CaptureStart;
+[ _Unit_Capture_Start;
   @output_stream 3 _Unit_Actual;
 ];
 
 ! Stop capturing output.
-[ _Unit_CaptureStop;
+[ _Unit_Capture_Stop;
   @output_stream -3;
 ];
+
+#Ifdef LIBRARY_VERSION;
+  ! Initialize globals so tests run in a normal-ish environment.
+  [_Unit_Initialize_Globals;
+    if (self has general) print "Preparing Inform Library globals...^";
+    ! Prepare the player.
+    if (player ~= nothing) Unit_Player.destroy(player);
+    player = Unit_Player.create();
+    deadflag = 0;
+
+    ! Prepare action processing.
+    action = nothing;
+    inp1 = nothing;
+    inp2 = nothing;
+    noun = nothing;
+    second = nothing;
+
+    ! Prepare the scoring variables.
+    score = 0;
+    last_score = 0;
+    places_score = 0;
+    things_score = 0;
+
+    ! Other random variables.
+    lookmode = 2;
+    turns = 0;
+  ];
+#Endif;
 
 ! Performs a throw if Continue is false.
 [_Unit_Throw
@@ -460,7 +499,18 @@ Class Unit_Test_Class
 ! ------------------------------------------------------------------------------
 
 ! Run a self test of the Unit test internals.
-[ _Unit_Self_Test;
+[_Unit_Self_Test;
+  ! The general tests should succeed.
+  if (~~ Unit_RunTest(_Unit_Self_Test_General))
+    rfalse;
+  ! This test should fail.
+  if (Unit_RunTest(_Unit_Self_Test_Throw))
+    rfalse;
+  rtrue;
+];
+
+! Test most of the library.
+[ _Unit_Self_Test_General;
   ! Two strings that should match.
   Unit_AssertStrCmp(
     _Unit_Self_Test_String_A,
@@ -575,30 +625,32 @@ Class Unit_Test_Class
   Unit_FailCount--;
 ];
 
+! Make sure _Unit_Throw throws an exception.
+[ _Unit_Self_Test_Throw;
+  _Unit_Throw();
+  print "* ERROR: _Unit_Throw failed to generate an exception.^";
+];
+
+
 ! Prints String A for a capture test.
 [ _Unit_Self_Test_Helper_Capture;
   print (string) _Unit_Self_Test_String_A;
 ];
 
-! Prints String A for a capture test.
+! Test Unit_Fail.
 [ _Unit_Self_Test_Helper_Fail
   num;
   num = Unit_FailCount;
   ! Don't display this failure since it is expected.
-  _Unit_CaptureStart();
+  _Unit_Capture_Start();
   ! The true is to continue and not throw an exception.
   Unit_Fail("This is a failure test.", true);
-  _Unit_CaptureStop();
+  _Unit_Capture_Stop();
   return ((num + 1) == Unit_FailCount);
 ];
 
 ! Prints String A converted to an array for a capture test.
 [ _Unit_Self_Test_Helper_Print;
-  _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
-  _Unit_String_Print(_Unit_Expected);
-];
-
-[ _Unit_Self_Test_Helper_Throw;
-  _Unit_Throw();
-  print "* ERROR: _Unit_Throw failed to generate an exception.^";
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Scratch);
+  _Unit_String_Print(_Unit_Scratch);
 ];
