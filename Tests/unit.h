@@ -205,6 +205,7 @@ Class Unit_Class
   with
     Run [
       Test;
+
       objectloop (Test ofclass Unit_Test_Class) {
         if (self has general) {
           give Test general;
@@ -246,6 +247,7 @@ Class Unit_Class
     ],
     Verbose [
       Value;
+
       if (value) {
         give self general;
       } else {
@@ -259,23 +261,21 @@ Class Unit_Class
 Class Unit_Test_Class
   with
     ! Prints a message if the test has 'general'.
-    info [
-      a b c d e f g;
+    info [a b c d e f g;
       if (self has general) _Unit_Print_Variables(a, b, c, d, e, f, g);
     ],
     ! Prints a message.
-    msg [
-      a b c d e f g;
+    msg [a b c d e f g;
       _Unit_Print_Variables(a, b, c, d, e, f, g);
     ],
   has ~general on ~visited
 ;
 
 ! Self test.
+! This must run first.
 Unit_Test_Class Unit_Self_Test "Unit Self Test"
   with
     describe [;
-      self.msg("Running Unit library self tests...^");
       if (_Unit_Self_Test()) {
         self.msg("Success!^");
       } else {
@@ -284,6 +284,7 @@ Unit_Test_Class Unit_Self_Test "Unit Self Test"
       }
     ],
     after [;
+      ! Reset the counters before running the actual tests.
       Unit_TestCount = 0;
       Unit_FailCount = 0;
     ]
