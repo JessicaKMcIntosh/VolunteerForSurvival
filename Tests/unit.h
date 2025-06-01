@@ -47,6 +47,7 @@
 ! Unit_AssertCapture(Routine, Expected, ErrorText, Continue);
 !
 ! Checks that ActualValue matches Expected.
+! Keep in mind strings are actually addresses, so don't use this on strings.
 ! Unit_AssertEquals(Expected, Actual, ErrorText, Continue);
 !
 ! Checks if Condition is false.
@@ -132,6 +133,7 @@ Global _Unit_Exception;
 ! For string comparison. Used by Unit_AssertCapture and Unit_AssertStrCmp.
 Array _Unit_Actual->_Unit_Max_String_Length;
 Array _Unit_Expected->_Unit_Max_String_Length;
+Array _Unit_Scratch->_Unit_Max_String_Length;
 
 ! ------------------------------------------------------------------------------
 ! Test Objects
@@ -157,10 +159,10 @@ Class Unit_Class
     ],
     SelfTest [;
       print "Running Unit library self tests...^";
-      if (Unit_RunTest(_Unit_Self_Test)) {
+      if (Unit_RunTest(_Unit_Self_Test) && ~~ Unit_RunTest(_Unit_Self_Test_Helper_Throw)) {
         print "Success!^";
       } else {
-        print "Self test failed! Aborting!^";
+        print "Self test failed!^Aborting!^";
         quit;
       }
       Unit_TestCount = 0;
@@ -466,6 +468,22 @@ Class Unit_Test_Class
     "Comparing the same string failed."
   );
 
+  ! Two strings that should match, using an array as the expected.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Scratch);
+  Unit_AssertStrCmp(
+    _Unit_Self_Test_String_A,
+    _Unit_Scratch,
+    "Comparing the same string failed, using an array as the expected."
+  );
+
+  ! Two strings that should match, using an array as the actual.
+  _Unit_Self_Test_String_A.print_to_array(_Unit_Scratch);
+  Unit_AssertStrCmp(
+    _Unit_Scratch,
+    _Unit_Self_Test_String_A,
+    "Comparing the same string failed, using an array as the actual."
+  );
+
   ! Copy a string.
   _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
   _Unit_String_Copy(_Unit_Expected, _Unit_Actual);
@@ -522,11 +540,18 @@ Class Unit_Test_Class
     "Printing a string failed."
   );
 
-  ! Test Unit_AssertEquals.
+  ! Test Unit_AssertEquals using numbers.
   Unit_AssertEquals(
     42,
     42,
-    "Unit_AssertEquals failed."
+    "Unit_AssertEquals failed using numbers."
+  );
+
+  ! Test Unit_AssertEquals using string constants.
+  Unit_AssertEquals(
+    _Unit_Self_Test_String_A,
+    _Unit_Self_Test_String_A,
+    "Unit_AssertEquals failed using string constants."
   );
 
   ! Test Unit_AssertOfClass.
@@ -541,6 +566,13 @@ Class Unit_Test_Class
     "This is something.",
     "Unit_AssertNotNothing failed."
   );
+
+  ! Make sure Unit_Fail increments the failed test counter.
+  Unit_AssertTrue(
+    _Unit_Self_Test_Helper_Fail(),
+    "Unit_Fail did not increase the error count."
+  );
+  Unit_FailCount--;
 ];
 
 ! Prints String A for a capture test.
@@ -548,8 +580,25 @@ Class Unit_Test_Class
   print (string) _Unit_Self_Test_String_A;
 ];
 
+! Prints String A for a capture test.
+[ _Unit_Self_Test_Helper_Fail
+  num;
+  num = Unit_FailCount;
+  ! Don't display this failure since it is expected.
+  _Unit_CaptureStart();
+  ! The true is to continue and not throw an exception.
+  Unit_Fail("This is a failure test.", true);
+  _Unit_CaptureStop();
+  return ((num + 1) == Unit_FailCount);
+];
+
 ! Prints String A converted to an array for a capture test.
 [ _Unit_Self_Test_Helper_Print;
   _Unit_Self_Test_String_A.print_to_array(_Unit_Expected);
   _Unit_String_Print(_Unit_Expected);
+];
+
+[ _Unit_Self_Test_Helper_Throw;
+  _Unit_Throw();
+  print "* ERROR: _Unit_Throw failed to generate an exception.^";
 ];
