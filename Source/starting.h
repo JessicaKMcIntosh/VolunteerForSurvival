@@ -146,8 +146,7 @@ Room_Class Shelter_Entrance "Entrance to the government shelter."
 Room_Class Start_Alley "Empty Alley"
   with
     description
-     "An empty alley.^
-      To the north is an intersection.^
+     "To the north is an intersection.^
       To the south is a dead end.",
     number 1002,
     s_to Start_Room,
