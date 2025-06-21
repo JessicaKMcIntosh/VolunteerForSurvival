@@ -159,8 +159,9 @@ Tape_Cassette_Class -> Tape_1 "tape #1"
     description "A microcassette tape containing a message from another volunteer.",
     inside_description "Send help. There are aliens out here who can read.... <STATIC>",
   after [;
-    ! Move the notebook page representing this tape into the notebook.
-    Notebook.add(Notebook_Tape_1);
+    Play:
+      ! Move the notebook page representing this tape into the notebook.
+      Notebook.add(Notebook_Tape_1);
   ],
   has scored
 ;
@@ -187,8 +188,9 @@ Tape_Cassette_Class Tape_2 "tape #2" First_Mailbox
       Some day you need to tell me what the hell a Zork even is.^
       Ungrateful piece of ...",
   after [;
-    ! Move the notebook page representing this tape into the notebook.
-    Notebook.add(Notebook_Tape_2);
+    Play:
+      ! Move the notebook page representing this tape into the notebook.
+      Notebook.add(Notebook_Tape_2);
   ],
   has scored
 ;

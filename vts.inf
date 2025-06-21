@@ -97,8 +97,9 @@ Tape_Cassette_Class -> Tape_0 "tape #0"
       one last thing, they said if I do a good job I'll get my own room, all to^
       myself. Bye.",
   after [;
-    ! Move the notebook page representing this tape into the notebook.
-    Notebook.add(Notebook_Tape_0);
+    Play:
+      ! Move the notebook page representing this tape into the notebook.
+      Notebook.add(Notebook_Tape_0);
   ],
   has scored
 ;

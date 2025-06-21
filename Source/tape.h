@@ -19,8 +19,6 @@
 !
 ! Customize messages by changing the constants TAPE_PLAYER_NAME and
 ! TAPE_CASSETTE_NAME.
-!
-! After a tape is played it is given the attribute 'general'.
 ! ------------------------------------------------------------------------------
 ! Classes:
 ! ------------------------------------------------------------------------------
@@ -31,6 +29,8 @@
 !   inventory is listed.
 !
 ! Cassette_Tape_Class - The Cassette tape class.
+!   After a tape is played it is given the attribute 'general'.
+!   When playing a tape before and after are run with the action ##Play.
 ! ------------------------------------------------------------------------------
 ! Verbs:
 ! ------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ Class Tape_Cassette_Class
 ! Play tape in the tape player.
 ! Called to display the cassette tapes message.
 ! Gives the tape general after it is played.
-! Will execute before and after actions on the tape played.
+! Will execute before and after routines with the action Play..
 ! If the tape is scored but not moved then score the tape.
 [ PlayTape
   tape;
@@ -171,14 +171,20 @@ Class Tape_Cassette_Class
   } else {
     tape = child(Tape_Player);
     action = ##Play;
-    if (tape provides before) tape.before();
+    if (tape provides before) {
+      action = ##Play;
+      tape.before();
+    }
     if (tape provides inside_description) {
       tape.inside_description();
     } else {
       tape.description();
     }
     if (tape hasnt general) give tape general;
-    if (tape provides after) tape.after();
+    if (tape provides after) {
+      action = ##Play;
+      tape.after();
+    }
     if (tape has scored && tape hasnt moved) {
       give tape moved;
       score = score + OBJECT_SCORE;
