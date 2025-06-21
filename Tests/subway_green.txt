@@ -1,150 +1,158 @@
+Start of a transcript of
+Volunteer For Survival
+A survival horror text adventure game.
+By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
 
-NOTE: Seeding the random number generator with -1.
+It's been five years since the aliens invaded earth. We got an early warning
+of their approach so we were prepared. Shelters were built to house people
+during the conflict. Unfortunately, due to hubris, the world governments
+expected to defeat the aliens quickly. As a result the shelters were only
+intended to last for a decade. Thanks to overcrowding, the supplies have
+nearly run out. For the past year volunteers have been sent out to collect
+supplies. You are only the latest.
 
-You are laying in a small empty alley.
-You feel a hard object in your pocket.
+Welcome to Vololtol city.
 
+Can you survive the alien wasteland and make it back to the shelter?
 
-To the east is a large metal door leading back to the shelter.
-Next to the door, built into the wall, is a drop box.
-To the north is more of the empty alley.
+Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
+Standard interpreter 1.1 (1F) / Library Serial Number 220219
 
->
+>all
 
 [The score has just gone up by seven points.]
 
->
-
+>use lamp
 The camping lantern is now on.
 
->
-
+>tell token about 1100
 <Whooshing teleporting noises!>
 
-
+20th Ave and 19th St
 East to 20th Ave between 19th St and 21st St.
 Down to Subway junction at 20th Ave.
 
->
+>down
 
-
+Subway junction at 20th Ave
 South to the Green line under 22nd Ave between 19th St and 21st St.
 East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 
->
+>south
 
-
+Green line at 22nd Ave between 19th St and 21st St
 North to the Subway junction at 20th Ave.
 South to the Green line at 24th Ave between 19th St and 21st St.
 Up to 22nd Ave between 19th St and 21st St.
 
->
+>south
 
-
+Green line at 24th Ave between 19th St and 21st St
 North to the Green line at 22nd Ave between 19th St and 21st St.
 South to the Green line at 21st St between 24th Ave and 26th Ave.
 Up to 24th Ave between 19th St and 21st St.
 
->
+>south
 
-
+Green line at 21st St between 24th Ave and 26th Ave
 North to the Green line at 24th Ave between 19th St and 21st St.
 South to the Green line at 26th Ave between 21st St and 23rd St.
 Up to 21st St between 24th Ave and 26th Ave.
 
->
+>south
 
-
+Green line at 26th Ave between 21st St and 23rd St
 North to the Green line at 21st St between 24th Ave and 26th Ave.
 South to teh Green line at 28th Ave between 21st St and 23rd St.
 Up to 26th Ave between 21st St and 23rd St.
 
->
+>south
 
-
+Green line at 28th Ave between 21st St and 23rd St
 North to the Green line at 26th Ave between 21st St and 23rd St.
 South to the Green line at 30th Ave between 21st St and 23rd St.
 Up to 28th Ave between 21st St and 23rd St.
 
->
+>south
 
-
+Green line at 30th Ave between 21st St and 23rd St
 North to the Green line at 28th Ave between 21st St and 23rd St.
 South to the Green line at 32nd Ave between 21st St and 23rd St.
 Up to 30th Ave between 21st St and 23rd St.
 
->
+>south
 
-
+Green line at 32nd Ave between 21st St and 23rd St
 North to the Green line at 30th Ave between 21st St and 23rd St.
 South to the Green line at 23rd St between 32ndAve and 34th Ave.
 Up to 32nd Ave between 21st St and 23rd St.
 
->
+>south
 
-
+Green line at 23rd St between 32ndAve and 34th Ave
 North to the Green line at 32nd Ave between 21st St and 23rd St.
 The way South is blocked by a collapsed tunnel.
 Up to 23rd St between 32ndAve and 34th Ave.
 
->
+>north
 
-
+Green line at 32nd Ave between 21st St and 23rd St
 North to the Green line at 30th Ave between 21st St and 23rd St.
 South to the Green line at 23rd St between 32ndAve and 34th Ave.
 Up to 32nd Ave between 21st St and 23rd St.
 
->
+>north
 
-
+Green line at 30th Ave between 21st St and 23rd St
 North to the Green line at 28th Ave between 21st St and 23rd St.
 South to the Green line at 32nd Ave between 21st St and 23rd St.
 Up to 30th Ave between 21st St and 23rd St.
 
->
+>north
 
-
+Green line at 28th Ave between 21st St and 23rd St
 North to the Green line at 26th Ave between 21st St and 23rd St.
 South to the Green line at 30th Ave between 21st St and 23rd St.
 Up to 28th Ave between 21st St and 23rd St.
 
->
+>north
 
-
+Green line at 26th Ave between 21st St and 23rd St
 North to the Green line at 21st St between 24th Ave and 26th Ave.
 South to teh Green line at 28th Ave between 21st St and 23rd St.
 Up to 26th Ave between 21st St and 23rd St.
 
->
+>north
 
-
+Green line at 21st St between 24th Ave and 26th Ave
 North to the Green line at 24th Ave between 19th St and 21st St.
 South to the Green line at 26th Ave between 21st St and 23rd St.
 Up to 21st St between 24th Ave and 26th Ave.
 
->
+>north
 
-
+Green line at 24th Ave between 19th St and 21st St
 North to the Green line at 22nd Ave between 19th St and 21st St.
 South to the Green line at 21st St between 24th Ave and 26th Ave.
 Up to 24th Ave between 19th St and 21st St.
 
->
+>north
 
-
+Green line at 22nd Ave between 19th St and 21st St
 North to the Subway junction at 20th Ave.
 South to the Green line at 24th Ave between 19th St and 21st St.
 Up to 22nd Ave between 19th St and 21st St.
 
->
+>north
 
-
+Subway junction at 20th Ave
 South to the Green line under 22nd Ave between 19th St and 21st St.
 East to the Orange line under 20th Ave between 19th St and 21st St.
 Up to 20th Ave and 19th St.
 Down to the storm drain.
 
->
-EOT
+>quit
+Are you sure you want to quit? yes
+

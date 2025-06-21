@@ -1,16 +1,24 @@
+Start of a transcript of
+Volunteer For Survival
+A survival horror text adventure game.
+By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
 
-NOTE: Seeding the random number generator with -1.
+It's been five years since the aliens invaded earth. We got an early warning
+of their approach so we were prepared. Shelters were built to house people
+during the conflict. Unfortunately, due to hubris, the world governments
+expected to defeat the aliens quickly. As a result the shelters were only
+intended to last for a decade. Thanks to overcrowding, the supplies have
+nearly run out. For the past year volunteers have been sent out to collect
+supplies. You are only the latest.
 
-You are laying in a small empty alley.
-You feel a hard object in your pocket.
+Welcome to Vololtol city.
 
+Can you survive the alien wasteland and make it back to the shelter?
 
-To the east is a large metal door leading back to the shelter.
-Next to the door, built into the wall, is a drop box.
-To the north is more of the empty alley.
+Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
+Standard interpreter 1.1 (1F) / Library Serial Number 220219
 
->
-
+>say xyzzy
 You say 'XYZZY'.
 You wait expectantly...
 
@@ -19,62 +27,56 @@ Nothing happens.
 You have received a special token.
 [The score has just gone up by one point.]
 
->
-
+>inv
 You're carrying:
   a XYZZY Token
   a pill bottle (25 pills)
   a tape player containing the tape #0
 
->
-
+>help token
 A token given to those that say the magic word.
 
->
+>north
 
-
+Empty Alley
 To the north is an intersection.
 To the south is a dead end.
 
 You can see a tape #1 here.
 
->
-
+>rub token
 A magical spell carries you back to the starting room.
 
-
+Empty Alley Dead End
 To the east is a large metal door leading back to the shelter.
 Next to the door, built into the wall, is a drop box.
 To the north is more of the empty alley.
 
->
-
+>rub token
 A magical spell carries you back to your previous location.
 
-
+Empty Alley
 To the north is an intersection.
 To the south is a dead end.
 
 You can see a tape #1 here.
 
->
-
+>tell token about 1100
 <Whooshing teleporting noises!>
 
-
+20th Ave and 19th St
 East to 20th Ave between 19th St and 21st St.
 Down to Subway junction at 20th Ave.
 
->
-
+>consult token about 999
 That location doesn't exist.
 
-
+Darkness
 It is pitch dark, and you can't see a thing.
 
->
-
+>tell the token about pills
 What?
 
->
-EOT
+>quit
+Are you sure you want to quit? yes
+

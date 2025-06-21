@@ -113,7 +113,7 @@ function RunInteg {
     CheckInterpreter
     DeleteFile "Tests/vts.z5"
     echo "Building ${APPNAME} with the random number seeded to eliminate randomness..."
-    if ! CompileFile '$#RANDOM_SEED=-1' '$#NO_BANNER=1' "vts.inf" "Tests/vts.z5" ; then
+    if ! CompileFile '$#RANDOM_SEED=-1' "vts.inf" "Tests/vts.z5" ; then
         echo "Error compiling. Aborting!"
         exit 1
     fi
@@ -148,7 +148,14 @@ function RunIntegTest {
     TXT_FILE="${TEST_FILE}.txt"
     WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
     TESTCOUNT=$((TESTCOUNT + 1))
-    grep -v '^#' "${REC_FILE}" | ${INTERPRETER} -m -q Tests/vts.z5 > "${OUT_FILE}" 2>&1
+    DeleteFile "${OUT_FILE}"
+    (
+        echo "transcript"
+        echo "${OUT_FILE}"
+        grep -v '^#' "${REC_FILE}"
+        echo "quit"
+        echo "yes"
+    ) | ${INTERPRETER} -m -q Tests/vts.z5 > /dev/null 2>&1
     if diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null ; then
         WriteString "${INTEGOUT}" "Succeeded."
         DeleteFile "${OUT_FILE}"

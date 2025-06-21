@@ -1,168 +1,176 @@
+Start of a transcript of
+Volunteer For Survival
+A survival horror text adventure game.
+By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
 
-NOTE: Seeding the random number generator with -1.
+It's been five years since the aliens invaded earth. We got an early warning
+of their approach so we were prepared. Shelters were built to house people
+during the conflict. Unfortunately, due to hubris, the world governments
+expected to defeat the aliens quickly. As a result the shelters were only
+intended to last for a decade. Thanks to overcrowding, the supplies have
+nearly run out. For the past year volunteers have been sent out to collect
+supplies. You are only the latest.
 
-You are laying in a small empty alley.
-You feel a hard object in your pocket.
+Welcome to Vololtol city.
 
+Can you survive the alien wasteland and make it back to the shelter?
 
-To the east is a large metal door leading back to the shelter.
-Next to the door, built into the wall, is a drop box.
-To the north is more of the empty alley.
+Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
+Standard interpreter 1.1 (1F) / Library Serial Number 220219
 
->
+>all
 
 [The score has just gone up by seven points.]
 
->
-
+>use lamp
 The camping lantern is now on.
 
->
-
+>tell token about 1101
 <Whooshing teleporting noises!>
 
-
+34th Ave and 37th St
 North to 37th St between 32nd Ave and 34th Ave.
 Down to Subway junction at 37th St.
 
->
+>down
 
-
+Subway junction at 37th St
 North to the Blue line at 32nd Ave between 35th St and 37th St.
 West to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 34th Ave and 37th St.
 Down to the storm drain.
 
->
+>north
 
-
+Blue line at 32nd Ave between 35th St and 37th St
 North to the Blue line at 35th St between 30th Ave and 32nd Ave.
 South to the Subway junction at 37th St.
 Up to 32nd Ave between 35th St and 37th St.
 
->
+>north
 
-
+Blue line at 35th St between 30th Ave and 32nd Ave
 North to the Blue line at 28th Ave between 35th St and 37th St.
 South to the Blue line at 32nd Ave between 35th St and 37th St.
 Up to 35th St between 30th Ave and 32nd Ave.
 Down to the Storm Drain below 35th St between 30th Ave and 32nd Ave.
 
->
+>north
 
-
+Blue line at 28th Ave between 35th St and 37th St
 North to the Blue line at 26th Ave between 35th St and 37th St.
 South to the Blue line at 35th St between 30th Ave and 32nd Ave
 Up to 28th Ave between 35th St and 37th St.
 
->
+>north
 
-
+Blue line at 26th Ave between 35th St and 37th St
 North to the Blue line at 24th Ave between 35th St and 37th St.
 South to the Blue line at 28th Ave between 35th St and 37th St.
 Up to 26th Ave between 35th St and 37th St.
 
->
+>north
 
-
+Blue line at 24th Ave between 35th St and 37th St
 North to the Blue line at 22nhAve and 35th St.
 South to the Blue line at 26th Ave between 35th St and 37th St.
 Up to 24th Ave between 35th St and 37th St.
 
->
+>north
 
-
+Blue line at 22nhAve and 35th St
 North to the Blue line at 35th St between 20th Ave and 22nd Ave.
 South to the Blue line at 24th Ave between 35th St and 37th St.
 Up to 35th St between 18th Ave and 20th Ave.
 
->
+>north
 
-
+Blue line at 35th St between 20th Ave and 22nd Ave
 North to the Blue line at 18th Ave and 35th St.
 South to the Blue line at 22nhAve and 35th St.
 Up to 35th St between 20th Ave and 22nd Ave.
 Down to the Storm Drain below 35th St between 20th Ave and 22nd Ave.
 
->
+>north
 
-
+Blue line at 20th Ave and 35th St
 North to the Blue line at 35th St between 18th Ave and 20th Ave.
 South to the Blue line at 35th St between 20th Ave and 22nd Ave.
 Up to 35th St between 18th Ave and 20th Ave.
 
->
+>north
 
-
+Blue line at 35th St between 18th Ave and 20th Ave
 The way North is blocked by a collapsed tunnel.
 South to the Blue line at 18th Ave and 35th St.
 Up to 35th St between 18th Ave and 20th Ave.
 
->
+>south
 
-
+Blue line at 20th Ave and 35th St
 North to the Blue line at 35th St between 18th Ave and 20th Ave.
 South to the Blue line at 35th St between 20th Ave and 22nd Ave.
 Up to 35th St between 18th Ave and 20th Ave.
 
->
+>south
 
-
+Blue line at 35th St between 20th Ave and 22nd Ave
 North to the Blue line at 18th Ave and 35th St.
 South to the Blue line at 22nhAve and 35th St.
 Up to 35th St between 20th Ave and 22nd Ave.
 Down to the Storm Drain below 35th St between 20th Ave and 22nd Ave.
 
->
+>south
 
-
+Blue line at 22nhAve and 35th St
 North to the Blue line at 35th St between 20th Ave and 22nd Ave.
 South to the Blue line at 24th Ave between 35th St and 37th St.
 Up to 35th St between 18th Ave and 20th Ave.
 
->
+>south
 
-
+Blue line at 24th Ave between 35th St and 37th St
 North to the Blue line at 22nhAve and 35th St.
 South to the Blue line at 26th Ave between 35th St and 37th St.
 Up to 24th Ave between 35th St and 37th St.
 
->
+>south
 
-
+Blue line at 26th Ave between 35th St and 37th St
 North to the Blue line at 24th Ave between 35th St and 37th St.
 South to the Blue line at 28th Ave between 35th St and 37th St.
 Up to 26th Ave between 35th St and 37th St.
 
->
+>south
 
-
+Blue line at 28th Ave between 35th St and 37th St
 North to the Blue line at 26th Ave between 35th St and 37th St.
 South to the Blue line at 35th St between 30th Ave and 32nd Ave
 Up to 28th Ave between 35th St and 37th St.
 
->
+>south
 
-
+Blue line at 35th St between 30th Ave and 32nd Ave
 North to the Blue line at 28th Ave between 35th St and 37th St.
 South to the Blue line at 32nd Ave between 35th St and 37th St.
 Up to 35th St between 30th Ave and 32nd Ave.
 Down to the Storm Drain below 35th St between 30th Ave and 32nd Ave.
 
->
+>south
 
-
+Blue line at 32nd Ave between 35th St and 37th St
 North to the Blue line at 35th St between 30th Ave and 32nd Ave.
 South to the Subway junction at 37th St.
 Up to 32nd Ave between 35th St and 37th St.
 
->
+>south
 
-
+Subway junction at 37th St
 North to the Blue line at 32nd Ave between 35th St and 37th St.
 West to the Orange line at 35th St between 32ndAve and 34th Ave.
 Up to 34th Ave and 37th St.
 Down to the storm drain.
 
->
-EOT
+>quit
+Are you sure you want to quit? yes
+
