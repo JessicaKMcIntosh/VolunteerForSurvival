@@ -12,7 +12,18 @@
 ! Include after Grammar.
 !
 ! Create a camping lantern object.
-! Lamp_Class -> -> Camping_Lantern "camping lantern";
+! Lamp_Class Camping_Lantern "camping lantern";
+! ------------------------------------------------------------------------------
+! Verbs:
+! ------------------------------------------------------------------------------
+! Turn|Switch [on|off] noun [on|off]
+!   Change the state of the lamp.
+!
+! Light noun
+!   Turn the lamp on.
+!
+! Extinguish noun
+!   Turn the lamp off.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
