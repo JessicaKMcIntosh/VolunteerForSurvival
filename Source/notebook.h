@@ -13,7 +13,39 @@
 !
 ! Create a Notebook and Notebook Page objects.
 ! The main Notebook object must be named 'Notebook'.
+! ------------------------------------------------------------------------------
+! Classes:
+! ------------------------------------------------------------------------------
+! Notebook_Class - The notebook the player interacts with
 !
+! Notebook_Page_Class - Pages for the notebook.
+!   When reading a page the text is taken from inside_description if present,
+!   Otherwise from description.
+!   The property with_key can point to an object that contains the notebook
+!   page contents. The intention is to only write the text out once.
+! ------------------------------------------------------------------------------
+! Routines:
+! ------------------------------------------------------------------------------
+! To update the page number for all notebook pages call:
+! Notebook.update();
+! This is useful when putting pages in the notebook before the game starts.
+! Once you call this use Notebook.add(NEW_PAGE) to add more pages.
+!
+! To add new pages to the notebook call:
+! Notebook.add(NEW_PAGE);
+! This automatically gives the page the next number in line.
+! ------------------------------------------------------------------------------
+! Verbs:
+! ------------------------------------------------------------------------------
+! The grammar is a bit complicated to cover multiple scenarios.
+! Will work with the action Consult as well.
+!
+! Extends the verb Read to interface with the notebook.
+!
+! Also creates the verbs book, note, and notebook.
+! ------------------------------------------------------------------------------
+! Examples:
+! ------------------------------------------------------------------------------
 ! Notebook_Class Notebook "Notebook";
 ! Notebook_Page_Class -> Notebook_Page_1 "Notebook Page 1"
 !   with
@@ -30,15 +62,6 @@
 ! Object Real_Page_Object "The actual page for the entry"
 !   with
 !     inside_description "This is the contents of the notebook page.";
-!
-! To update the page number for all notebook pages call:
-! Notebook.update();
-! This is useful when putting pages in the notebook before the game starts.
-! Once you call this use Notebook.add(NEW_PAGE) to add more pages.
-!
-! To add new pages to the notebook call:
-! Notebook.add(NEW_PAGE);
-! This automatically gives the page the next number in line.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
