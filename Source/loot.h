@@ -310,9 +310,11 @@ Class Loot_Container_Trash(Loot_Containers)
       Container = Loot_Container_Mail.create();
       #Ifdef DEBUG;
         print
-          "DEBUG: Creating a ", (Container has locked),
-          " mailbox containing ", (name) child(Container),
-          " at ", (name) LootLocation, "^";
+          "DEBUG: Creating ";
+          if (Container hasnt locked) print "an un";
+          else                        print "a ";
+          print "locked mailbox containing ", (name) child(Container),
+                " at ", (name) LootLocation, "^";
       #Endif;
       if (Container ~= nothing) move Container to LootLocation;
     }
@@ -356,15 +358,36 @@ Class Loot_Container_Trash(Loot_Containers)
   }
 
   #Ifdef DEBUG;
-    print "DEBUG: Loot generation complete.^";
+    print "DEBUG: Loot generation complete!^";
 
-    print (name) Loot_Container_Mail,  " has remaining ", Loot_Container_Mail.remaining(),"^";
-    print (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
+    print "DEBUG: Mailbox contents:^";
+    objectloop (Container ofclass Loot_Container_Mail) {
+      if (parent(Container) == Loot_Container_Mail) continue;
+      print "DEBUG: Mailbox at ", (name) parent(Container), ": ";
+        if (WriteListFrom(child(Container), ENGLISH_BIT+TERSE_BIT) == 0) {
+          print " ... nothing ...";
+        }
+        print "^";
+    }
+
+    print "DEBUG: Trash Can contents:^";
+    objectloop (Container ofclass Loot_Container_Trash) {
+      if (parent(Container) == Loot_Container_Trash) continue;
+      print "DEBUG: Trash Can at ", (name) parent(Container), ": ";
+        if (WriteListFrom(child(Container), ENGLISH_BIT+TERSE_BIT) == 0) {
+          print " ... nothing ...";
+        }
+        print "^";
+    }
+
+    print "DEBUG: Stats:^";
+    print "DEBUG: ", (name) Loot_Container_Mail,  " has remaining ", Loot_Container_Mail.remaining(),"^";
+    print "DEBUG: ", (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
 
     ! The number of objects that can be created for each loot class.
     for (RandomNumber = 1: RandomNumber <= Loot_Number: RandomNumber++){
       Container = Loot_Table-->RandomNumber;
-      print (name) Container, " has remaining ", Container.remaining(),"^";
+      print "DEBUG: ", (name) Container, " has remaining ", Container.remaining(),"^";
     }
   #Endif;
 ];

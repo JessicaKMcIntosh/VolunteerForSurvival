@@ -36,6 +36,13 @@ Class Self_Describe_Room
   class Room_Class,
   with
     describe [;
+      #Ifdef DEBUG;
+        print "DEBUG: Room number: ", self.number;
+        if (self ofclass City_Class) {
+          print ", City: ", ((self.number / 19) + 19), " Ave ", ((self.number % 19) + 20), " St";
+        }
+        print "^";
+      #Endif;
       if (self provides n_to) {
         print "North to ", (name) self.n_to, ".^";
       }
