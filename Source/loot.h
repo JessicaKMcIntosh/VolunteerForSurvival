@@ -345,6 +345,16 @@ Class Loot_Container_Trash(Loot_Containers)
     }
   }
 
+  ! Since there is often loot left over loop over all the mailboxes and attempt to add more loot.
+  #Ifdef DEBUG;
+    print "DEBUG: Spreading any remaining loot around the map.^";
+  #Endif;
+  objectloop (Container ofclass Loot_Container_Mail) {
+    if (parent(Container) == Loot_Container_Mail) continue;
+    CreateRandomLoot(Container);
+    CreateRandomLoot(Container);
+  }
+
   #Ifdef DEBUG;
     print "DEBUG: Loot generation complete.^";
 
