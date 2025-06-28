@@ -39,6 +39,25 @@ Object XYZZY_Token "XYZZY Token"
     name 'xyzzy' 'token' 'xyzzy_token',
     description "A token given to those that say the magic word.",
     before [;
+      Blow:
+        "Even less happens.";
+      Burn:
+        "The token glows briefly.";
+      Consult:
+        XYZZY_Consult();
+        rtrue;
+      Drop:
+        "The token bounces back into your pocket.";
+      Eat:
+        "You don't know where it has been!";
+      Listen:
+        "The token whispers secrets from beyond the land of Zork.";
+      Read:
+       "A special token for those that know the magic word.^
+        This token may do something useful, it is magical after all.";
+      Remove:
+       "You remove the token from your pocket and ponder the meaning of^
+        Life, the Universe and Everything.";
       Rub:
         if (player notin Start_Room) {
           XYZZY_Previous_Location = Location;
@@ -51,9 +70,14 @@ Object XYZZY_Token "XYZZY Token"
           XYZZY_Previous_Location = nothing;
           rtrue;
         }
-      Consult:
-        XYZZY_Consult();
-        rtrue;
+      Taste:
+        "It tastes like rainbows and magic.";
+      Touch:
+        "The token feels appreciated.";
+      Kiss:
+        "Ewww! That's disgusting.";
+      Wear:
+        "You attempt to wear the token as a hat. It is much too small.";
     ],
   life [;
     Tell:
