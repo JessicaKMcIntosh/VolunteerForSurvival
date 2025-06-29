@@ -13,6 +13,8 @@
 * (Game Play) Implement the backpack.
 
 * (Building) Add building a Release ZIP file.
+  * <https://cli.github.com/manual/gh_release_create>
+  * <https://git-scm.com/docs/git-describe>
 
 ## Completed
 
