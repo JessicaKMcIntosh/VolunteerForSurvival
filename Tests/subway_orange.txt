@@ -121,97 +121,50 @@ Up to 33rd St between 26th Ave and 28th Ave.
 
 >south
 
-Orange line at 33rd St between 28th Ave and 30th Ave
+Orange line at 28th Ave and 33rd St
 North to the Orange line at 33rd St between 26th Ave and 28th Ave.
+South to the Orange line at 33rd St between 30th Ave and 32nd Ave.
+Up to 33rd St between 28th Ave and 30th Ave.
+
+>south
+
+Orange line at 33rd St between 28th Ave and 30th Ave
+North to the Orange line at 28th Ave and 33rd St.
 South to the Orange line at 28th Ave and 33rd St.
 Up to 33rd St between 28th Ave and 30th Ave.
 
 >south
 
 Orange line at 28th Ave and 33rd St
-North to the Orange line at 33rd St between 28th Ave and 30th Ave.
+North to the Orange line at 33rd St between 26th Ave and 28th Ave.
 South to the Orange line at 33rd St between 30th Ave and 32nd Ave.
 Up to 33rd St between 28th Ave and 30th Ave.
 
 >south
-
-Orange line at 33rd St between 30th Ave and 32nd Ave
-North to the Orange line at 28th Ave and 33rd St.
-South to the Orange line at 30th Ave and 33rd St.
-Up to 33rd St between 30th Ave and 32nd Ave.
-Down to the Storm Drain below 33rd St between 30th Ave and 32nd Ave.
-
->south
-
-Orange line at 30th Ave and 33rd St
-North to the Orange line at 33rd St between 30th Ave and 32nd Ave.
-South to the Orange line at 32nd Ave between 33rd St and 35th St.
-Up to 33rd St between 28th Ave and 30th Ave.
-
->south
-
-Orange line at 32nd Ave between 33rd St and 35th St
-North to the Orange line at 30th Ave and 33rd St.
-East to the Orange line at 35th St between 32ndAve and 34th Ave.
-Up to 32nd Ave between 33rd St and 35th St.
-
->east
-
-Orange line at 35th St between 32ndAve and 34th Ave
-East to the Subway junction at 37th St.
-West to the Orange line at 32nd Ave between 33rd St and 35th St.
-Up to 35th St between 32ndAve and 34th Ave.
-
->east
-
-Subway junction at 37th St
-North to the Blue line at 32nd Ave between 35th St and 37th St.
-West to the Orange line at 35th St between 32ndAve and 34th Ave.
-Up to 34th Ave and 37th St.
-Down to the storm drain.
-
->west
-
-Orange line at 35th St between 32ndAve and 34th Ave
-East to the Subway junction at 37th St.
-West to the Orange line at 32nd Ave between 33rd St and 35th St.
-Up to 35th St between 32ndAve and 34th Ave.
-
->west
-
-Orange line at 32nd Ave between 33rd St and 35th St
-North to the Orange line at 30th Ave and 33rd St.
-East to the Orange line at 35th St between 32ndAve and 34th Ave.
-Up to 32nd Ave between 33rd St and 35th St.
-
->north
-
-Orange line at 30th Ave and 33rd St
-North to the Orange line at 33rd St between 30th Ave and 32nd Ave.
-South to the Orange line at 32nd Ave between 33rd St and 35th St.
-Up to 33rd St between 28th Ave and 30th Ave.
-
->north
-
-Orange line at 33rd St between 30th Ave and 32nd Ave
-North to the Orange line at 28th Ave and 33rd St.
-South to the Orange line at 30th Ave and 33rd St.
-Up to 33rd St between 30th Ave and 32nd Ave.
-Down to the Storm Drain below 33rd St between 30th Ave and 32nd Ave.
-
->north
-
-Orange line at 28th Ave and 33rd St
-North to the Orange line at 33rd St between 28th Ave and 30th Ave.
-South to the Orange line at 33rd St between 30th Ave and 32nd Ave.
-Up to 33rd St between 28th Ave and 30th Ave.
-
->north
 
 Orange line at 33rd St between 28th Ave and 30th Ave
-North to the Orange line at 33rd St between 26th Ave and 28th Ave.
+North to the Orange line at 28th Ave and 33rd St.
 South to the Orange line at 28th Ave and 33rd St.
 Up to 33rd St between 28th Ave and 30th Ave.
+
+>south
+
+Orange line at 28th Ave and 33rd St
+North to the Orange line at 33rd St between 26th Ave and 28th Ave.
+South to the Orange line at 33rd St between 30th Ave and 32nd Ave.
+Up to 33rd St between 28th Ave and 30th Ave.
+
+>east
+You can't go that way.
+
+>east
+You can't go that way.
+
+>west
+You can't go that way.
+
+>west
+You can't go that way.
 
 >north
 
@@ -226,6 +179,18 @@ Orange line at 26th Ave between 31st St and 33rd St
 South to the Orange line at 33rd St between 26th Ave and 28th Ave.
 West to the Orange line at 31st St between 24th Ave and 26th Ave.
 Up to 26th Ave between 31st St and 33rd St.
+
+>north
+You can't go that way.
+
+>north
+You can't go that way.
+
+>north
+You can't go that way.
+
+>north
+You can't go that way.
 
 >west
 

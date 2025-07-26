@@ -72,13 +72,13 @@ Up to 26th Ave between 35th St and 37th St.
 >north
 
 Blue line at 24th Ave between 35th St and 37th St
-North to the Blue line at 22nhAve and 35th St.
+North to the Blue line at 22nd Ave and 35th St.
 South to the Blue line at 26th Ave between 35th St and 37th St.
 Up to 24th Ave between 35th St and 37th St.
 
 >north
 
-Blue line at 22nhAve and 35th St
+Blue line at 22nd Ave and 35th St
 North to the Blue line at 35th St between 20th Ave and 22nd Ave.
 South to the Blue line at 24th Ave between 35th St and 37th St.
 Up to 35th St between 18th Ave and 20th Ave.
@@ -87,7 +87,7 @@ Up to 35th St between 18th Ave and 20th Ave.
 
 Blue line at 35th St between 20th Ave and 22nd Ave
 North to the Blue line at 18th Ave and 35th St.
-South to the Blue line at 22nhAve and 35th St.
+South to the Blue line at 22nd Ave and 35th St.
 Up to 35th St between 20th Ave and 22nd Ave.
 Down to the Storm Drain below 35th St between 20th Ave and 22nd Ave.
 
@@ -116,13 +116,13 @@ Up to 35th St between 18th Ave and 20th Ave.
 
 Blue line at 35th St between 20th Ave and 22nd Ave
 North to the Blue line at 18th Ave and 35th St.
-South to the Blue line at 22nhAve and 35th St.
+South to the Blue line at 22nd Ave and 35th St.
 Up to 35th St between 20th Ave and 22nd Ave.
 Down to the Storm Drain below 35th St between 20th Ave and 22nd Ave.
 
 >south
 
-Blue line at 22nhAve and 35th St
+Blue line at 22nd Ave and 35th St
 North to the Blue line at 35th St between 20th Ave and 22nd Ave.
 South to the Blue line at 24th Ave between 35th St and 37th St.
 Up to 35th St between 18th Ave and 20th Ave.
@@ -130,7 +130,7 @@ Up to 35th St between 18th Ave and 20th Ave.
 >south
 
 Blue line at 24th Ave between 35th St and 37th St
-North to the Blue line at 22nhAve and 35th St.
+North to the Blue line at 22nd Ave and 35th St.
 South to the Blue line at 26th Ave between 35th St and 37th St.
 Up to 24th Ave between 35th St and 37th St.
 

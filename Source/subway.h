@@ -103,7 +103,7 @@ Subway_Blue_Class Subway_Blue_20_22_35 "Blue line at 35th St between 20th Ave an
   with
     description
    "North to the Blue line at 18th Ave and 35th St.^
-    South to the Blue line at 22nhAve and 35th St.^
+    South to the Blue line at 22nd Ave and 35th St.^
     Up to 35th St between 20th Ave and 22nd Ave.^
     Down to the Storm Drain below 35th St between 20th Ave and 22nd Ave.",
     number 1122,
@@ -113,7 +113,7 @@ Subway_Blue_Class Subway_Blue_20_22_35 "Blue line at 35th St between 20th Ave an
     d_to Storm_20_22_35,
 ;
 
-Subway_Blue_Class Subway_Blue_22_35 "Blue line at 22nhAve and 35th St"
+Subway_Blue_Class Subway_Blue_22_35 "Blue line at 22nd Ave and 35th St"
   with
     description
    "North to the Blue line at 35th St between 20th Ave and 22nd Ave.^
@@ -128,7 +128,7 @@ Subway_Blue_Class Subway_Blue_22_35 "Blue line at 22nhAve and 35th St"
 Subway_Blue_Class Subway_Blue_24_35_37 "Blue line at 24th Ave between 35th St and 37th St"
   with
     description
-   "North to the Blue line at 22nhAve and 35th St.^
+   "North to the Blue line at 22nd Ave and 35th St.^
     South to the Blue line at 26th Ave between 35th St and 37th St.^
     Up to 24th Ave between 35th St and 37th St.",
     number 1124,
@@ -421,72 +421,74 @@ Subway_Orange_Class Subway_Orange_26_28_33 "Orange line at 33rd St between 26th 
     South to Orange line at 33rd St between 28th Ave and 30th Ave.^
     Up to 33rd St between 26th Ave and 28th Ave.",
     number 1170,
-    s_to Subway_Orange_28_30_33,
+    s_to Subway_Orange_28_33,
     n_to Subway_Orange_26_31_33,
     u_to City_26_28_33,
-;
-
-Subway_Orange_Class Subway_Orange_28_30_33 "Orange line at 33rd St between 28th Ave and 30th Ave"
-  with
-    description
-   "North to the Orange line at 33rd St between 26th Ave and 28th Ave.^
-    South to the Orange line at 28th Ave and 33rd St.^
-    Up to 33rd St between 28th Ave and 30th Ave.",
-    number 1171,
-    n_to Subway_Orange_26_28_33,
-    s_to Subway_Orange_28_33,
-    u_to City_28_30_33,
 ;
 
 Subway_Orange_Class Subway_Orange_28_33 "Orange line at 28th Ave and 33rd St"
   with
     description
-   "North to the Orange line at 33rd St between 28th Ave and 30th Ave.^
+   "North to the Orange line at 33rd St between 26th Ave and 28th Ave.^
     South to the Orange line at 33rd St between 30th Ave and 32nd Ave.^
     Up to 33rd St between 28th Ave and 30th Ave.",
-    number 1172,
-    n_to Subway_Orange_28_30_33,
-    s_to Subway_Orange_30_32_33,
-    u_to City_28_30_33,
+    number 1171,
+    n_to Subway_Orange_26_28_33,
+    s_to Subway_Orange_28_30_33,
+    u_to City_28_33,
 ;
 
-Subway_Orange_Class Subway_Orange_30_32_33 "Orange line at 33rd St between 30th Ave and 32nd Ave"
+Subway_Orange_Class Subway_Orange_28_30_33 "Orange line at 33rd St between 28th Ave and 30th Ave"
   with
     description
    "North to the Orange line at 28th Ave and 33rd St.^
-    South to the Orange line at 30th Ave and 33rd St.^
-    Up to 33rd St between 30th Ave and 32nd Ave.^
-    Down to the Storm Drain below 33rd St between 30th Ave and 32nd Ave.",
-    number 1173,
+    South to the Orange line at 28th Ave and 33rd St.^
+    Up to 33rd St between 28th Ave and 30th Ave.",
+    number 1172,
     n_to Subway_Orange_28_33,
-    s_to Subway_Orange_30_33,
-    u_to City_30_32_33,
-    d_to Storm_30_32_33,
+    s_to Subway_Orange_28_33,
+    u_to City_28_30_33,
 ;
 
 Subway_Orange_Class Subway_Orange_30_33 "Orange line at 30th Ave and 33rd St"
   with
     description
-   "North to the Orange line at 33rd St between 30th Ave and 32nd Ave.^
+   "North to the Orange line at 33rd St between 28th Ave and 30th Ave.^
+    South to the Orange line at 33rd St between 30th Ave and 32nd Ave.^
+    Up to 30th Ave and 33rd.",
+    number 1173,
+    n_to Subway_Orange_28_30_33,
+    s_to Subway_Orange_30_32_33,
+    u_to City_30_33,
+;
+
+Subway_Orange_Class Subway_Orange_30_32_33 "Orange line at 33rd St between 30th Ave and 32nd Ave"
+  with
+    description
+   "North to the Orange line at 30th Ave and 33rd St.^
     South to the Orange line at 32nd Ave between 33rd St and 35th St.^
-    Up to 33rd St between 28th Ave and 30th Ave.",
+    Up to 33rd St between 30th Ave and 32nd Ave.^
+    Down to the Storm Drain below 33rd St between 30th Ave and 32nd Ave.",
     number 1174,
-    n_to Subway_Orange_30_32_33,
+    n_to Subway_Orange_30_33,
     s_to Subway_Orange_32_33_35,
-    u_to City_28_30_33,
+    u_to City_30_32_33,
+    d_to Storm_30_32_33,
 ;
 
 Subway_Orange_Class Subway_Orange_32_33_35 "Orange line at 32nd Ave between 33rd St and 35th St"
   with
     description
-   "North to the Orange line at 30th Ave and 33rd St.^
+   "North to the Orange line at 33rd St between 30th Ave and 32nd Ave.^
     East to the Orange line at 35th St between 32ndAve and 34th Ave.^
     Up to 32nd Ave between 33rd St and 35th St.",
     number 1175,
+    n_to Subway_Orange_30_32_33,
     e_to Subway_Orange_32_34_35,
-    n_to Subway_Orange_30_33,
     u_to City_32_33_35,
 ;
+
+!!!!!
 
 Subway_Orange_Class Subway_Orange_32_34_35 "Orange line at 35th St between 32ndAve and 34th Ave"
   with
