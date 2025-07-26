@@ -79,7 +79,7 @@ Storm_Class Storm_Junction_30_29 "Storm Drain Junction at 30th Ave and 29th St"
     e_to Storm_30_29_31,
 ;
 
-Storm_Class Storm_Junction_30_37 "Storm Drain Junction at "
+Storm_Class Storm_Junction_30_37 "Storm Drain Junction at 30th Ave and 37th St"
   with
     number 1187,
     s_to Storm_30_32_29,
