@@ -12,6 +12,11 @@
 ! ------------------------------------------------------------------------------
 ! Include after Grammar but before loading world areas.
 ! ------------------------------------------------------------------------------
+! NOTES
+! ------------------------------------------------------------------------------
+! This file contains stuff that doesn't really fit anywhere else.
+! Also stuff that will eventually move into a different file.
+! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
 ! Meta Data
@@ -90,7 +95,7 @@ Message "Loading the Stuff library.";
   if (actual == nothing) {
     print "nothing...";
   } else {
-    print(name) room;
+    print (name) room;
   }
   if (actual == expected) {
     print " Success.^";
@@ -99,7 +104,7 @@ Message "Loading the Stuff library.";
   }
 ];
 
-! Find the matching city location given the room number.
+! Find the matching location given the room number.
 [ Find_Room_Number
   num
   room;
@@ -113,7 +118,7 @@ Message "Loading the Stuff library.";
 
 ! Find the matching city location given the room number.
 [ Find_City_Room_Number
-  position
+  position ! The room number to find.
   room;
   objectloop(room ofclass City_Class) {
     if (room.number == position) {
