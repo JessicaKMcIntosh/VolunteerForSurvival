@@ -24,7 +24,13 @@
 ! * Junk
 ! * Rusty tools
 ! * Ruined office supplies
-!
+! ------------------------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! IMPORTANT!
+! If changing the loot tables make sure to update:
+! * Constants for the number of items and the table sizes.
+! * BuildLootTables() which creates the loot tables.
 ! ------------------------------------------------------------------------------
 
 ! ------------------------------------------------------------------------------
@@ -230,7 +236,7 @@ Class Loot_Container_Trash(Loot_Containers)
   RandomNumber = random(Loot_Number + 1);
   if (RandomNumber > Loot_Number) {
     #Ifdef DEBUG;
-        print "DEBUG: NO LOOT FOR YOU!^";
+      print "DEBUG: NO LOOT FOR YOU!^";
     #Endif;
     rfalse;
   }
@@ -252,7 +258,7 @@ Class Loot_Container_Trash(Loot_Containers)
     move RandomLoot to Container;
   } else {
     #Ifdef DEBUG;
-        print "DEBUG: Loot did not create: ", (name) RandomClass, "^";
+      print "DEBUG: Loot did not create: ", (name) RandomClass, "^";
     #Endif;
     rfalse;
   }
@@ -260,16 +266,38 @@ Class Loot_Container_Trash(Loot_Containers)
 ];
 
 ! Setup the loot.
-[ SetupLoot
-  RandomNumber  ! Randomize where mailboxes appear.
-  Container     ! The loot container to place.
-  LootLocation; ! The location to place the loot.
-
+[ SetupLoot;
   #Ifdef DEBUG;
     print "DEBUG: Generating loot...^";
   #Endif;
 
-  ! Create the loot table.
+  ! Build the loot tables.
+  BuildLootTables();
+
+  ! Generate loot containers.
+  GenerateLootContainers();
+
+  ! Drop some random loot in the subway tunnels.
+  GenerateSubwayLoot();
+
+  ! Since there is often loot left over loop over all the mailboxes and attempt to add more loot.
+  SpreadLoot();
+
+  ! Finally loop over all the treasure classes and just drop them in the empty alley.
+  DropExtraTreasure();
+
+  #Ifdef DEBUG;
+    PrintLootStats();
+    print "DEBUG: End of Loot!^^";
+  #Endif;
+];
+
+! ------------------------------------------------------------------------------
+! Helper Subroutines
+! ------------------------------------------------------------------------------
+
+[ BuildLootTables;
+  ! Create the main loot table.
   Loot_Table-->1  = Loot_Treasure_Laptop;
   Loot_Table-->2  = Loot_Treasure_Rations;
   Loot_Table-->3  = Loot_Treasure_Twinkies;
@@ -294,12 +322,49 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table_Subway-->2  = Loot_Treasure_Scrap_Toolbox;
   Loot_Table_Subway-->3  = Loot_Junk_Rusty_Tools;
   Loot_Table_Subway-->4  = Loot_Junk_Junk;
+];
+
+[ DropExtraTreasure
+  LootClass ! The loot class to try creating loot for.
+  Loot      ! An item of loot to drop.
+  LootID;   ! ID number for looping over the remaining treasure.
+
+  #Ifdef DEBUG;
+    print "DEBUG: Using up leftover treasure.^";
+  #Endif;
+
+  for (LootID = 1: LootID < Loot_Number_Treasure + 1: LootID++) {
+    LootClass = Loot_Table-->LootID;
+    #Ifdef DEBUG;
+      print
+        "DEBUG: ", (name) LootClass, " ";
+    #Endif;
+
+    do {
+      Loot = LootClass.Create();
+      if (Loot ~= nothing) {
+        #Ifdef DEBUG;
+          print ".";
+        #Endif;
+        move Loot to Start_Alley;
+      }
+    } until (Loot == nothing);
+    #Ifdef DEBUG;
+      print "^";
+    #Endif;
+  }
+
+];
+
+[ GenerateLootContainers
+  RandomNumber  ! Randomize where mailboxes appear.
+  Container     ! The loot container to place.
+  LootLocation; ! The location to place the loot.
 
   #Ifdef DEBUG;
     print "DEBUG: Generating mailboxes and trash cans...^";
   #Endif;
 
-  ! Generate loot containers.
   objectloop (LootLocation ofclass City_Class) {
     if (LootLocation == City_28_25_27) continue;
 
@@ -330,12 +395,15 @@ Class Loot_Container_Trash(Loot_Containers)
       if (Container ~= nothing) move Container to LootLocation;
     }
   }
+];
+
+[ GenerateSubwayLoot
+  LootLocation; ! The location to place the loot.
 
   #Ifdef DEBUG;
     print "DEBUG: Generating loot in the subway...^";
   #Endif;
 
-  ! Drop some random loot in the subway tunnels.
   objectloop (LootLocation ofclass Subway_Class) {
     if (random(5) == 2) {
       CreateRandomLoot(LootLocation);
@@ -347,41 +415,11 @@ Class Loot_Container_Trash(Loot_Containers)
     }
   }
 
-  ! Since there is often loot left over loop over all the mailboxes and attempt to add more loot.
-  #Ifdef DEBUG;
-    print "DEBUG: Spreading any remaining loot around the map.^";
-  #Endif;
-  objectloop (Container ofclass Loot_Container_Mail) {
-    if (parent(Container) == Loot_Container_Mail) continue;
-    CreateRandomLoot(Container);
-    CreateRandomLoot(Container);
-  }
+];
 
-  ! Finally loop over all the treasure classes and just drop them in the empty alley.
-  #Ifdef DEBUG;
-    print "DEBUG: Using up leftover treasure.^";
-  #Endif;
-  for (RandomNumber = 1: RandomNumber < Loot_Number_Treasure + 1: RandomNumber++) {
-    Container = Loot_Table-->RandomNumber;
-    #Ifdef DEBUG;
-      print
-        "DEBUG: ", (name) Container, " ";
-    #Endif;
-    do {
-      LootLocation = Container.Create();
-      if (LootLocation ~= nothing) {
-        #Ifdef DEBUG;
-          print ".";
-        #Endif;
-        move LootLocation to Start_Alley;
-      }
-    } until (LootLocation == nothing);
-    #Ifdef DEBUG;
-      print "^";
-    #Endif;
-  }
-
-  #Ifdef DEBUG;
+[ PrintLootStats
+  Container ! Container to print stats for.
+  LootID;   ! ID number for looping over the main loot table.
     print "DEBUG: Loot generation complete!^";
 
     print "DEBUG: Mailbox contents:^";
@@ -409,10 +447,23 @@ Class Loot_Container_Trash(Loot_Containers)
     print "DEBUG: ", (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
 
     ! The number of objects that can be created for each loot class.
-    for (RandomNumber = 1: RandomNumber <= Loot_Number: RandomNumber++){
-      Container = Loot_Table-->RandomNumber;
+    for (LootID = 1: LootID <= Loot_Number: LootID++){
+      Container = Loot_Table-->LootID;
       print "DEBUG: ", (name) Container, " has remaining ", Container.remaining(),"^";
     }
-    print "DEBUG: End of Loot!^^";
+];
+
+[ SpreadLoot
+  Container; ! The loot container to place more loot in.
+
+  #Ifdef DEBUG;
+    print "DEBUG: Spreading any remaining loot around the map.^";
   #Endif;
+
+  objectloop (Container ofclass Loot_Container_Mail) {
+    if (parent(Container) == Loot_Container_Mail) continue;
+    CreateRandomLoot(Container);
+    CreateRandomLoot(Container);
+  }
+
 ];
