@@ -63,6 +63,7 @@ Docker is required to run the tests and to generate the file `Source/city.h`. Th
 
 Building with the command `debug` will generate a DEBUG build.
 This build will output extra messages useful for debugging parts of the game.
+Search through the source for `#Ifdef DEBUG;` to find these messages.
 
 ### Coding style
 
@@ -76,26 +77,39 @@ The following deviations are made:
 
 ### Source Files
 
+These are all of the Inform files that make up the game.
+
 * [vts.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/vts.inf) - The Inform game file. This is the main source file for the VTS game.
-* [Utilities/gencity.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/gencity.inf) - Generates the file `Source/city.h` file. Must be built with Docker or on Unix.
-* [Utilities/unit.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/unit.inf) - The Inform game file for the unit tests.
 * [Source/city.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/city.h) - The main city map. Generated from `Utilities/gencity.inf`.
+* [Source/classes.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/classes.h) - Several classes that don't really fit anywhere else.
+* [Source/help.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/help.h) - A simple help interface for people new to interactive fiction.
 * [Source/lamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/lamp.h) - Implementation of a camping lantern to provide light in dark rooms.
 * [Source/loot.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/loot.h) - Implementation of loot and loot containing containers.
 * [Source/notebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/notebook.h) - Implementation of a notebook.
-* [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes.
+* [Source/pills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/pills.h) - Implementation of the pills the player takes to stay sane.
+* [Source/starting.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/starting.h) - The starting room and items. Also the alley which links it to the map.
 * [Source/storm.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/storm.h) - Storm drain junctions.
 * [Source/stuff.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/stuff.h) - Random stuff that doesn't really fit anywhere else.
 * [Source/subway.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/subway.h) - The subway stations and junctions.
 * [Source/tape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/tape.h) - Implementation of the microcassette player the player carries. This library can easily be used in other games.
-* [Source/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testlamp.h) - Unit tests for the lamp library.
-* [Source/testnotebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testnotebook.h) - Unit tests for the notebook library.
-* [Source/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testpills.h) - Unit tests for the pills library.
-* [Source/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/testtape.h) - Unit tests for the tape library.
-* [Source/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzunitzy.h) - A unit testing library.
 * [Source/xyzzy.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Source/xyzzy.h) - Implementation of the XYZZY easter egg. This is just for fun.
-* [Extensions/betatest.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/betatest.h) - Adds commands for best testing to record the output of the game with comments.
-* [Extensions/istring.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Extensions/istring.h) - A strings library used for checking the printed output in unit tests.
+* [Utilities/gencity.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Utilities/gencity.inf) - Generates the file `Source/city.h` file. Must be built with Docker or on Unix.
+
+These files are still written in Inform, but are involved in testing.
+
+* [Tests/testlamp.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/testlamp.h) - Unit tests for the lamp library.
+* [Tests/testnotebook.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/testnotebook.h) - Unit tests for the notebook library.
+* [Tests/testpills.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/testpills.h) - Unit tests for the pills library.
+* [Tests/testtape.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/testtape.h) - Unit tests for the tape library.
+* [Tests/unit.h](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/xyzunitzy.h) - A unit testing library.
+* [Tests/unit.inf](https://github.com/JessicaKMcIntosh/VolunteerForSurvival/blob/main/Tests/unit.inf) - The Inform game file for the unit tests.
+
+There are several `*.rec` and `*.txt` files in the `Tests` subdirectory.
+These files are used for integration tests.
+The `*.rec` files are used as transcripts for Frotz.
+The `.rec` files also contain comments describing the test.
+The output is then compared to the corresponding `.txt` file.
+See the `build.sh` file for details on how this works.
 
 ### Development Resources
 
@@ -138,18 +152,18 @@ The following deviations are made:
 
 The build process will attempt to use [Docker](https://www.docker.com/) if installed.
 The build script will create a new image `vts:0.0`.
-This image uses Debian stable and installs the packages `frotz` `inform6-compiler`.
+This image uses Debian stable and installs the packages `frotz` and `inform6-compiler`.
 Using Docker greatly simplifies the process and is the recommended method.
 
 ### Compiling under Windows
 
 The files required are included in the subdirectory `inform6`.
 
-* Run the script `build.bat`. \
+* Run the script `build.bat`.\
   `build.bat`
 * The build script has builtin help.\
   `build.bat help`
-* Tests can be run using the `test` parameter.\
+* Unit tests can be run using the `test` command.\
   `build.bat tests`
 
 ### Compiling under Unix
@@ -217,7 +231,8 @@ Volunteer For Survival was created by Jessica McIntosh\
 JessicaKMcIntosh AT gmail DOT com\
 <https://github.com/JessicaKMcIntosh/VolunteerForSurvival>
 
-This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. See the file LICENSE for details.
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+See the file LICENSE for details.
 
 ---
 
