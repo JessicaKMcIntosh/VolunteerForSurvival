@@ -4,6 +4,8 @@
 
 ## Pending
 
+* (Map) Create alleys and buildings that can be attached to the map at random locations.
+
 * (Game Play) Implement help specific to rooms and objects. This will require a new property.
 
 * (Game Play) Would a hints system be useful?
