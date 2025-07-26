@@ -156,7 +156,7 @@ Notebook_Page_Class Notebook_XYZZY_Token "XYZZY Token"
   #Endif;
 
   ! Setup the loot.
-  SetupLoot();
+  LootSetup();
 
   ! Give the player the microcassette player.
   move Tape_Player to player;
