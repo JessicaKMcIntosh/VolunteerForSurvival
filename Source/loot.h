@@ -357,6 +357,30 @@ Class Loot_Container_Trash(Loot_Containers)
     CreateRandomLoot(Container);
   }
 
+  ! Finally loop over all the treasure classes and just drop them in the empty alley.
+  #Ifdef DEBUG;
+    print "DEBUG: Using up leftover treasure.^";
+  #Endif;
+  for (RandomNumber = 1: RandomNumber < Loot_Number_Treasure + 1: RandomNumber++) {
+    Container = Loot_Table-->RandomNumber;
+    #Ifdef DEBUG;
+      print
+        "DEBUG: ", (name) Container, " ";
+    #Endif;
+    do {
+      LootLocation = Container.Create();
+      if (LootLocation ~= nothing) {
+        #Ifdef DEBUG;
+          print ".";
+        #Endif;
+        move LootLocation to Start_Alley;
+      }
+    } until (LootLocation == nothing);
+    #Ifdef DEBUG;
+      print "^";
+    #Endif;
+  }
+
   #Ifdef DEBUG;
     print "DEBUG: Loot generation complete!^";
 
@@ -380,7 +404,7 @@ Class Loot_Container_Trash(Loot_Containers)
         print "^";
     }
 
-    print "DEBUG: Stats:^";
+    print "DEBUG: Loot Stats:^";
     print "DEBUG: ", (name) Loot_Container_Mail,  " has remaining ", Loot_Container_Mail.remaining(),"^";
     print "DEBUG: ", (name) Loot_Container_Trash, " has remaining ", Loot_Container_Trash.remaining(),"^";
 
@@ -389,5 +413,6 @@ Class Loot_Container_Trash(Loot_Containers)
       Container = Loot_Table-->RandomNumber;
       print "DEBUG: ", (name) Container, " has remaining ", Container.remaining(),"^";
     }
+    print "DEBUG: End of Loot!^^";
   #Endif;
 ];
