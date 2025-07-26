@@ -56,11 +56,11 @@ Class Self_Describe_Room
       }
 
       if (self provides e_to) {
-        print "East to ",  (name) self.e_to, ".^";
+        print "East to ", (name) self.e_to, ".^";
       }
 
       if (self provides w_to) {
-        print "West to ",  (name) self.w_to, ".^";
+        print "West to ", (name) self.w_to, ".^";
       }
 
       if (self provides u_to) {
@@ -73,7 +73,7 @@ Class Self_Describe_Room
         } else if (self.u_to ofclass Subway_Orange_Class) {
           print "Up to the Orange subway line.^";
         } else {
-          print "Up to ",  (name) self.u_to, ".^";
+          print "Up to ", (name) self.u_to, ".^";
         }
       }
 
@@ -87,16 +87,16 @@ Class Self_Describe_Room
         } else if (self.d_to ofclass Subway_Orange_Class) {
           print "Down to the Orange subway line.^";
         } else {
-          print "Down to ",  (name) self.d_to, ".^";
+          print "Down to ", (name) self.d_to, ".^";
         }
       }
 
       if (self provides in_to) {
-        print "In to ",  (name) self.in_to, ".^";
+        print "In to ", (name) self.in_to, ".^";
       }
 
       if (self provides out_to) {
-        print "Out to ",  (name) self.out_to, ".^";
+        print "Out to ", (name) self.out_to, ".^";
       }
     ],
 ;
