@@ -67,6 +67,9 @@ Constant Loot_Containers = 20;
 ! The table of all loot available.
 Array Loot_Table --> (Loot_Number + 1);
 
+! The treasure loot table.
+Array Loot_Table_Treasure --> (Loot_Number_Treasure + 1);
+
 ! The trash loot table.
 Array Loot_Table_Trash --> (Loot_Number_Trash + 1);
 
@@ -196,7 +199,7 @@ Class Loot_Container_Mail(Loot_Containers)
     with_key Crowbar,
     create [;
       ! Create loot in the mailbox.
-      LoogGenerateRandom(self);
+      LootRandom(self);
 
       ! Randomly decide if the box is locked or not.
       if (random(2) == 1) {
@@ -215,13 +218,13 @@ Class Loot_Container_Trash(Loot_Containers)
     short_name "trash can",
     create [;
       ! Create loot in the trash cah.
-      LoogGenerateRandom(self);
+      LootRandom(self);
     ],
   has container static openable
 ;
 
 ! ------------------------------------------------------------------------------
-! Main Loot Subroutine
+! Main Loot Subroutines
 ! ------------------------------------------------------------------------------
 
 ! Setup the loot.
@@ -242,13 +245,59 @@ Class Loot_Container_Trash(Loot_Containers)
   ! Since there is often loot left over loop over all the mailboxes and attempt to add more loot.
   LootGenerateMore();
 
-  ! Finally loop over all the treasure classes and just drop them in the empty alley.
-  LootDropExtras();
+  ! Finally loop over all the treasure classes and put any leftovers in the first mailbox.
+  ! ! Not sure this is too useful. I will be adding more locations that can house loot.
+  ! LootGenereateLeftovers();
 
   #Ifdef DEBUG;
     LootPrintStats();
     print "DEBUG: End of Loot!^^";
   #Endif;
+];
+
+! Create a random loot object then move to the given container.
+[ LootRandom
+  Container     ! The container to move the loot to.
+  Treasure      ! If true select from only treasure.
+  RandomNumber  ! Random number for determining the loot.
+  RandomClass   ! The random loot class;
+  RandomLoot;   ! The random loot object.
+
+  ! Pick a random number.
+  ! If the number is higher than Loot_Number then no loot.
+  RandomNumber = random(Loot_Number + 1);
+  if (RandomNumber > Loot_Number) {
+    #Ifdef DEBUG;
+      print "DEBUG: NO LOOT FOR YOU!^";
+    #Endif;
+    rfalse;
+  }
+
+  ! Create the loot. Special case for only treasure, the Subway and trash cans.
+  if (Treasure) {
+    RandomNumber = random(Loot_Number_Treasure);
+    RandomClass = Loot_Table_Treasure-->RandomNumber;
+  } else if (Container ofclass Subway_Class) {
+    RandomNumber = random(Loot_Number_Subway);
+    RandomClass = Loot_Table_Subway-->RandomNumber;
+  } else if (Container ofclass Loot_Container_Trash) {
+    RandomNumber = random(Loot_Number_Trash);
+    RandomClass = Loot_Table_Trash-->RandomNumber;
+  } else {
+    RandomClass = Loot_Table-->RandomNumber;
+  }
+  RandomLoot = RandomClass.Create();
+
+  ! Move the loot to the container.
+  if (RandomLoot ~= nothing) {
+    move RandomLoot to Container;
+  } else {
+    #Ifdef DEBUG;
+      print "DEBUG: Loot did not create: ", (name) RandomClass, "^";
+    #Endif;
+    rfalse;
+  }
+  rtrue;
 ];
 
 ! ------------------------------------------------------------------------------
@@ -268,6 +317,13 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table-->9  = Loot_Junk_Ruined_Office_Supplies;
   Loot_Table-->10 = Loot_Junk_Junk;
 
+  ! Create the treasure loot table.
+  Loot_Table_Treasure-->1  = Loot_Treasure_Laptop;
+  Loot_Table_Treasure-->2  = Loot_Treasure_Rations;
+  Loot_Table_Treasure-->3  = Loot_Treasure_Twinkies;
+  Loot_Table_Treasure-->4  = Loot_Treasure_Scrap_Metal;
+  Loot_Table_Treasure-->5  = Loot_Treasure_Scrap_Toolbox;
+
   ! Create the trash table.
   Loot_Table_Trash-->1  = Loot_Treasure_Scrap_Metal;
   Loot_Table_Trash-->2  = Loot_Junk_Spoiled_Canned_Food;
@@ -281,39 +337,6 @@ Class Loot_Container_Trash(Loot_Containers)
   Loot_Table_Subway-->2  = Loot_Treasure_Scrap_Toolbox;
   Loot_Table_Subway-->3  = Loot_Junk_Rusty_Tools;
   Loot_Table_Subway-->4  = Loot_Junk_Junk;
-];
-
-! Dropt unused treasure in the empty alley.
-[ LootDropExtras
-  LootClass ! The loot class to try creating loot for.
-  Loot      ! An item of loot to drop.
-  LootID;   ! ID number for looping over the remaining treasure.
-
-  #Ifdef DEBUG;
-    print "DEBUG: Using up leftover treasure.^";
-  #Endif;
-
-  for (LootID = 1: LootID < Loot_Number_Treasure + 1: LootID++) {
-    LootClass = Loot_Table-->LootID;
-    #Ifdef DEBUG;
-      print
-        "DEBUG: ", (name) LootClass, " ";
-    #Endif;
-
-    do {
-      Loot = LootClass.Create();
-      if (Loot ~= nothing) {
-        #Ifdef DEBUG;
-          print ".";
-        #Endif;
-        move Loot to Start_Alley;
-      }
-    } until (Loot == nothing);
-    #Ifdef DEBUG;
-      print "^";
-    #Endif;
-  }
-
 ];
 
 ! Generate mailboxes and trash cans.
@@ -358,6 +381,39 @@ Class Loot_Container_Trash(Loot_Containers)
   }
 ];
 
+! Put unused treasure in the first mailbox.
+[ LootGenereateLeftovers
+  LootClass ! The loot class to try creating loot for.
+  Loot      ! A created piece of item of loot.
+  LootID;   ! ID number for looping over the remaining treasure.
+
+  #Ifdef DEBUG;
+    print "DEBUG: Using up leftover treasure.^";
+  #Endif;
+
+  for (LootID = 1: LootID < Loot_Number_Treasure + 1: LootID++) {
+    LootClass = Loot_Table_Treasure-->LootID;
+    #Ifdef DEBUG;
+      print
+        "DEBUG: ", (name) LootClass, " ";
+    #Endif;
+
+    do {
+      Loot = LootClass.Create();
+      if (Loot ~= nothing) {
+        #Ifdef DEBUG;
+          print ".";
+        #Endif;
+        move Loot to First_Mailbox;
+      }
+    } until (Loot == nothing);
+    #Ifdef DEBUG;
+      print "^";
+    #Endif;
+  }
+
+];
+
 ! Generate some more loot in the existing mailboxes.
 [ LootGenerateMore
   Container; ! The loot container to place more loot in.
@@ -368,50 +424,10 @@ Class Loot_Container_Trash(Loot_Containers)
 
   objectloop (Container ofclass Loot_Container_Mail) {
     if (parent(Container) == Loot_Container_Mail) continue;
-    LoogGenerateRandom(Container);
-    LoogGenerateRandom(Container);
+    LootRandom(Container);
+    ! Try to use up all the treasure.
+    LootRandom(Container, true);
   }
-];
-
-! Create a random loot object then move to the given container.
-[ LoogGenerateRandom
-  Container     ! The container to move the loot to.
-  RandomNumber  ! Random number for determining the loot.
-  RandomClass   ! The random loot class;
-  RandomLoot;   ! The random loot object.
-
-  ! Pick a random number.
-  ! If the number is higher than Loot_Number then no loot.
-  RandomNumber = random(Loot_Number + 1);
-  if (RandomNumber > Loot_Number) {
-    #Ifdef DEBUG;
-      print "DEBUG: NO LOOT FOR YOU!^";
-    #Endif;
-    rfalse;
-  }
-
-  ! Create the loot. Special case for the Subway and trash cans.
-  if (Container ofclass Subway_Class) {
-    RandomNumber = random(Loot_Number_Subway);
-    RandomClass = Loot_Table_Subway-->RandomNumber;
-  } else if (Container ofclass Loot_Container_Trash) {
-    RandomNumber = random(Loot_Number_Trash);
-    RandomClass = Loot_Table_Trash-->RandomNumber;
-  } else {
-    RandomClass = Loot_Table-->RandomNumber;
-  }
-  RandomLoot = RandomClass.Create();
-
-  ! Move the loot to the container.
-  if (RandomLoot ~= nothing) {
-    move RandomLoot to Container;
-  } else {
-    #Ifdef DEBUG;
-      print "DEBUG: Loot did not create: ", (name) RandomClass, "^";
-    #Endif;
-    rfalse;
-  }
-  rtrue;
 ];
 
 ! Generate some loot in the subway.
@@ -424,7 +440,7 @@ Class Loot_Container_Trash(Loot_Containers)
 
   objectloop (LootLocation ofclass Subway_Class) {
     if (random(5) == 2) {
-      LoogGenerateRandom(LootLocation);
+      LootRandom(LootLocation);
       #Ifdef DEBUG;
         print
           "DEBUG: Creating loot ", (name) child(LootLocation),

@@ -42,8 +42,7 @@ Empty Alley
 To the north is an intersection.
 To the south is a dead end.
 
-You can see ten toolboxes, ten pieces of scrap metal, ten packs of twinkies, ten
-boxes of tasty rations and a tape #1 here.
+You can see a tape #1 here.
 
 >rub token
 A magical spell carries you back to the starting room.
@@ -60,8 +59,7 @@ Empty Alley
 To the north is an intersection.
 To the south is a dead end.
 
-You can see ten toolboxes, ten pieces of scrap metal, ten packs of twinkies, ten
-boxes of tasty rations and a tape #1 here.
+You can see a tape #1 here.
 
 >tell token about 1100
 <Whooshing teleporting noises!>
