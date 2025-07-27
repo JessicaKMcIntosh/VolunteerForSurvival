@@ -11,7 +11,8 @@
     "cSpell.ignoreWords": [
         "Frotz"
     ],
-    "inform6.inform6Path": "${workspaceFolder}/inform6/inform6.exe",
+    // Uncomment if building with the VSCode Inform6 extension on Windows.
+    // "inform6.inform6Path": "${workspaceFolder}/inform6/inform6.exe",
     "inform6.compilerCommands": [
         "+inform6",
         "++Extensions",
