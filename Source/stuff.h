@@ -27,7 +27,7 @@ System_file;
 Message "Loading the Stuff library.";
 
 ! ------------------------------------------------------------------------------
-! Subroutines
+! The crowbar
 ! ------------------------------------------------------------------------------
 
 ! Silly Half Life reference.
@@ -57,6 +57,86 @@ Message "Loading the Stuff library.";
     print "The Crowbar does nothing to ", (the) noun, ".^";
   }
 ];
+
+! ------------------------------------------------------------------------------
+! Items - Items that don't have any particular home.
+! ------------------------------------------------------------------------------
+
+Tape_Player_Class Tape_Player "tape player"
+  with
+    description
+     "An old microcassette tape player.^
+      To play a tape use the command: PLAY TAPE NAME",
+;
+
+Tape_Cassette_Class -> Tape_0 "tape #0"
+  with
+    name 'cassette' 'tape' '#0' "0",
+    description "A microcassette tape containing a message from yourself.",
+    inside_description
+     "Hey there, uh, well, me. They tell me I will not remember anything once I take^
+      this drug. So I need to tell you, or, myself, what we are supposed to be doing.^
+      The drug is going to make me forget everything. I'll just do the short^
+      version. A bad thing happened. We are living in shelters. The, things, out^
+      there are psychic or something. I don't really understand this stuff, I'm just^
+      a janitor. Unfortunately we need food and tech to survive. So us volunteers are^
+      sent out into the world to collect what we need. Basically anything useful,^
+      check the list in your notebook. They gave me what few supplies they can spare,^
+      which frankly isn't much. Just a backpack, some food, a strange radio and a^
+      fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,^
+      one last thing, they said if I do a good job I'll get my own room, all to^
+      myself. Bye.",
+  after [;
+    Play:
+      ! Move the notebook page representing this tape into the notebook.
+      Notebook.add(Notebook_Tape_0);
+  ],
+  has scored
+;
+
+Pills_Class Pill_Bottle "pill bottle"
+;
+
+! Notebook pages for each of the tapes that can be played.
+Notebook_Page_Class Notebook_Tape_0 "Cassette tape #0"
+with
+    description "A microcassette tape containing a message from yourself.",
+    name 'cassette' 'tape' '#0' "0",
+    with_key Tape_0,
+;
+
+Notebook_Page_Class Notebook_Tape_1 "Cassette tape #1"
+  with
+    name 'cassette' 'tape' '#1' "1",
+    description "A microcassette tape containing a message from another volunteer.",
+    with_key Tape_1,
+;
+
+Notebook_Page_Class Notebook_Tape_2 "Cassette tape #2"
+  with
+    name 'cassette' 'tape' '#2' "2",
+    description "A microcassette tape containing a message from another volunteer.",
+    with_key Tape_2,
+;
+
+Notebook_Page_Class Notebook_XYZZY_Token "XYZZY Token"
+  with
+    name 'xyzzy' 'token',
+    description "A token given to those that say the magic word.",
+    inside_description
+     "A token given to those that say the magic word.^
+      Nothing happens when speaking the word.^
+      But in honor of doing so you are given this lovely token.^
+      ^
+      It might even do something useful. (Probably not.)",
+;
+
+! ------------------------------------------------------------------------------
+! Finding City Locations
+! ------------------------------------------------------------------------------
+! These are for finding matching locations in the city.
+! This will be moved to where the alley code lives, when I write it.
+! ------------------------------------------------------------------------------
 
 ! Test that City_Find_Room_Direction returns expected results.
 [ Test_Find_City_Room;
