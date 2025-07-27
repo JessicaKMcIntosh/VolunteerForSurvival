@@ -27,9 +27,14 @@ SET DOCKERIMAGE=vts:0.0
 
 REM Did the user disable Docker.
 SET USEDOCKER=yes
-IF /I -%1-==-/D- (
+IF /I "%1"=="/D" (
     SET USEDOCKER=no
     SHIFT
+) ELSE (
+    IF /I "%1"=="-D" (
+        SET USEDOCKER=no
+        SHIFT
+    )
 )
 
 REM Check if Docker is installed.
@@ -47,7 +52,7 @@ REM Check for a command line argument.
 REM If none just run the build.
 IF -%1-==-- (
     ECHO No option provided, defaulting to 'build'.
-    ECHO See '%0 help' for more information.
+    ECHO See '%THISSCRIPT% help' for more information.
     ECHO.
     GOTO RunBuild
 )
@@ -212,7 +217,7 @@ REM Check if Docker is installed.
 REM Run the build in Docker.
 :DockerRun
     REM Check if Docker is running.
-    docker stats --no-stream > NUL 2>&1
+    docker ps > NUL 2>&1
     IF %ERRORLEVEL% NEQ 0 (
         ECHO Docker is not running. Aborting!
         GOTO :exitscript
