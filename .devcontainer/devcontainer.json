@@ -24,18 +24,18 @@
 			// "settings": {
 			// },
             "extensions": [
+				"aaron-bond.better-comments",
+				"bierner.markdown-preview-github-styles",
+				"DavidAnson.vscode-markdownlint",
+				"hediet.vscode-drawio",
+				"lamartire.git-indicators",
+				"mhutchie.git-graph",
 				"natrium729.if-player",
 				"natrium729.inform-6",
-				"streetsidesoftware.code-spell-checker",
 				"oderwat.indent-rainbow",
 				"SirTori.indenticator",
-				"DavidAnson.vscode-markdownlint",
-				"bierner.markdown-preview-github-styles",
-				"aaron-bond.better-comments",
-				"hediet.vscode-drawio",
-				"usernamehw.errorlens",
-				"mhutchie.git-graph",
-				"lamartire.git-indicators"
+				"streetsidesoftware.code-spell-checker",
+				"usernamehw.errorlens"
 			]
         }
 	},

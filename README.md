@@ -148,6 +148,27 @@ See the `build.sh` file for details on how this works.
 
 ## Compiling Volunteer For Survival
 
+### Fast and easy
+
+Using VSCode and Docker this project can be opened in a VSCode Dev Container with everything already setup.
+
+[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/JessicaKMcIntosh/VolunteerForSurvival)
+
+The following extensions are installed:
+
+* [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
+* [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles)
+* [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+* [Draw.io Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) - For working with the map source files.
+* [Git Indicators](https://marketplace.visualstudio.com/items?itemName=lamartire.git-indicators)
+* [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+* [IF Player](https://marketplace.visualstudio.com/items?itemName=natrium729.if-player) - Play the compiled game file.
+* [Inform 6](https://marketplace.visualstudio.com/items?itemName=natrium729.inform-6) - Syntax highlighting and more.
+* [indent-rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
+* [Indenticator](https://marketplace.visualstudio.com/items?itemName=SirTori.indenticator)
+* [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+* [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+
 ### Compiling with Docker
 
 The build process will attempt to use [Docker](https://www.docker.com/) if installed.
