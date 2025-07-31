@@ -4,8 +4,8 @@
 # This is a port of the build.bat file to Bash.
 
 # Compiler setting:
-#INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
-INFORM_COMPILER="inform" # Use this line for the system compiler.
+#readonly INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
+readonly INFORM_COMPILER="inform" # Use this line for the system compiler.
 
 # Debian likes to put games like Frotz in '/usr/games/' and then not add this
 # directory to the PATH.
@@ -19,23 +19,23 @@ if [[ "$INFORM_COMPILER" = "./inform6/inform" &&  ! -x "$INFORM_COMPILER" ]] ; t
 fi
 
 # The name of this script for help text.
-THISSCRIPT="$0"
+readonly THISSCRIPT="$0"
 
 # Set the dfrotz interpreter command for running the tests.
-INTERPRETER="dfrotz"
+readonly INTERPRETER="dfrotz"
 
 # Application name for output.
-APPNAME="Volunteer For Survival"
+readonly APPNAME="Volunteer For Survival"
 
 # The output file for the integration test results.
-INTEGOUT="integ_results.txt"
+readonly INTEGOUT="integ_results.txt"
 
 # Counts for running the integration tests.
 ERRORCOUNT=0
 TESTCOUNT=0
 
 # The name of the docker image.
-DOCKERIMAGE="vts:0.0"
+readonly DOCKERIMAGE="vts:0.0"
 
 # Is Docker being used?
 USEDOCKER="YES"
