@@ -35,7 +35,8 @@
 				"oderwat.indent-rainbow",
 				"SirTori.indenticator",
 				"streetsidesoftware.code-spell-checker",
-				"usernamehw.errorlens"
+				"usernamehw.errorlens",
+				"timonwong.shellcheck"
 			]
         }
 	},
