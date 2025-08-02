@@ -152,7 +152,7 @@ function RunIntegTest {
     (
         echo "transcript"
         echo "${OUT_FILE}"
-        grep -v '^#' "${REC_FILE}"
+        grep -v -e '^#' -e '^$' "${REC_FILE}"
         echo "quit"
         echo "yes"
     ) | ${INTERPRETER} -m -q Tests/vts.z5 > /dev/null 2>&1
