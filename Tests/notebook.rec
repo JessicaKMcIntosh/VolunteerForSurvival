@@ -1,0 +1,22 @@
+# Test the notebook interface.
+all
+
+# Ways to read the notebook contents.
+note
+notebook
+book
+read note
+read book
+
+# Ways to read notebook pages.
+note 1
+note tape 0
+book tape 1
+read note 2
+note tape 2
+read note tape 0
+consult notebook about tape
+consult notebook about tape 0
+consult notebook about 3
+consult notebook about pills
+read note book page 4

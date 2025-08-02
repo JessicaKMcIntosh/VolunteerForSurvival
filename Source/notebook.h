@@ -165,7 +165,7 @@ Class Notebook_Page_Class
   word2 = NextWord();
 
   ! If the word is 'page' then get the next word.
-  if (word == 'page') {
+  if (word == 'page' or 'book') {
     num = TryNumber(wn);
     word = word2;
     word2 = NextWord();
@@ -256,6 +256,7 @@ Class Notebook_Page_Class
   } else {
     print (string) page.description;
   }
+  print "^";
 ];
 
 ! Make sure each page has a number.

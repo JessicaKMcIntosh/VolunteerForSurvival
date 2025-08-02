@@ -1,0 +1,196 @@
+Start of a transcript of
+Volunteer For Survival
+A survival horror text adventure game.
+By Jessica McIntosh <JessicaKMcIntosh AT gmail DOT com>
+
+It's been five years since the aliens invaded earth. We got an early warning
+of their approach so we were prepared. Shelters were built to house people
+during the conflict. Unfortunately, due to hubris, the world governments
+expected to defeat the aliens quickly. As a result the shelters were only
+intended to last for a decade. Thanks to overcrowding, the supplies have
+nearly run out. For the past year volunteers have been sent out to collect
+supplies. You are only the latest.
+
+Welcome to Vololtol city.
+
+Can you survive the alien wasteland and make it back to the shelter?
+
+Release 0 / Serial number 230914 / Inform v6.41 Library v6.12.6 S
+Standard interpreter 1.1 (1F) / Library Serial Number 220219
+
+>all
+
+[The score has just gone up by seven points.]
+
+>note
+Notebook Contents:
+Page 1 - List of items to find
+Page 2 - Agalsirodine Pamphlet
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+Page 6 - XYZZY Token
+
+>notebook
+Notebook Contents:
+Page 1 - List of items to find
+Page 2 - Agalsirodine Pamphlet
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+Page 6 - XYZZY Token
+
+>book
+Notebook Contents:
+Page 1 - List of items to find
+Page 2 - Agalsirodine Pamphlet
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+Page 6 - XYZZY Token
+
+>read note
+Notebook Contents:
+Page 1 - List of items to find
+Page 2 - Agalsirodine Pamphlet
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+Page 6 - XYZZY Token
+
+>read book
+Notebook Contents:
+Page 1 - List of items to find
+Page 2 - Agalsirodine Pamphlet
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+Page 6 - XYZZY Token
+
+>note 1
+Page 1 - List of items to find
+We need food above all.
+Canned food, sealed rations, anything preserved and edible.
+Working electronics like laptops, tablets, phones and similar.
+Tools are in short supply as well.
+Anything else useful you might find go ahead and bring back.
+
+Place items in the box where you woke up for rewards.
+Being back enough stuff and you will be allowed to return to the shelter.
+
+>note tape 0
+Page 3 - Cassette tape #0
+Hey there, uh, well, me. They tell me I will not remember anything once I take
+this drug. So I need to tell you, or, myself, what we are supposed to be doing.
+The drug is going to make me forget everything. I'll just do the short
+version. A bad thing happened. We are living in shelters. The, things, out
+there are psychic or something. I don't really understand this stuff, I'm just
+a janitor. Unfortunately we need food and tech to survive. So us volunteers are
+sent out into the world to collect what we need. Basically anything useful,
+check the list in your notebook. They gave me what few supplies they can spare,
+which frankly isn't much. Just a backpack, some food, a strange radio and a
+fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,
+one last thing, they said if I do a good job I'll get my own room, all to
+myself. Bye.
+
+>book tape 1
+Page 4 - Cassette tape #1
+Send help. There are aliens out here who can read.... <STATIC>
+
+>read note 2
+Page 2 - Agalsirodine Pamphlet
+NEW! From the makers of AdderFocusAll comes...
+Agalsirodine!
+Keep your mind in order with Agalsirodine!
+
+Warning:
+Will cause memory loss and hallucinations.
+May cause brain damage.
+Not certified, or recommended, for human consumption.
+Do not take Agalsirodine if you are still breathing.
+Consult a psychiatrist for delusions and psychosis.
+
+The little green men really are out to get YOU!
+Keep them at bay with Agalsirodine.
+
+>note tape 2
+Page 5 - Cassette tape #2
+Jones, make sure you leave some food for me.
+I found those things you wanted so you better pay me back.
+Some day you need to tell me what the hell a Zork even is.
+Ungrateful piece of ...
+
+>read note tape 0
+Page 3 - Cassette tape #0
+Hey there, uh, well, me. They tell me I will not remember anything once I take
+this drug. So I need to tell you, or, myself, what we are supposed to be doing.
+The drug is going to make me forget everything. I'll just do the short
+version. A bad thing happened. We are living in shelters. The, things, out
+there are psychic or something. I don't really understand this stuff, I'm just
+a janitor. Unfortunately we need food and tech to survive. So us volunteers are
+sent out into the world to collect what we need. Basically anything useful,
+check the list in your notebook. They gave me what few supplies they can spare,
+which frankly isn't much. Just a backpack, some food, a strange radio and a
+fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,
+one last thing, they said if I do a good job I'll get my own room, all to
+myself. Bye.
+
+>consult notebook about tape
+Multiple pages found:
+Page 3 - Cassette tape #0
+Page 4 - Cassette tape #1
+Page 5 - Cassette tape #2
+
+>consult notebook about tape 0
+Page 3 - Cassette tape #0
+Hey there, uh, well, me. They tell me I will not remember anything once I take
+this drug. So I need to tell you, or, myself, what we are supposed to be doing.
+The drug is going to make me forget everything. I'll just do the short
+version. A bad thing happened. We are living in shelters. The, things, out
+there are psychic or something. I don't really understand this stuff, I'm just
+a janitor. Unfortunately we need food and tech to survive. So us volunteers are
+sent out into the world to collect what we need. Basically anything useful,
+check the list in your notebook. They gave me what few supplies they can spare,
+which frankly isn't much. Just a backpack, some food, a strange radio and a
+fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,
+one last thing, they said if I do a good job I'll get my own room, all to
+myself. Bye.
+
+>consult notebook about 3
+Page 3 - Cassette tape #0
+Hey there, uh, well, me. They tell me I will not remember anything once I take
+this drug. So I need to tell you, or, myself, what we are supposed to be doing.
+The drug is going to make me forget everything. I'll just do the short
+version. A bad thing happened. We are living in shelters. The, things, out
+there are psychic or something. I don't really understand this stuff, I'm just
+a janitor. Unfortunately we need food and tech to survive. So us volunteers are
+sent out into the world to collect what we need. Basically anything useful,
+check the list in your notebook. They gave me what few supplies they can spare,
+which frankly isn't much. Just a backpack, some food, a strange radio and a
+fucking crowbar. Anyway, they are about to send me out so I'll end this. Oh,
+one last thing, they said if I do a good job I'll get my own room, all to
+myself. Bye.
+
+>consult notebook about pills
+Page 2 - Agalsirodine Pamphlet
+NEW! From the makers of AdderFocusAll comes...
+Agalsirodine!
+Keep your mind in order with Agalsirodine!
+
+Warning:
+Will cause memory loss and hallucinations.
+May cause brain damage.
+Not certified, or recommended, for human consumption.
+Do not take Agalsirodine if you are still breathing.
+Consult a psychiatrist for delusions and psychosis.
+
+The little green men really are out to get YOU!
+Keep them at bay with Agalsirodine.
+
+>read note book page 4
+Page 4 - Cassette tape #1
+Send help. There are aliens out here who can read.... <STATIC>
+
+>quit
+Are you sure you want to quit? yes
+
