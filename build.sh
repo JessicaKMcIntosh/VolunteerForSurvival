@@ -3,6 +3,11 @@
 # See the README file for details.
 # This is a port of the build.bat file to Bash.
 
+# Enforce some safety.
+set -o errexit  # Abort on nonzero exitstatus.
+set -o nounset  # Abort on unbound variable.
+set -o pipefail # Don't hide errors within pipes.
+
 # Compiler setting:
 #readonly INFORM_COMPILER="./inform6/inform" # Use this line for the included compiler.
 readonly INFORM_COMPILER="inform" # Use this line for the system compiler.
@@ -90,12 +95,12 @@ function RunCity {
 # Cleanup build artifacts.
 function RunClean {
     echo "Cleaning ${APPNAME}..."
-    DeleteFile "vts.z5"
-    DeleteFile "Tests/unit.z5"
-    DeleteFile "Tests/vts.z5"
-    DeleteFile "${INTEGOUT}"
+    DeleteFile "vts.z5" "YES"
+    DeleteFile "Tests/unit.z5" "YES"
+    DeleteFile "Tests/vts.z5" "YES"
+    DeleteFile "${INTEGOUT}" "YES"
     for file in Tests/*.out; do
-        DeleteFile "${file}"
+        DeleteFile "${file}" "YES"
     done
 }
 
@@ -109,6 +114,7 @@ function RunDebug {
 
 # Run the integration tests.
 function RunInteg {
+    local file
     CheckCompiler
     CheckInterpreter
     DeleteFile "Tests/vts.z5"
@@ -141,27 +147,28 @@ function RunInteg {
 }
 
 # Run an integration test.
+# $1 - The test recorded input file.
 function RunIntegTest {
-    TEST_FILE="${1%.rec}"
-    REC_FILE="${TEST_FILE}.rec"
-    OUT_FILE="${TEST_FILE}.out"
-    TXT_FILE="${TEST_FILE}.txt"
-    WriteString "${INTEGOUT}" "Running Integ Test: ${TEST_FILE}..."
+    local test_file="${1%.rec}"
+    local rec_file="${test_file}.rec"
+    local out_file="${test_file}.out"
+    local txt_file="${test_file}.txt"
+    WriteString "${INTEGOUT}" "Running Integ Test: ${test_file}..."
     TESTCOUNT=$((TESTCOUNT + 1))
-    DeleteFile "${OUT_FILE}"
+    DeleteFile "${out_file}"
     (
         echo "transcript"
-        echo "${OUT_FILE}"
-        grep -v -e '^#' -e '^$' "${REC_FILE}"
+        echo "${out_file}"
+        grep -v -e '^#' -e '^$' "${rec_file}"
         echo "quit"
         echo "yes"
     ) | ${INTERPRETER} -m -q Tests/vts.z5 > /dev/null 2>&1
-    if diff -w "${TXT_FILE}" "${OUT_FILE}" > /dev/null ; then
+    if diff -w "${txt_file}" "${out_file}" > /dev/null ; then
         WriteString "${INTEGOUT}" "Succeeded."
-        DeleteFile "${OUT_FILE}"
+        DeleteFile "${out_file}"
     else
-        WriteString "${INTEGOUT}" "Failed! See the file '${OUT_FILE}' for test output."
-        diff -w "${TXT_FILE}" "${OUT_FILE}" >> "${INTEGOUT}"
+        WriteString "${INTEGOUT}" "Failed! See the file '${out_file}' for test output."
+        diff -w "${txt_file}" "${out_file}" >> "${INTEGOUT}"
         ERRORCOUNT=$((ERRORCOUNT + 1))
     fi
 }
@@ -255,9 +262,15 @@ function CompileFile {
 
 # Delete a file if it exists.
 # $1 - The file to delete.
+# $2 - If "YES" be verbose.
 function DeleteFile {
-    if [[ -f "$1" ]] ; then
-        rm -f "$1"
+    local file="${1}"
+    local verbose="${2:-}"
+    if [[ -f "${file}" ]] ; then
+        if [[ "$verbose" == "YES" ]]; then
+            echo "Deleting '${file}'..."
+        fi
+        rm -f "${file}"
     fi
 }
 
@@ -265,7 +278,9 @@ function DeleteFile {
 # $1 - The file to write the string to.
 # $2 - The string to write.
 function WriteString {
-    echo "$2" | tee -a "$1"
+    local file="${1}"
+    local str="${2}"
+    echo "${str}" | tee -a "${file}"
 }
 
 #       -----===== Docker Functions ======------
@@ -340,17 +355,16 @@ while [[ "$#" -gt "0" ]] ; do
         /D)     USEDOCKER="NO";;
         -v)     VERBOSE="YES";;
         /v)     VERBOSE="YES";;
+        --)     break;;
         -*)     COMPILEOPTIONS+=("$1");;
         *)      ACTIONS+=("$1");;
     esac
     shift
 done
 
-# Did the user disable Docker?
-if [[ "$1" = "-D" || "$1" = "/D" ]]; then
-    USEDOCKER="NO"
-    shift
-fi
+# Grab anything left over in case -- is given.
+# This includes the -- since this might be going to Docker.
+ACTIONS+=("${@}")
 
 # Check if Docker is installed.
 if [[ "$USEDOCKER" = "YES" ]]; then
@@ -358,7 +372,7 @@ if [[ "$USEDOCKER" = "YES" ]]; then
 fi
 
 # Special case for running an interactive Docker container.
-if [[ "$1" = "docker" ]]; then
+if [[ "$#" -gt "0" && "$1" = "docker" ]]; then
     DockerInteractive
 fi
 
