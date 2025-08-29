@@ -2,7 +2,7 @@ FROM debian:stable
 
 # Install the required packages.
 RUN apt-get update
-RUN apt-get -y install git inform6-compiler frotz zip
+RUN apt-get -y install git inform6-compiler frotz zip locales-all
 
 # Create the user to run the compiler and frotz as.
 RUN useradd -ms /bin/bash vts
